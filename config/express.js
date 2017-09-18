@@ -7,12 +7,12 @@ var express = require('express'),
     helpers = require('view-helpers'),
     config = require('./config');
 
-module.exports = function(app, passport, mongoose) {
+module.exports = function (app, passport, mongoose) {
     app.set('showStackError', true);
 
     //Should be placed before express.static
     app.use(express.compress({
-        filter: function(req, res) {
+        filter: function (req, res) {
             return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
         },
         level: 9
@@ -34,22 +34,19 @@ module.exports = function(app, passport, mongoose) {
     //Enable jsonp
     app.enable("jsonp callback");
 
-    app.configure(function() {
+    app.configure(function () {
         //cookieParser should be above session
         app.use(express.cookieParser());
 
         //bodyParser should be above methodOverride
-        app.use(express.bodyParser());
+        app.use(express.json());
+        app.use(express.urlencoded());
         app.use(express.methodOverride());
 
         //express/mongo session storage
         app.use(express.session({
             secret: 'MEAN',
-            store: new mongoStore({
-                url: config.db,
-                collection: 'sessions',
-                mongoose_connection: mongoose.connection
-            })
+            store: new mongoStore({url: config.db, collection: 'sessions', mongoose_connection: mongoose.connection})
         }));
 
         //connect flash for flash messages
@@ -65,26 +62,30 @@ module.exports = function(app, passport, mongoose) {
         //routes should be at the last
         app.use(app.router);
 
-        //Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
-        app.use(function(err, req, res, next) {
+        // Assume "not found" in the error msgs is a 404. this is somewhat silly, but
+        // valid, you can do whatever you like, set properties, use instanceof etc.
+        app.use(function (err, req, res, next) {
             //Treat as 404
-            if (~err.message.indexOf('not found')) return next();
-
+            if (~ err.message.indexOf('not found')) 
+                return next();
+            
             //Log it
             console.error(err.stack);
 
             //Error page
-            res.status(500).render('500', {
-                error: err.stack
-            });
+            res
+                .status(500)
+                .render('500', {error: err.stack});
         });
 
         //Assume 404 since no middleware responded
-        app.use(function(req, res, next) {
-            res.status(404).render('404', {
-                url: req.originalUrl,
-                error: 'Not found'
-            });
+        app.use(function (req, res, next) {
+            res
+                .status(404)
+                .render('404', {
+                    url: req.originalUrl,
+                    error: 'Not found'
+                });
         });
 
     });
