@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "stable"
+branches:
+  only:
+    - /.*/
+install:
+  - npm install
+script:
+  - npm test
+services:
+  - mongodb
+
+sudo: false
+env:
+  - NODE_ENV='test'
+  - MONGOHQ_URL=mongodb://127.0.0.1:27017/cfh_test
+before_script:
+  - sleep 15
