@@ -24,6 +24,7 @@ module.exports = function(passport) {
             done(err, user);
         });
     });
+    //test comment
     //Use local strategy
     passport.use(new LocalStrategy({
             usernameField: 'email',
