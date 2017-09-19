@@ -22,9 +22,14 @@
     "bcryptjs": "~1.0.4",
     "bower": "~1.3.8",
     "connect-flash": "~0.1.1",
+<<<<<<< HEAD
     "connect-mongo": "^1.3.2",
     "console-stamp": "~0.1.1",
     "dotenv": "^4.0.0",
+=======
+    "connect-mongo": "~0.3.3",
+    "console-stamp": "~0.1.1",
+>>>>>>> 8b2ef6dc0a010e60573a491f8b633af232522c04
     "express": "~3.4.0",
     "forever": "latest",
     "grunt": "~0.4.1",
@@ -46,6 +51,12 @@
     "view-helpers": "~0.1.3"
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "eslint": "^4.7.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+>>>>>>> 8b2ef6dc0a010e60573a491f8b633af232522c04
     "grunt": "~0.4.1",
     "grunt-concurrent": "~0.4.0",
     "grunt-contrib-jshint": "~0.6.4",
