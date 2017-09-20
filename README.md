@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/andela/theoden-cfh.svg?branch=master)](https://travis-ci.org/andela/theoden-cfh)[![Coverage Status](https://coveralls.io/repos/github/andela/theoden-cfh/badge.svg)](https://coveralls.io/github/andela/theoden-cfh)
-
+[![Build Status](https://travis-ci.org/andela/theoden-cfh.svg?branch=master)](https://travis-ci.org/andela/theoden-cfh) [![Coverage Status](https://coveralls.io/repos/github/andela/theoden-cfh/badge.svg?branch=master)](https://coveralls.io/github/andela/theoden-cfh?branch=master)
 
 Cards for Humanity - [http://cfh.io](http://cfh.io)
 ===========
