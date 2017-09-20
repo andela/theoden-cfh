@@ -16,7 +16,7 @@
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install",
-    "cover": "instanbul cover _mocha",
+    "cover": "istanbul cover _mocha",
     "coveralls": "npm run cover -- test/**/ --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
