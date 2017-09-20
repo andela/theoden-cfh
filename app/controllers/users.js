@@ -3,11 +3,11 @@
  */
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const bcrypt = require('bcryptjs');
 
 const User = mongoose.model('User');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
-
 
 
 /**
@@ -21,13 +21,111 @@ exports.authCallback = function (req, res, next) {
  * Show login form
  */
 exports.signin = function (req, res) {
-  if (!req.user) {
-    res.redirect('/#!/signin?error=invalid');
-  } else {
-    res.redirect('/#!/app');
-  }
+  const email = req.body.email;
+
+    User.findOne({ email: req.body.email })
+    .then((user) => {
+      
+      if (!user) {
+      
+        return res.status(400).send({
+          success: false,
+          message: `${req.body.email} does not exist in the database`,
+        });
+      }
+      const password = req.body.password;
+      console.log((bcrypt.compareSync(password, user.hashed_password)));
+       if (bcrypt.compareSync(password, user.hashed_password)){
+          
+        const token = getJWT(
+          user._id,
+          user.email,
+          user.username
+        );
+        res.status(200).json({
+          success: true, 
+          token,
+          message: 'Welcome to Cards for Humanity, You are now logged in'
+        });
+
+       }
+       else{
+        res.status(400).send({
+          success: false,
+          message: 'Your password is wrong'
+        });
+
+       }
+      }).catch(error => res.status(500).send({
+          success: false,
+          error,
+        }))
+    .catch(error => res.status(400).send({
+      success: false,
+      error,
+    }));
+  // if (!req.user) {
+  //   res.redirect('/#!/signin?error=invalid');
+  // } else {
+  //   res.redirect('/#!/app');
+  // }
 };
 
+/**
+ * Show sign up form
+ */
+exports.signup = function (req, res) {
+  const username = req.body.username;
+  const email = req.body.email;
+  const name = req.body.name;
+  const hashed_password = req.body.password;
+
+  User.findOne({ username: req.body.username })
+    .then((userExists) => {
+      if (userExists && userExists.username === username) {
+        res.status(409).json({
+          success: false,
+          message: 'Your username needs to be unique',
+        });
+        // res.redirect('/#!/app');
+        return;
+      }
+      let user = new User(req.body);
+      user.avatar = avatars[user.avatar];
+      user.provider = 'local';
+      return user.save()
+        .then((user) => {
+          const token = getJWT(
+            user._id,
+            user.email,
+            user.username
+          );
+          res.status(201).json({
+            success: true,
+            token,
+            name,
+            email,
+            message: 'Welcome to Cards Against Humanity',
+            name
+          });
+        })
+        .catch((error) => {
+          res.status(400).send({
+            success: false,
+            error: 'You have encountered an error'
+          });
+          console.log(error);
+        });
+    }).catch(error => res.status(500).send({
+      success: false,
+      error }));
+
+  // if (!req.user) {
+  //   res.redirect('/#!/signup');
+  // } else {
+
+  // }
+};
 
 
 /**
@@ -77,7 +175,7 @@ exports.create = function (req, res) {
       email: req.body.email
     }).exec((err, existingUser) => {
       if (!existingUser) {
-        let user = new User(req.body);
+        const user = new User(req.body);
         // Switch the user's avatar index to an actual avatar url
         user.avatar = avatars[user.avatar];
         user.provider = 'local';
@@ -85,10 +183,10 @@ exports.create = function (req, res) {
           if (err) {
             return res.render('/#!/signup?error=unknown', {
               errors: err.errors,
-              user: user
+              user
             });
           }
-          req.logIn(user, function(err) {
+          req.logIn(user, (err) => {
             if (err) return next(err);
             return res.redirect('/#!/');
           });
@@ -176,8 +274,49 @@ exports.user = function (req, res, next, id) {
     })
     .exec((err, user) => {
       if (err) return next(err);
-      if (!user) return next(new Error(`Failed to load User ${  id}`));
+      if (!user) return next(new Error(`Failed to load User ${id}`));
       req.profile = user;
       next();
     });
 };
+
+
+
+// getUser(req, res) {
+//   const username = req.body.username;
+//   const password = req.body.password;
+//   return User.findOne({ where: { username } }).then((user) => {
+//     if (!user) {
+//       res.status(400).send({
+//         success: false,
+//         message: 'user does not exist',
+//       });
+//       return;
+//     }
+//     bcrypt.compare(password, user.password).then((result) => {
+//       if (!result) {
+//         res.status(400).send({
+//           success: false,
+//           message: 'wrong username and password combination',
+//         });
+//       } else {
+//         const token = getJWT(
+//           user.id,
+//           user.username,
+//           user.email,
+//           user.isAdmin
+//         );
+//         const { id, firstName, lastName, isAdmin } = user;
+//         res.status(200).json({
+//           success: true, token, id, firstName, lastName, isAdmin
+//         });
+//       }
+//     }).catch(error => res.status(500).send({
+//       success: false,
+//       error,
+//     }));
+//   }).catch(error => res.status(400).send({
+//     success: false,
+//     error,
+//   }));
+// },
