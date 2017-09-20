@@ -2,11 +2,12 @@
 * Module dependencies.
 */
 require('dotenv').config();
-const express = require('express');
-const fs = require('fs');
-const passport = require('passport');
-const logger = require('mean-logger');
-const io = require('socket.io');
+var express = require('express'),
+    fs = require('fs'),
+    passport = require('passport'),
+    logger = require('mean-logger'),
+    io = require('socket.io');
+var dotenv = require('dotenv');
 
 // Load configurations
 // if test env, load example file
@@ -19,6 +20,17 @@ const mongoose = require('mongoose');
 * Please note that the order of loading is important.
 */
 
+<<<<<<< HEAD
+=======
+//Load configurations
+//if test env, load example file
+
+dotenv.config();
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
+    config = require('./config/config'),
+    auth = require('./config/middlewares/authorization'),
+    mongoose = require('mongoose');
+>>>>>>> * create a middle to for authorization validate jwt for each route in middleware/auth
 
 // Bootstrap db connection
 mongoose.connect(config.db);
