@@ -16,7 +16,7 @@ gulp.task('watch', () => {
 
 gulp.task('lint', () => {
   gulp.src(['gulpfile.js', 'public/js/**/*.js', 'app/**/*.js', 'test/**/*.js'])
-    .pipe(eslint({ config: '.eslintrc' }))
+    .pipe(eslint('.eslintrc'));
 });
 
 gulp.task('nodemon', () => {
