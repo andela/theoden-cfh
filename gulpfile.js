@@ -10,7 +10,8 @@ gulp.task('watch', () => {
   gulp.watch('app/views/**', browserSync.reload());
   gulp.watch(['public/js/**', 'app/**/*.js'], browserSync.reload());
   gulp.watch('public/views/**', browserSync.reload());
-  gulp.watch('public/css/**', ['sass']);
+  gulp.watch('public/css/**/*scss', ['sass']);
+  gulp.watch('public/css/**', browserSync.reload());
 });
 
 gulp.task('lint', () => {
