@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
+// const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const sass = require('gulp-sass');
@@ -13,10 +13,10 @@ gulp.task('watch', () => {
   gulp.watch('public/css/**', ['sass']);
 });
 
-gulp.task('lint', () => {
-  gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
-    .pipe(eslint('.eslintrc'));
-});
+// gulp.task('lint', () => {
+//   gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
+//     .pipe(eslint('.eslintrc'));
+// });
 
 gulp.task('nodemon', () => {
   nodemon({
@@ -52,4 +52,4 @@ gulp.task('install', ['bower']);
 
 gulp.task('test', ['mochaTest']);
 
-gulp.task('default', ['lint', 'concurrent', 'sass']);
+gulp.task('default', ['concurrent', 'sass']);
