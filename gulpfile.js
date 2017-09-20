@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-// const eslint = require('gulp-eslint');
+const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const sass = require('gulp-sass');
@@ -13,10 +13,10 @@ gulp.task('watch', () => {
   gulp.watch('public/css/**', ['sass']);
 });
 
-// gulp.task('lint', () => {
-//   gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
-//     .pipe(eslint('.eslintrc'));
-// });
+gulp.task('lint', () => {
+  gulp.src(['gulpfile.js', 'public/js/**/*.js', 'app/**/*.js', 'test/**/*.js'])
+    .pipe(eslint());
+});
 
 gulp.task('nodemon', () => {
   nodemon({
@@ -41,15 +41,15 @@ gulp.task('mochaTest', () => {
 gulp.task('sass', () => {
   gulp.src('public/css/common.scss')
     .pipe(sass())
-    .pipe(gulp.dest('public/common.css'));
+    .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('bower', () => {
-  bower().pipe(gulp.dest('./public/lib'));
+  bower().pipe(gulp.dest('./bower_components'));
 });
 
 gulp.task('install', ['bower']);
 
 gulp.task('test', ['mochaTest']);
 
-gulp.task('default', ['concurrent', 'sass']);
+gulp.task('default', ['lint', 'concurrent', 'sass']);
