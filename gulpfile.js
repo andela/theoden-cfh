@@ -16,7 +16,7 @@ gulp.task('watch', () => {
 
 gulp.task('lint', () => {
   gulp.src(['gulpfile.js', 'public/js/**/*.js', 'app/**/*.js', 'test/**/*.js'])
-    .pipe(eslint());
+    .pipe(eslint('.eslintrc'))
 });
 
 gulp.task('nodemon', () => {
@@ -42,11 +42,11 @@ gulp.task('mochaTest', () => {
 gulp.task('sass', () => {
   gulp.src('public/css/common.scss')
     .pipe(sass())
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('public/css'))
 });
 
 gulp.task('bower', () => {
-  bower().pipe(gulp.dest('./bower_components'));
+  bower().pipe(gulp.dest('./bower_components'))
 });
 
 gulp.task('install', ['bower']);
