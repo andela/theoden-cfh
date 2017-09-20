@@ -10,16 +10,13 @@ gulp.task('watch', () => {
   gulp.watch('app/views/**', browserSync.reload());
   gulp.watch(['public/js/**', 'app/**/*.js'], browserSync.reload());
   gulp.watch('public/views/**', browserSync.reload());
-  gulp.watch('public/css/**/*scss', ['sass']);
+  gulp.watch(['public/css/common.scss, public/css/views/articles.scss'], ['sass']);
   gulp.watch('public/css/**', browserSync.reload());
 });
 
 gulp.task('lint', () => {
-  gulp.src(['public/js/**/*.js', '*.js', 'app/**/*.js', 'test/**/*.js'])
-    .pipe(eslint({
-      configFile: '.eslintrc',
-      useEslintrc: true
-    }));
+  return gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
+  .pipe(eslint());
 });
 
 gulp.task('nodemon', () => {
@@ -38,18 +35,21 @@ gulp.task('concurrent', ['nodemon', 'watch']);
 
 gulp.task('mochaTest', () => {
   gulp.src(['test/**/*.js'])
-    .pipe(mocha({ reporter: 'spec' }
-    ));
+  .pipe(mocha(
+    {
+      reporter: 'spec'
+    }
+  ));
 });
 
 gulp.task('sass', () => {
   gulp.src('public/css/common.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('public/css'))
+  .pipe(sass())
+  .pipe(gulp.dest('public/common.css'));
 });
 
 gulp.task('bower', () => {
-  bower().pipe(gulp.dest('./bower_components'))
+  bower().pipe(gulp.dest('./public/lib'));
 });
 
 gulp.task('install', ['bower']);
