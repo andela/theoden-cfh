@@ -23,11 +23,9 @@ exports.authCallback = function (req, res, next) {
 exports.signin = function (req, res) {
   const email = req.body.email;
 
-    User.findOne({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .then((user) => {
-      
       if (!user) {
-      
         return res.status(400).send({
           success: false,
           message: `${req.body.email} does not exist in the database`,
@@ -35,31 +33,27 @@ exports.signin = function (req, res) {
       }
       const password = req.body.password;
       console.log((bcrypt.compareSync(password, user.hashed_password)));
-       if (bcrypt.compareSync(password, user.hashed_password)){
-          
+      if (bcrypt.compareSync(password, user.hashed_password)) {
         const token = getJWT(
           user._id,
           user.email,
           user.username
         );
         res.status(200).json({
-          success: true, 
+          success: true,
           token,
           message: 'Welcome to Cards for Humanity, You are now logged in'
         });
-
-       }
-       else{
+      } else {
         res.status(400).send({
           success: false,
           message: 'Your password is wrong'
         });
-
-       }
-      }).catch(error => res.status(500).send({
-          success: false,
-          error,
-        }))
+      }
+    }).catch(error => res.status(500).send({
+      success: false,
+      error,
+    }))
     .catch(error => res.status(400).send({
       success: false,
       error,
@@ -90,7 +84,7 @@ exports.signup = function (req, res) {
         // res.redirect('/#!/app');
         return;
       }
-      let user = new User(req.body);
+      const user = new User(req.body);
       user.avatar = avatars[user.avatar];
       user.provider = 'local';
       return user.save()
@@ -279,7 +273,6 @@ exports.user = function (req, res, next, id) {
       next();
     });
 };
-
 
 
 // getUser(req, res) {
