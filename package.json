@@ -24,6 +24,7 @@
     "connect-flash": "~0.1.1",
     "connect-mongo": "^1.3.2",
     "console-stamp": "~0.1.1",
+    "dotenv": "^4.0.0",
     "express": "~3.4.0",
     "forever": "latest",
     "grunt": "~0.4.1",
@@ -45,7 +46,6 @@
     "view-helpers": "~0.1.3"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0",
     "eslint": "^4.7.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
