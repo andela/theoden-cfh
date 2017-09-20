@@ -14,7 +14,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('lint', () => {
-  gulp.src(['gruntfile.js', 'public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
+  gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
     .pipe(eslint('.eslintrc'));
 });
 
