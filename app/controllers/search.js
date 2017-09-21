@@ -12,32 +12,17 @@ class SearchUsers {
   * @returns {object} returns response with response code
   */
   static userSearch(request, response) {
-<<<<<<< HEAD
-
-    User
-      .find({})
-      .lean()
-      .select('name username email')
-      .exec((error, result) => {
-=======
     User
       .find({}, (error, result) => {
->>>>>>> feat(feature): increase max game invite
         if (error) {
           response.status(400).send({
             status: 'Unsuccessful',
             message: error
           });
         } else if (result) {
-<<<<<<< HEAD
-          response.status(202).send({
-            status: 'Success',
-            result
-=======
           response.status(200).send({
             status: 'Success',
             result,
->>>>>>> feat(feature): increase max game invite
           });
         }
       });

@@ -1,17 +1,10 @@
 /**
  * Module dependencies.
  */
-<<<<<<< HEAD
 const _ = require('underscore');
 const mongoose = require('mongoose');
 // const async = require('async');
 const Question = mongoose.model('Question');
-=======
-var mongoose = require('mongoose'),
-  async = require('async'),
-  Question = mongoose.model('Question'),
-  _ = require('underscore');
->>>>>>> feat(feature): increase max game invite
 
 
 /**
