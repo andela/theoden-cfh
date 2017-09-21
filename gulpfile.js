@@ -16,10 +16,9 @@ gulp.task('watch', () => {
   gulp.watch('public/css/**', browserSync.reload());
 });
 
-gulp.task('lint', () => {
-  return gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
-  .pipe(eslint());
-});
+gulp.task('lint', () => gulp.src(['public/js/**/*.js', 'test/**/*.js', 'app/**/*.js'])
+  .pipe(eslint())
+);
 
 gulp.task('nodemon', () => {
   nodemon({
