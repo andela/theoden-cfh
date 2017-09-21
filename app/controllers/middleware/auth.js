@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// class UserAuthenticate {
+
 /**
 * this fetched the token and places it in the x-access-token header
 * @private
@@ -17,7 +17,7 @@ const getToken = (req) => {
 * @public
 * @param {object} req - request object
 * @param {object} res - response object
-* @param {function} next - next function to be called on the pobject
+* @param {function} next - next function to be called on the success
 * @return {undefined} if not defined send a response to the server indicating this
 */
 const authenticate = (req, res, next) => {
@@ -25,39 +25,64 @@ const authenticate = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRET, (error, decoded) => {
       if (error) {
-        return res.status(401).json({ message: 'Unauthorised access' });
+        return res
+          .status(401)
+          .json({ message: 'Unauthorised access' });
       }
       req.user = decoded;
       next();
     });
   } else {
-    res.status(403).send({
-      success: false,
-      message: 'Incorrect, Please try Login again'
-    });
+    res
+      .status(403)
+      .send({ success: false, message: 'Incorrect, Please try Login again' });
   }
 };
 
-/** 
+/**
  * Signs a json web token with the supplied parameters
- * @param  {String}  - id
- * @param  {String}  - email
- * @param  {String}  - username
+ * @param  {String} id user id
+ * @param  {String} email email address
+ * @param  {String} username username
+ * @return {promise} signed token
  */
 const getJWT = (id, email, username) => {
-  jwt.sign(
-    {
-      id,
-      email,
-      username
-    },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: 1440
-    }
-  );
+  return new Promise((resolve, reject) => {
+    jwt.sign(
+      {
+        id,
+        email,
+        username
+      }, process.env.JWT_SECRET,
+      {
+        expiresIn: 1440
+      }, (error, token) => {
+        if (error) {
+          reject(
+            {
+              status: 'Error',
+              message: error
+            });
+        } else if (token) {
+          resolve(
+            {
+              status: 'Success',
+              token
+            }
+          );
+        } else {
+          reject({
+            status: 'Error',
+            message: 'token error'
+          });
+        }
+      });
+  });
 };
-// }
-// export default UserAuthenticate;
+// } export default UserAuthenticate;
 
-module.exports = { getJWT, authenticate, getToken };
+module.exports = {
+  getJWT,
+  authenticate,
+  getToken
+};
