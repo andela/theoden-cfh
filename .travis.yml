@@ -17,3 +17,5 @@ env:
   - MONGOHQ_URL=mongodb://127.0.0.1:27017/cfh_test
 before_script:
   - sleep 15
+after_success:
+  - npm run coveralls
