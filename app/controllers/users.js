@@ -9,118 +9,160 @@ const User = mongoose.model('User');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
 
-
 /**
- * Auth callback
+ * @description Auth callback
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @param {function} next function
+ * @return {object} returns redirect
  */
-exports.authCallback = function (req, res, next) {
+exports.authCallback = (req, res, next) => {
   res.redirect('/chooseavatars');
 };
 
+
 /**
- * Show login form
+ * @description Auth callback
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
-exports.signin = function (req, res) {
+exports.signin = (req, res) => {
   const email = req.body.email;
 
-  User.findOne({ email: req.body.email })
+  User
+    .findOne({
+      email: req.body.email
+    })
     .then((user) => {
       if (!user) {
-        return res.status(400).send({
-          success: false,
-          message: `${req.body.email} does not exist in the database`,
-        });
+        return res
+          .status(400)
+          .send({
+            success: false,
+            message: 'This user already exists'
+          });
       }
       const password = req.body.password;
-      console.log((bcrypt.compareSync(password, user.hashed_password)));
       if (bcrypt.compareSync(password, user.hashed_password)) {
-        const token = getJWT(
-          user._id,
-          user.email,
-          user.username
-        );
-        res.status(200).json({
-          success: true,
-          token,
-          message: 'Welcome to Cards for Humanity, You are now logged in'
-        });
+        getJWT(user._id, user.email, user.username)
+          .then((token) => {
+            if (token.status === 'Success') {
+              res
+                .status(200)
+                .json({
+                  success: true,
+                  message: 'Welcome to Cards for Humanity, You are now logged in',
+                  token: token.token
+                });
+            } else {
+              res
+                .status(500)
+                .json({
+                  success: false,
+                  message: 'Something went wrong try again'
+                });
+            }
+          })
+          .catch(error =>
+            res
+              .status(500)
+              .json({
+                success: false,
+                message: error
+              })
+          );
       } else {
-        res.status(400).send({
-          success: false,
-          message: 'Your password is wrong'
-        });
+        res
+          .status(400)
+          .send({
+            success: false,
+            message: 'Invalid credentials'
+          });
       }
-    }).catch(error => res.status(500).send({
+    })
+    .catch(error => res.status(500).send({
       success: false,
-      error,
+      error
     }))
     .catch(error => res.status(400).send({
       success: false,
-      error,
+      error
     }));
-  // if (!req.user) {
-  //   res.redirect('/#!/signin?error=invalid');
-  // } else {
-  //   res.redirect('/#!/app');
-  // }
+  // if (!req.user) {   res.redirect('/#!/signin?error=invalid'); } else {
+  // res.redirect('/#!/app'); }
 };
 
 /**
- * Show sign up form
+ * @description Signup
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @param {function} next function
+ * @return {object} returns redirect
  */
-exports.signup = function (req, res) {
+exports.signup = (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const name = req.body.name;
   const hashed_password = req.body.password;
 
-  User.findOne({ username: req.body.username })
+  User
+    .findOne({
+      username: req.body.username
+    })
     .then((userExists) => {
       if (userExists && userExists.username === username) {
-        res.status(409).json({
-          success: false,
-          message: 'Your username needs to be unique',
-        });
+        res
+          .status(409)
+          .json({
+            success: false,
+            message: 'This username has already been selected before'
+          });
         // res.redirect('/#!/app');
         return;
       }
       const user = new User(req.body);
       user.avatar = avatars[user.avatar];
       user.provider = 'local';
-      return user.save()
+      return user
+        .save()
         .then((user) => {
-          const token = getJWT(
-            user._id,
-            user.email,
-            user.username
-          );
-          res.status(201).json({
-            success: true,
-            token,
-            name,
-            email,
-            message: 'Welcome to Cards Against Humanity',
-            name
-          });
+          getJWT(user._id, user.email, user.username)
+            .then((token) => {
+              if (token.status === 'Success') {
+                res
+                  .status(200)
+                  .json({
+                    success: true,
+                    message: 'Welcome to Cards for Humanity, You are now logged in',
+                    token: token.token
+                  });
+              } else {
+                res
+                  .status(500)
+                  .json({
+                    success: false,
+                    message: 'Something went wrong try again'
+                  });
+              }
+            });
         })
         .catch((error) => {
-          res.status(400).send({
-            success: false,
-            error: 'You have encountered an error'
-          });
-          console.log(error);
+          res
+            .status(400)
+            .send({
+              success: false,
+              error: error.errors
+            });
         });
-    }).catch(error => res.status(500).send({
+    })
+    .catch(error => res.status(500).send({
       success: false,
-      error }));
+      error: error.errors
+    }));
 
-  // if (!req.user) {
-  //   res.redirect('/#!/signup');
-  // } else {
-
-  // }
+  // if (!req.user) {   res.redirect('/#!/signup'); } else { }
 };
-
 
 /**
  * Logout
@@ -137,16 +179,17 @@ exports.session = function (req, res) {
   res.redirect('/');
 };
 
-/** 
+/**
  * Check avatar - Confirm if the user who logged in via passport
  * already has an avatar. If they don't have one, redirect them
  * to our Choose an Avatar page.
  */
 exports.checkAvatar = function (req, res) {
   if (req.user && req.user._id) {
-    User.findOne({
-      _id: req.user._id
-    })
+    User
+      .findOne({
+        _id: req.user._id
+      })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
           res.redirect('/#!/');
@@ -161,34 +204,37 @@ exports.checkAvatar = function (req, res) {
 };
 
 /**
- * Create user
+ * 
+ * Sign up route
  */
 exports.create = function (req, res) {
   if (req.body.name && req.body.password && req.body.email) {
-    User.findOne({
-      email: req.body.email
-    }).exec((err, existingUser) => {
-      if (!existingUser) {
-        const user = new User(req.body);
-        // Switch the user's avatar index to an actual avatar url
-        user.avatar = avatars[user.avatar];
-        user.provider = 'local';
-        user.save((err) => {
-          if (err) {
-            return res.render('/#!/signup?error=unknown', {
-              errors: err.errors,
-              user
+    User
+      .findOne({
+        email: req.body.email
+      })
+      .exec((err, existingUser) => {
+        if (!existingUser) {
+          const user = new User(req.body);
+          // Switch the user's avatar index to an actual avatar url
+          user.avatar = avatars[user.avatar];
+          user.provider = 'local';
+          user.save((err) => {
+            if (err) {
+              return res.render('/#!/signup?error=unknown', {
+                errors: err.errors,
+                user
+              });
+            }
+            req.logIn(user, (err) => {
+              if (err) { return next(err); }
+              return res.redirect('/#!/');
             });
-          }
-          req.logIn(user, (err) => {
-            if (err) return next(err);
-            return res.redirect('/#!/');
           });
-        });
-      } else {
-        return res.redirect('/#!/signup?error=existinguser');
-      }
-    });
+        } else {
+          return res.redirect('/#!/signup?error=existinguser');
+        }
+      });
   } else {
     return res.redirect('/#!/signup?error=incomplete');
   }
@@ -199,11 +245,11 @@ exports.create = function (req, res) {
  */
 exports.avatars = function (req, res) {
   // Update the current user's profile to include the avatar choice they've made
-  if (req.user && req.user._id && req.body.avatar !== undefined &&
-    /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
-    User.findOne({
-      _id: req.user._id
-    })
+  if (req.user && req.user._id && req.body.avatar !== undefined && /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
+    User
+      .findOne({
+        _id: req.user._id
+      })
       .exec((err, user) => {
         user.avatar = avatars[req.body.avatar];
         user.save();
@@ -216,11 +262,12 @@ exports.addDonation = function (req, res) {
   if (req.body && req.user && req.user._id) {
     // Verify that the object contains crowdrise data
     if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
-      User.findOne({
-        _id: req.user._id
-      })
+      User
+        .findOne({
+          _id: req.user._id
+        })
         .exec((err, user) => {
-        // Confirm that this object hasn't already been entered
+          // Confirm that this object hasn't already been entered
           let duplicate = false;
           for (let i = 0; i < user.donations.length; i++) {
             if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
@@ -229,7 +276,9 @@ exports.addDonation = function (req, res) {
           }
           if (!duplicate) {
             console.log('Validated donation');
-            user.donations.push(req.body);
+            user
+              .donations
+              .push(req.body);
             user.premium = 1;
             user.save();
           }
@@ -267,49 +316,24 @@ exports.user = function (req, res, next, id) {
       _id: id
     })
     .exec((err, user) => {
-      if (err) return next(err);
-      if (!user) return next(new Error(`Failed to load User ${id}`));
+      if (err) { return next(err); }
+      if (!user) { return next(new Error(`Failed to load User ${id}`)); }
       req.profile = user;
       next();
     });
 };
 
-
-// getUser(req, res) {
-//   const username = req.body.username;
-//   const password = req.body.password;
-//   return User.findOne({ where: { username } }).then((user) => {
-//     if (!user) {
-//       res.status(400).send({
-//         success: false,
-//         message: 'user does not exist',
-//       });
-//       return;
-//     }
-//     bcrypt.compare(password, user.password).then((result) => {
-//       if (!result) {
-//         res.status(400).send({
-//           success: false,
-//           message: 'wrong username and password combination',
-//         });
-//       } else {
-//         const token = getJWT(
-//           user.id,
-//           user.username,
-//           user.email,
-//           user.isAdmin
-//         );
-//         const { id, firstName, lastName, isAdmin } = user;
-//         res.status(200).json({
-//           success: true, token, id, firstName, lastName, isAdmin
-//         });
-//       }
-//     }).catch(error => res.status(500).send({
-//       success: false,
-//       error,
-//     }));
-//   }).catch(error => res.status(400).send({
-//     success: false,
-//     error,
-//   }));
-// },
+// getUser(req, res) {   const username = req.body.username;   const password =
+// req.body.password;   return User.findOne({ where: { username }
+// }).then((user) => {     if (!user) {       res.status(400).send({
+// success: false,      message: 'user does not exist',       });       return;
+//    } bcrypt.compare(password, user.password).then((result) => {       if
+// (!result) {         res.status(400).send({           success: false,
+//  message: 'wrong username and password combination',         });       } else
+// { const token = getJWT(           user.id,           user.username,
+// user.email,           user.isAdmin         );         const { id, firstName,
+// lastName, isAdmin } = user;         res.status(200).json({
+// success: true, token, id, firstName, lastName, isAdmin         });       }
+// }).catch(error => res.status(500).send({       success: false,       error,
+// }));   }).catch(error => res.status(400).send({     success: false, error,
+// })); },
