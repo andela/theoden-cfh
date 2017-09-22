@@ -123,7 +123,6 @@ describe('Game Server', () => {
       let connectOthers = true;
       client1.on('gameUpdate', (data) => {
         const gameID = data.gameID;
-        console.log(gameID, '----');
         if (connectOthers) {
           client2 = io.connect(socketURL, options);
           connectOthers = false;

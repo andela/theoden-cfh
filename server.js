@@ -21,7 +21,7 @@ const mongoose = require('mongoose');
 
 
 // Bootstrap db connection
-const db = mongoose.createConnection(config.db);
+const db = mongoose.connect(config.db);
 // compartible with mongoose 4.11
 
 // Bootstrap models
