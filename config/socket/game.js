@@ -136,6 +136,7 @@ class Game {
    * @returns {*} void
    */
   prepareGame() {
+    console.log(this.state);
     this.state = 'game in progress';
 
     this.io.sockets.in(this.gameID).emit('prepareGame',
@@ -154,9 +155,9 @@ class Game {
       ],
       (err, results) => {
         if (err) {
-          console.log(err);
+          console.log(err, 'error');
         }
-
+        console.log(results);
         self.questions = results[0];
         self.answers = results[1];
 
