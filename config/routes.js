@@ -1,4 +1,3 @@
-const async = require('async');
 
 const answers = require('../app/controllers/answers');
 const questions = require('../app/controllers/questions');
@@ -59,7 +58,7 @@ module.exports = (app, passport, auth) => {
     failureRedirect: '/signin'
   }), users.authCallback);
 
-  //Setting the google oauth routes
+  // Setting the google oauth routes
   app.get('/auth/google', passport.authenticate('google', {
     failureRedirect: '/signin',
     scope: [
