@@ -1,4 +1,4 @@
-const should = require('should');
+
 const io = require('socket.io-client');
 
 const socketURL = 'http://localhost:3000';
@@ -8,9 +8,6 @@ const options = {
   'force new connection': true
 };
 
-const cfhPlayer1 = { name: 'Tom' };
-const cfhPlayer2 = { name: 'Sally' };
-const cfhPlayer3 = { name: 'Dana' };
 
 describe('Game Server', () => {
   it('Should accept requests to joinGame', (done) => {
