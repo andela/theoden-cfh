@@ -10,7 +10,7 @@ const io = require('socket.io');
 
 // Load configurations
 // if test env, load example file
-const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';// eslint-disable-line no-multi-assign no-unused-vars
 const config = require('./config/config');
 const auth = require('./config/middlewares/authorization');
 const mongoose = require('mongoose');
@@ -21,7 +21,7 @@ const mongoose = require('mongoose');
 
 
 // Bootstrap db connection
-const db = mongoose.connect(config.db);
+mongoose.connect(config.db);
 // compartible with mongoose 4.11
 
 // Bootstrap models
@@ -33,7 +33,7 @@ const walk = (path) => {
     const stat = fs.statSync(newPath);
     if (stat.isFile()) {
       if (/(.*)\.(js|coffee)/.test(file)) {
-        require(newPath);
+        require(newPath); // eslint-disable-line global-require import/no-dynamic-require
       }
     } else if (stat.isDirectory()) {
       walk(newPath);

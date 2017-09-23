@@ -4,8 +4,6 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const should = require('should');
-// const passport = require('passport');
-const assert = require('chai').assert;
 
 const app = require('../../server');
 
