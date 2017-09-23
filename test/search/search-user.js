@@ -2,10 +2,15 @@
  * Module dependencies.
  */
 const mongoose = require('mongoose');
+const supertest = require('supertest');
 const should = require('should');
+// const passport = require('passport');
+const assert = require('chai').assert;
+
 const app = require('../../server');
+
+const request = supertest(app);
 const User = mongoose.model('User');
-const passport = require('passport');
 
 let user, user2, user3;
 
@@ -48,5 +53,17 @@ describe('POST /api/search/user', () => {
 
   describe('When user is not authenticated and tries to search', () => {
     // app.
+  });
+  describe('When a user tries to search for other users', () => {
+    it('should display all users in database', (done) => {
+      request
+        .get('/api/search/users')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(202);
+          res.body.status.should.equal('Success');
+          done();
+        });
+    });
   });
 });
