@@ -51,6 +51,8 @@
     "view-helpers": "~0.1.3"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "coveralls": "^2.13.1",
     "eslint": "^4.7.0",
     "eslint-config-airbnb": "^15.1.0",

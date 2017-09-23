@@ -24,7 +24,7 @@ class SearchUsers {
             message: error
           });
         } else if (result) {
-          response.status(200).send({
+          response.status(202).send({
             status: 'Success',
             result
           });
