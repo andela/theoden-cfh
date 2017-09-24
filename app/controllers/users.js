@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const User = mongoose.model('User');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
-const validator = require('./validators/validators')
+const validator = require('./validators/validators');
 
 /**
  * @description Auth callback
