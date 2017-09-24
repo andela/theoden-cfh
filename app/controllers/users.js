@@ -1,3 +1,4 @@
+
 /**
  * Module dependencies.
  */
@@ -22,111 +23,55 @@ exports.authCallback = (req, res, next) => {
 
 
 /**
+ * Show login form
+ */
+exports.signin = function (req, res) {
+  if (!req.user) {
+    res.redirect('/#!/signin?error=invalid');
+  } else {
+    res.redirect('/#!/app');
+  }
+};
+
+/**
+ * Show sign up form
+ */
+exports.signup = function (req, res) {
+  if (!req.user) {
+    res.redirect('/#!/signup');
+  } else {
+    res.redirect('/#!/app');
+  }
+};
+
+
+/**
  * @description Auth callback
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @return {object} returns redirect
  */
-exports.signin = (req, res) => {
+exports.login = (req, res) => {
   const email = req.body.email;
-
-  User
-    .findOne({
-      email: req.body.email
-    })
-    .then((user) => {
-      if (!user) {
-        return res
-          .status(400)
-          .send({
-            success: false,
-            message: 'This user already exists'
-          });
-      }
-      const password = req.body.password;
-      if (bcrypt.compareSync(password, user.hashed_password)) {
-        getJWT(user._id, user.email, user.username)
-          .then((token) => {
-            if (token.status === 'Success') {
-              res
-                .status(200)
-                .json({
-                  success: true,
-                  message: 'Welcome to Cards for Humanity, You are now logged in',
-                  token: token.token
-                });
-            } else {
-              res
-                .status(500)
-                .json({
-                  success: false,
-                  message: 'Something went wrong try again'
-                });
-            }
-          })
-          .catch(error =>
-            res
-              .status(500)
-              .json({
-                success: false,
-                message: error
-              })
-          );
-      } else {
-        res
-          .status(400)
-          .send({
-            success: false,
-            message: 'Invalid credentials'
-          });
-      }
-    })
-    .catch(error => res.status(500).send({
-      success: false,
-      error
-    }))
-    .catch(error => res.status(400).send({
-      success: false,
-      error
-    }));
-  // if (!req.user) {   res.redirect('/#!/signin?error=invalid'); } else {
-  // res.redirect('/#!/app'); }
-};
-
-/**
- * @description Signup
- * @param {object} req HTTP request object
- * @param {object} res HTTP response object
- * @param {function} next function
- * @return {object} returns redirect
- */
-exports.signup = (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const name = req.body.name;
-  const hashed_password = req.body.password;
-
-  User
-    .findOne({
-      username: req.body.username
-    })
-    .then((userExists) => {
-      if (userExists && userExists.username === username) {
-        res
-          .status(409)
-          .json({
-            success: false,
-            message: 'This username has already been selected before'
-          });
-        // res.redirect('/#!/app');
-        return;
-      }
-      const user = new User(req.body);
-      user.avatar = avatars[user.avatar];
-      user.provider = 'local';
-      return user
-        .save()
-        .then((user) => {
+  if (
+    req.body.email &&
+    req.body.password
+  ) {
+    User
+      .findOne({
+        email: req.body.email
+      })
+      .then((user) => {
+        if (!user) {
+          return res
+            .status(400)
+            .send({
+              success: false,
+              message: 'Invalid'
+            });
+        }
+        const password = req.body.password;
+        if (bcrypt.compareSync(password, user.hashed_password)) {
           getJWT(user._id, user.email, user.username)
             .then((token) => {
               if (token.status === 'Success') {
@@ -145,6 +90,101 @@ exports.signup = (req, res) => {
                     message: 'Something went wrong try again'
                   });
               }
+            })
+            .catch(error =>
+              res
+                .status(500)
+                .json({
+                  success: false,
+                  message: error
+                })
+            );
+        } else {
+          res
+            .status(400)
+            .send({
+              success: false,
+              message: 'Invalid credentials'
+            });
+        }
+      })
+      .catch(error => res.status(500).send({
+        success: false,
+        error
+      }))
+      .catch(error => res.status(400).send({
+        success: false,
+        error
+      }));
+    // if (!req.user) {   res.redirect('/#!/signin?error=invalid'); } else {
+    // res.redirect('/#!/app'); }
+  } else {
+    return res.status(400).send({
+      success: false,
+      error: 'invalid',
+      message: 'Invalid Credentials'
+    });
+  }
+};
+
+
+/**
+ * @description Signup
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @param {function} next function
+ * @return {object} returns redirect
+ */
+exports.create = (req, res) => {
+  const email = req.body.email;
+  const name = req.body.name;
+  const password = req.body.password;
+  if (!email || !name || !password) {
+    return res.status(400).send('all fields are required');
+  }
+
+  User
+    .findOne({
+      username: req.body.username
+    })
+    .then((userExists) => {
+      if (userExists && userExists.email === email) {
+        res
+          .status(409)
+          .json({
+            success: false,
+            message: 'This email has already been selected before'
+          });
+        // res.redirect('/#!/app');
+        return;
+      }
+      const user = new User(req.body);
+      user.avatar = avatars[user.avatar];
+      user.provider = 'local';
+      return user
+        .save()
+        .then((user) => {
+          getJWT(user.id, user.email, user.username)
+            .then((token) => {
+              const credentials = { email: user.email, name: user.name, username: user.username };
+              if (token.status === 'Success') {
+                res
+                  .status(201)
+                  .json({
+                    success: true,
+                    message: 'Welcome to Cards for Humanity, You are now logged in',
+                    token: token.token,
+                    credentials
+
+                  });
+              }
+            }).catch((err) => {
+              res
+                .status(500)
+                .json({
+                  err: false,
+                  message: 'Something went wrong try again'
+                });
             });
         })
         .catch((error) => {
@@ -163,6 +203,7 @@ exports.signup = (req, res) => {
 
   // if (!req.user) {   res.redirect('/#!/signup'); } else { }
 };
+
 
 /**
  * Logout
@@ -203,42 +244,6 @@ exports.checkAvatar = function (req, res) {
   }
 };
 
-/**
- * 
- * Sign up route
- */
-exports.create = function (req, res) {
-  if (req.body.name && req.body.password && req.body.email) {
-    User
-      .findOne({
-        email: req.body.email
-      })
-      .exec((err, existingUser) => {
-        if (!existingUser) {
-          const user = new User(req.body);
-          // Switch the user's avatar index to an actual avatar url
-          user.avatar = avatars[user.avatar];
-          user.provider = 'local';
-          user.save((err) => {
-            if (err) {
-              return res.render('/#!/signup?error=unknown', {
-                errors: err.errors,
-                user
-              });
-            }
-            req.logIn(user, (err) => {
-              if (err) { return next(err); }
-              return res.redirect('/#!/');
-            });
-          });
-        } else {
-          return res.redirect('/#!/signup?error=existinguser');
-        }
-      });
-  } else {
-    return res.redirect('/#!/signup?error=incomplete');
-  }
-};
 
 /**
  * Assign avatar to user
@@ -322,18 +327,3 @@ exports.user = function (req, res, next, id) {
       next();
     });
 };
-
-// getUser(req, res) {   const username = req.body.username;   const password =
-// req.body.password;   return User.findOne({ where: { username }
-// }).then((user) => {     if (!user) {       res.status(400).send({
-// success: false,      message: 'user does not exist',       });       return;
-//    } bcrypt.compare(password, user.password).then((result) => {       if
-// (!result) {         res.status(400).send({           success: false,
-//  message: 'wrong username and password combination',         });       } else
-// { const token = getJWT(           user.id,           user.username,
-// user.email,           user.isAdmin         );         const { id, firstName,
-// lastName, isAdmin } = user;         res.status(200).json({
-// success: true, token, id, firstName, lastName, isAdmin         });       }
-// }).catch(error => res.status(500).send({       success: false,       error,
-// }));   }).catch(error => res.status(400).send({     success: false, error,
-// })); },
