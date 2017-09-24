@@ -14,14 +14,15 @@ module.exports = function (passport) {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function (id, done) {
-    User.findOne({
-      _id: id
-    }, function (err, user) {
-      user.email = null;
-      user.facebook = null;
-      user.hashed_password = null;
-      done(err, user);
+    passport.deserializeUser(function(id, done) {
+        User.findOne({
+            _id: id
+        }, function(err, user) {
+            //user.email = null;
+            user.facebook = null;
+            user.hashed_password = null;
+            done(err, user);
+        });
     });
   });
 
@@ -180,7 +181,11 @@ module.exports = function (passport) {
         } else {
           return done(err, user);
         }
+<<<<<<< HEAD
       });
     }
   ));
+=======
+    ));
+>>>>>>> #151136244 User recieve  JWT  on login
 };

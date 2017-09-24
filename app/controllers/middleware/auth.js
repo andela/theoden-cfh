@@ -21,6 +21,7 @@ const getToken = (req) => {
 * @return {undefined} if not defined send a response to the server indicating this
 */
 const authenticate = (req, res, next) => {
+  if (req.url.startsWith('/auth')) return next();
   const token = getToken(req);
   if (token) {
     jwt.verify(token, process.env.SECRET, (error, decoded) => {
