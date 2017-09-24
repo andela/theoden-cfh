@@ -48,6 +48,7 @@ angular.module('mean.system')
           });
       };
       $scope.signout = () => {
+        console.log('this is executing');
         $window.localStorage.removeItem('token');
         $location.path('/');
         $window.location.reload();
