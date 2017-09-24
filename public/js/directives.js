@@ -70,12 +70,15 @@ angular.module('mean.directives', [])
       restrict: 'EA',
       link (scope, elem, attr) {
         scope.showOptions = true;
+        
 
         if (window.localStorage.token) {
           scope.showOptions = false;
         } else {
           scope.showOptions = true;
         }
+
+        
   
       }
     };
