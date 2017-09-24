@@ -68,12 +68,18 @@ angular.module('mean.directives', [])
   }).directive('landing', function() {
     return {
       restrict: 'EA',
-      link: function(scope, elem, attr) {
+      link (scope, elem, attr) {
         scope.showOptions = true;
+        
 
-        if (scope.$$childHead.global.authenticated === true) {
+        if (window.localStorage.token) {
           scope.showOptions = false;
+        } else {
+          scope.showOptions = true;
         }
+
+        
+  
       }
     };
   });
