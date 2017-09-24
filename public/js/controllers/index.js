@@ -16,7 +16,7 @@ angular.module('mean.system')
         return false;
       };
 
-      $scope.signIn = () =>  {
+      $scope.signIn = () => {
         console.log('We are here', '--------');
         $http.post('api/auth/signin', JSON.stringify($scope.formData))
           .success((data) => {
@@ -27,8 +27,8 @@ angular.module('mean.system')
             } else {
               $scope.showMessage = data.message;
             }
-          }).error((error, status) => {
-            $scope.showMessage = `${status} : ${error}`;
+          }).error(() => {
+            $scope.showMessage = 'Wrong email or password';
           });
       };
 
@@ -43,8 +43,8 @@ angular.module('mean.system')
             } else {
               $scope.showMessage = data.message;
             }
-          }).error(() => {
-            $scope.showMessage = 'Wrong email or password';
+          }).error((error) => {
+            $scope.showMessage = `${error.message}`;
           });
       };
       $scope.signout = () => {
