@@ -28,7 +28,7 @@
               <span id="second-word"> for</span>
               <span id="third-word">Humanity</span>
             </div>
-            <div class="col-md-9 wpb-menu-container">
+            <div class="col-md-9 wpb-menu-container" ng-controller="IndexController">
               <ul class="wpb-main-menu">
                 <li><a onClick="scroll(0,0)">Home</a></li>
                 <li><a onClick="scroll(0,742);">How to Play</a></li>
@@ -39,7 +39,7 @@
                   <li><a href="#!/signin">Sign In</a></li>
                 </span>
                 <span ng-hide="showOptions">
-                  <li><a href="/signout">Sign Out</a></li>
+                  <li><a ng-click="signout()">Sign Out</a></li>
                 </span>
               </ul>
             </div>
