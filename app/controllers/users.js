@@ -12,6 +12,11 @@ exports.authCallback = function(req, res, next) {
   res.redirect('/chooseavatars');
 };
 
+exports.tour = function(req, res) {
+  console.log('tour starting');
+  res.redirect('/#!/tour');
+}
+
 /**
  * Show login form
  */
