@@ -170,20 +170,13 @@ exports.create = (req, res) => {
               .then((user) => {
                 getJWT(user.email, user.username)
                   .then((token) => {
-                    const credentials = {
-                      email: user.email,
-                      name: user.name,
-                      username: user.username
-                    };
                     if (token.status === 'Success') {
                       res
                         .status(201)
                         .json({
                           success: true,
                           message: 'Welcome to Cards for Humanity, You are now logged in',
-                          token: token.token,
-                          credentials
-
+                          token: token.token
                         });
                     }
                   }).catch((err) => {
