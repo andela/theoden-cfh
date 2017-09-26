@@ -42,45 +42,41 @@ const authenticate = (req, res, next) => {
 
 /**
  * Signs a json web token with the supplied parameters
- * @param  {String} id user id
- * @param  {String} email email address
+ * @param  {String} email email address 
  * @param  {String} username username
  * @return {promise} signed token
  */
-const getJWT = (id, email, username) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign(
-      {
-        id,
-        email,
-        username
-      }, process.env.JWT_SECRET,
-      {
-        expiresIn: 1440
-      }, (error, token) => {
-        if (error) {
-          reject(
-            {
-              status: 'Error',
-              message: error
-            });
-        } else if (token) {
-          resolve(
-            {
-              status: 'Success',
-              token
-            }
-          );
-        } else {
-          reject({
+const getJWT = (email, username) => new Promise((resolve, reject) => {
+  jwt.sign(
+    {
+      email,
+      username
+    }, process.env.JWT_SECRET,
+    {
+      expiresIn: 1440
+    }, (error, token) => {
+      if (error) {
+        reject(
+          {
             status: 'Error',
-            message: 'token error'
+            message: error
           });
-        }
-      });
-  });
-};
-// } export default UserAuthenticate;
+      } else if (token) {
+        resolve(
+          {
+            status: 'Success',
+            token
+          }
+        );
+      } else {
+        reject({
+          status: 'Error',
+          message: 'token error'
+        });
+      }
+    });
+});
+
 
 module.exports = {
   getJWT,
