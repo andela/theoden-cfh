@@ -3,4 +3,9 @@ public/lib
 .sass-cache/
 .DS_store
 c4h_keys.txt
-
+.env
+bower_components/
+<<<<<<< HEAD
+public/common.css
+=======
+>>>>>>> f2f3e8648280d15ad5f660e9808accdb01c4781b

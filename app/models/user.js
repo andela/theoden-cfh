@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
+    bcrypt = require('bcryptjs'),
     _ = require('underscore'),
     authTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -93,6 +93,9 @@ UserSchema.methods = {
      * @api public
      */
     authenticate: function(plainText) {
+        if (!plainText || !this.hashed_password) {
+            return false;
+        }
         return bcrypt.compareSync(plainText,this.hashed_password);
     },
 
@@ -105,7 +108,7 @@ UserSchema.methods = {
      */
     encryptPassword: function(password) {
         if (!password) return '';
-        return bcrypt.hashSync(password, 10);
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     }
 };
 

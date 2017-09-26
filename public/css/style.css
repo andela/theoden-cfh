@@ -15,16 +15,11 @@
    top: -65px;
 }
 
-#twitter-widget-0 {
-   width: 78px !important;
-}
-
 #tweet-container-index{
    margin-top: 10px;
    display: inline-block;
    position: relative;
    top: 5px;
-   width: 79px !important;
 }
 
 #twitter-facebook{
@@ -440,6 +435,7 @@
 
  #gitcat {
    max-width: 50px !important;
+   padding-right: 10px;
  }
 
  #login-buttons {
@@ -934,12 +930,15 @@
  .foot {
    bottom: 0;
    max-width: 1400px;
-   height: 60px;
    border-radius: 8px;
    background: #252525;
    padding: 5px 5px 5px 13px;
    width: 90%;
    margin: 30px auto;
+ }
+
+ .legal {
+   color: white;
  }
 
  /**** Margins ****/

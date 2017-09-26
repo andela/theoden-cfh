@@ -1,63 +1,34 @@
-Cards for Humanity
+[![Build Status](https://travis-ci.org/andela/theoden-cfh.svg?branch=master)](https://travis-ci.org/andela/theoden-cfh) <img src="https://camo.githubusercontent.com/23ee7a697b291798079e258bbc25434c4fac4f8b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50726f7465637465645f62792d486f756e642d6138373364312e737667" alt="" data-canonical-src="https://img.shields.io/badge/Protected_by-Hound-a873d1.svg" style="max-width:100%;"> [![Coverage Status](https://coveralls.io/repos/github/andela/theoden-cfh/badge.svg)](https://coveralls.io/github/andela/theoden-cfh)
+
+Cards for Humanity - [http://cfh.io](http://cfh.io)
 ===========
-<h3>Brief Non-Technical Description </h3> 
-<p>Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.
-</p>
+Cards for Humanity is a fast-paced online version of the popular card game, Cards Against Humanity, that gives you the opportunity to donate to children in need - all while remaining as despicable and awkward as you naturally are.
 
+Our Team
+--------
+Cards for Humanity was created at [Hack Reactor](http://www.hackreactor.com) by:
+* [Matt Silverstein](http://www.mattsilverstein.com/)
+* [Will Ngo](https://mrngoitall.net)
+* [Tyler McGinnis](http://www.tylermcginnis.com)
+* [David Gonzalez](http://www.truthyfalsy.com)
 
-<img src="http://www.tylermcginnis.com/images/cfh1.png" alt="Cards For Humanity" />
-<br />
-<br />
-<br />
+About the Game
+-------------
+The game is simple - each player is given 10 answer cards which are used to fill in the question card. For each round, one player is the "Card Czar". Their sole job is to select a submitted answer card that they think best fits the question. Whoever's card is selected wins a point for the round.
 
-<h3> Technical Description </h3>
-<p>
-  <img src="http://www.tylermcginnis.com/images/cfh8.png" alt="Cards for Humanity Stack"/>
-</p>
-<p> The reason we chose this stack was because...</p> 
-<br /><br />
+Cards Against Humanity is open-source and licensed under Creative Commons. The idea for Cards for Humanity was to create a web version of the game we love so much, while still doing something good for humanity. To achieve this we integrated the option to donate to the Make a Wish Foundation.
 
+The app is completely functional across all devices - from iPhone to full-sized desktop. We used Socket.io to create rooms which hold up 6 players at a time, and also included the functionality to create private rooms once logged in. Passport handles authentication with Local, Twitter, Facebook, Google and Github strategies implemented.
 
-<h3> Challenges </h3> 
-<p> 
-<a href="http://www.tylermcginnis.com">Tyler McGinnis</a>: I was mostly in charge of creating a wonderful 
-user experience inside the game itself. We're not naive and we realized that odds are, the majority of our users
-would be playing on a mobile device from inside a bathroom stall. Because of this, it was necessary that 
-the experience on mobile was just as amazing as the one on a desktop. To do this, I built our main app on a fluid 
-layout then used some media queries to take care of some things on Mobile phones. Overall I'm confident that no matter
-what device you're, you're going to have an awesome time.
-<br/ ><img src="http://www.tylermcginnis.com/images/cfhm.png" width="326" height="410" alt="Cards for Humanity Stack"/>
-</p>
-<p> 
-<a href="http://www.truthyfalsy.com">David Gonzalez</a>: The biggest challenge I faced was...
-</p>
-<p> 
-<a href="http://www.mattsilverstein.com/">Matt Silverstein</a>: The biggest challenge I faced was...
-</p>
-<p> 
-<a href="https://github.com/mrngoitall">Will Ngo</a>: The biggest challenge I faced was...
-</p>
-<br />
+![alt-text](https://dl.dropboxusercontent.com/u/7390609/CFHforGit.png "Cards for Humanity views")
 
+![alt-text](http://www.tylermcginnis.com/images/cfh3.png "Desktop with Cards")
 
+Our Tech Stack
+--------------
+Cards for Humanity uses AngularJS and Sass on the front-end, with Node.js/Express.js, MongoDB and Socket.io on the back-end. It's currently deployed to Amazon EC2.
 
-
-<img src="http://www.tylermcginnis.com/images/cfh3.png" alt="Cards For Humanity"/>
-<br />
-<br />
-<br />
-<img src="http://www.tylermcginnis.com/images/cfh4.png" alt="Cards For Humanity"/>
-<br />
-<br />
-<br />
-<img src="http://www.tylermcginnis.com/images/cfh6.png" alt="Cards for Humanity Exit"/>
-<br />
-<br />
-<br />
-<img src="http://www.tylermcginnis.com/images/cfh7.png" alt="Cards for Humanity Exit"/>
-
-
-
+![alt-text](https://dl.dropboxusercontent.com/u/7390609/tech.png "Tech Stack Overview")
 
 
 ## License
