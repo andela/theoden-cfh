@@ -58,13 +58,14 @@ describe('Game Server', () => {
     });
   });
 
-  it('Should start game when startGame event is sent with 3 players', (done) => {
-    let client2, client3;
+  it('Should start game when startGame event is sent with 3 minimum players', (done) => {
+    let client2, client3, client4;
     const client1 = io.connect(socketURL, options);
     const disconnect = () => {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
+      client4.disconnect();
       done();
     };
     const expectStartGame = () => {
@@ -78,7 +79,10 @@ describe('Game Server', () => {
       client3.on('gameUpdate', (data) => {
         data.state.should.equal('waiting for players to pick');
       });
-      setTimeout(disconnect, 200);
+      client4.on('gameUpdate', (data) => {
+        data.state.should.equal('waiting for players to pick');
+      });
+      disconnect();
     };
     client1.on('connect', () => {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
@@ -88,12 +92,42 @@ describe('Game Server', () => {
         client3 = io.connect(socketURL, options);
         client3.on('connect', () => {
           client3.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-          setTimeout(expectStartGame, 100);
+          client4 = io.connect(socketURL, options);
+          client4.on('connect', () => {
+            client4.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+            expectStartGame();
+          });
         });
       });
     });
   });
-
+  it('Should not start if less than 3 players are in the game', (done) => {
+    let client2;
+    const client1 = io.connect(socketURL, options);
+    const disconnect = () => {
+      client1.disconnect();
+      client2.disconnect();
+      done();
+    };
+    const expectStartGame = () => {
+      client1.emit('startGame');
+      client1.on('gameUpdate', (data) => {
+        data.should.equal('waiting for players to pick');
+      });
+      client2.on('gameUpdate', (data) => {
+        data.state.should.equal('waiting for players to pick');
+      });
+      disconnect();
+    };
+    client1.on('connect', () => {
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+      client2 = io.connect(socketURL, options);
+      client2.on('connect', () => {
+        client2.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+        setTimeout(expectStartGame, 900);
+      });
+    });
+  });
   it('Should return Max users reached if more than 12 users try to join', (done) => {
     let client2, client3, client4, client5, client6;
     let client7, client8, client9, client10, client11;
@@ -166,7 +200,8 @@ describe('Game Server', () => {
                                   // setTimeout(expectErrorMessage, 900);
                                   client1.on('notification', (dataInfo) => {
                                     dataInfo.notification.should.match(/MAX Players in here already fam!!!/);
-                                    setTimeout(disconnect, 200);
+                                    // setTimeout(disconnect, 100);
+                                    disconnect();
                                   });
                                 });
                               });
