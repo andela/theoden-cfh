@@ -1,4 +1,4 @@
-/* eslint-diable */
+/* eslint-disable */
 const bower = require('gulp-bower');
 const browserSync = require('browser-sync');
 const eslint = require('gulp-eslint');
