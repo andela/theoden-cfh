@@ -204,7 +204,6 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
       game.joinGame('joinGame', $location.search().game);
     } else if ($location.search().custom) {
       game.joinGame('joinGame', null, true);
