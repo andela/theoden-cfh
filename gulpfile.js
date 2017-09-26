@@ -1,3 +1,4 @@
+/* eslint-diable */
 const bower = require('gulp-bower');
 const browserSync = require('browser-sync');
 const eslint = require('gulp-eslint');
@@ -6,6 +7,7 @@ const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const sass = require('gulp-sass');
 const clean = require('gulp-clean');
+/* eslint-enable */
 
 gulp.task('watch', () => {
   gulp.watch('app/views/**', browserSync.reload());
