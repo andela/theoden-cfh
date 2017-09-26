@@ -13,19 +13,51 @@ class SearchUsers {
   * @returns {object} returns response with response code
   */
   static userSearch(request, response) {
-    // 
-    User
-      .find({})
-      .lean()
-      .select('name username email')
-      .exec((error, result) => {
-        if (result) {
-          response.status(202).send({
-            status: 'Success',
-            result
-          });
-        }
-      });
+    const searchQuery = request.query.q || null;
+
+    if (searchQuery === null) {
+      User
+        .find({})
+        .lean()
+        .limit(10)
+        .select('name username email')
+        .exec((error, result) => {
+          if (result) {
+            response.status(202).send({
+              status: 'Success',
+              result
+            });
+          }
+        });
+    } else {
+      User
+        .find({
+          $or: [
+            {
+              username: {
+                $regex: `.*${searchQuery}.*`,
+                $options: 'isx'
+              },
+            }, {
+              name: {
+                $regex: `.*${searchQuery}.*`,
+                $options: 'is'
+              }
+            }
+          ]
+        })
+        .lean()
+        .limit(10)
+        .select('name username email')
+        .exec((error, result) => {
+          if (result) {
+            response.status(202).send({
+              status: 'Success',
+              result
+            });
+          }
+        });
+    }
   }
 }
 module.exports = SearchUsers;

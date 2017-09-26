@@ -52,10 +52,22 @@ describe('POST /api/search/user', () => {
   describe('When user is not authenticated and tries to search', () => {
     // app.
   });
-  describe('When a user tries to search for other users', () => {
+  describe('When a user tries to search for other users without input', () => {
     it('should display all users in database', (done) => {
       request
         .get('/api/search/users')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(202);
+          res.body.status.should.equal('Success');
+          done();
+        });
+    });
+  });
+  describe('When a user tries to search for other users with input', () => {
+    it('should display all users in database', (done) => {
+      request
+        .get('/api/search/users?q=t')
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(202);
