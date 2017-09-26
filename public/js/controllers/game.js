@@ -1,9 +1,11 @@
 angular.module('mean.system')
-  .controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+  .controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', '$dialog', ($scope, game, $timeout, $location, MakeAWishFactsService, $http, $dialog) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
     $scope.modalShown = false;
+    $scope.foundUsers = [];
+    $scope.selectedUsers = [];
     $scope.game = game;
     $scope.pickedCards = [];
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
@@ -31,9 +33,8 @@ angular.module('mean.system')
     $scope.pointerCursorStyle = () => {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
         return { cursor: 'pointer' };
-      } else {
-        return {};
       }
+      return {};
     };
 
     $scope.sendPickedCards = () => {
@@ -44,69 +45,63 @@ angular.module('mean.system')
     $scope.cardIsFirstSelected = (card) => {
       if (game.curQuestion.numAnswers > 1) {
         return card === $scope.pickedCards[0];
-      } else {
-        return false;
       }
+      return false;
     };
 
     $scope.cardIsSecondSelected = (card) => {
       if (game.curQuestion.numAnswers > 1) {
         return card === $scope.pickedCards[1];
-      } else {
-        return false;
       }
+      return false;
     };
 
     $scope.firstAnswer = ($index) => {
       if ($index % 2 === 0 && game.curQuestion.numAnswers > 1) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     };
 
     $scope.secondAnswer = ($index) => {
       if ($index % 2 === 1 && game.curQuestion.numAnswers > 1) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     };
 
-    $scope.showFirst = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
-    };
+    $scope.showFirst = card =>
+      game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
 
-    $scope.showSecond = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
-    };
 
-    $scope.isCzar = () => {
-      return game.czar === game.playerIndex;
-    };
+    $scope.showSecond = card =>
+      game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
 
-    $scope.isPlayer = ($index) => {
-      return $index === game.playerIndex;
-    };
 
-    $scope.isCustomGame = () => {
-      return !(/^\d+$/).test(game.gameID) && game.state === 'awaiting players';
-    };
+    $scope.isCzar = () =>
+      game.czar === game.playerIndex;
 
-    $scope.isPremium = ($index) => {
-      return game.players[$index].premium;
-    };
+    $scope.isPlayer = $index =>
+      $index === game.playerIndex;
 
-    $scope.currentCzar = ($index) => {
-      return $index === game.czar;
-    };
+
+    $scope.isCustomGame = () =>
+      !(/^\d+$/).test(game.gameID) && game.state === 'awaiting players';
+
+
+    $scope.isPremium = $index =>
+      game.players[$index].premium;
+
+
+    $scope.currentCzar = $index =>
+      $index === game.czar;
+
 
     $scope.winningColor = ($index) => {
       if (game.winningCardPlayer !== -1 && $index === game.winningCard) {
         return $scope.colors[game.players[game.winningCardPlayer].color];
-      } else {
-        return '#f9f9f9';
       }
+      return '#f9f9f9';
     };
 
     $scope.pickWinning = (winningSet) => {
@@ -116,17 +111,44 @@ angular.module('mean.system')
       }
     };
 
-    $scope.winnerPicked = () => {
-      return game.winningCard !== -1;
-    };
+    $scope.winnerPicked = () =>
+      game.winningCard !== -1;
+
 
     $scope.startGame = () => {
       if (game.players.length < game.playerMinLimit) {
         const popupModal = $('#popupModal');
-        popupModal.find('.modal-body')
+        popupModal
+          .find('.modal-body')
           .text('You guys aint enough, you should wait though');
+        popupModal.modal('show');
       } else {
         game.startGame();
+      }
+    };
+    $scope.invitePlayers = () => {
+      if (game.players.length >= game.playerMaxLimit) {
+        const popupModal = $('#popupModal');
+        popupModal
+          .find('.modal-body')
+          .text('Too many players in game already');
+        popupModal.modal('show');
+      } else {
+        $scope.searchUserText = '';
+        const searchModal = $('#searchModal');
+        searchModal.modal('show');
+      }
+    };
+    $scope.quickSearchUsers = () => {
+      const invitePlayersSearch = $scope.searchUserText;
+      if (invitePlayersSearch.length >= 1) {
+        $http({
+          method: 'GET',
+          url: `/api/search/users?q=${invitePlayersSearch}`
+        }).then((searchResponse) => {
+          $scope.foundUsers = searchResponse.data.result;
+          console.log(searchResponse.data.result);
+        });
       }
     };
 
