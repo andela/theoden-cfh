@@ -5,6 +5,7 @@ const gulp = require('gulp');
 const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const sass = require('gulp-sass');
+const clean = require('gulp-clean');
 
 gulp.task('watch', () => {
   gulp.watch('app/views/**', browserSync.reload());
@@ -16,10 +17,7 @@ gulp.task('watch', () => {
   gulp.watch('public/css/**', browserSync.reload());
 });
 
-
-gulp.task('bower', () => {
-  bower().pipe(gulp.dest('./bower_components'));
-});
+gulp.task('bower', () => bower().pipe(gulp.dest('./public/lib')));
 
 gulp.task('nodemon', () => {
   nodemon({
@@ -33,49 +31,8 @@ gulp.task('nodemon', () => {
   });
 });
 
-gulp.task('angular', () => {
-  gulp.src('bower_components/angular/**/*.js')
-    .pipe(gulp.dest('public/lib/angular'));
-});
-
-gulp.task('angular-bootstrap', () => {
-  gulp.src('bower_components/angular-bootstrap/**/*')
-    .pipe(gulp.dest('public/lib/angular-bootstrap'));
-});
-
-gulp.task('angularUtils', () => {
-  gulp.src('bower_components/angular-ui-utils/modules/route/route.js')
-    .pipe(gulp.dest('public/lib/angular-ui-utils/modules'));
-});
-
-gulp.task('bootstrap', () => {
-  gulp.src('bower_components/bootstrap/**/*')
-    .pipe(gulp.dest('public/lib/bootstrap'));
-});
-
-gulp.task('jquery', () => {
-  gulp.src('bower_components/jquery/**/*')
-    .pipe(gulp.dest('public/lib/jquery'));
-});
-
-gulp.task('underscore', () => {
-  gulp.src('bower_components/underscore/**/*')
-    .pipe(gulp.dest('public/lib/underscore'));
-});
-
-gulp.task('font-awesome', () => {
-  gulp.src('bower_components/font-awesome/**/*')
-    .pipe(gulp.dest('public/lib/font-awesome'));
-});
-
-gulp.task('introjs', () => {
-  gulp.src('bower_components/intro.js/**/*')
-    .pipe(gulp.dest('public/lib/intro.js'));
-});
-
 gulp.task('lint', () => {
-  gulp.src(['gulpfile.js',
-    'public/js/**/*.js',
+  gulp.src(['public/js/**/*.js',
     'app/**/*.js',
     'test/**/*.js'])
     .pipe(eslint());
@@ -94,7 +51,33 @@ gulp.task('mochaTest', () => {
     }));
 });
 
+// Concurrent Tasks
+gulp.task('concurrent', ['watch', 'nodemon']);
+
+/** Installation Sequence */
+gulp.task('install', ['clean']);
+
+// Delete bower_components folder
+gulp.task('clean', ['move:route'], () =>
+  gulp.src('bower_components', { read: false })
+    .pipe(clean())
+);
+// Move route.js in angular-ui-utils
+gulp.task('move:route', ['move:bootstrap'], () => {
+  gulp.src('public/lib/angular-ui-utils/modules/route/**/*.*')
+    .pipe(gulp.dest('public/lib/angular-ui-utils/modules/'));
+});
+
+// Move bootstrap files
+gulp.task('move:bootstrap', ['runbower'], () => {
+  gulp.src('public/lib/bootstrap/dist/**/*.*')
+    .pipe(gulp.dest('public/lib/bootstrap/'));
+});
+
+// Bower task
+gulp.task('runbower', ['bower']);
+
 gulp.task('test', ['mochaTest']);
-gulp.task('install', ['bower']);
-gulp.task('production', ['bower', 'sass', 'angular', 'bootstrap', 'jquery', 'underscore', 'introjs', 'font-awesome', 'angularUtils', 'angular-bootstrap']);
-gulp.task('default', ['nodemon', 'watch', 'sass', 'angular', 'bootstrap', 'jquery', 'underscore', 'introjs', 'font-awesome', 'angularUtils', 'angular-bootstrap']);
+
+// Default task(s)
+gulp.task('default', ['lint', 'concurrent', 'sass']);
