@@ -41,7 +41,7 @@ const authenticate = (req, res, next) => {
 };
 
 /**
- * Signs a json web token with the supplied parameters
+ * Generates a json web token with the supplied parameters
  * @param  {String} email email address 
  * @param  {String} username username
  * @return {promise} signed token
