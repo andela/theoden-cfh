@@ -63,10 +63,23 @@ describe('POST /api/search/user', () => {
         });
     });
   });
+  describe('When a user tries to search for other users with input and no user found', () => {
+    it('should display all users in database', (done) => {
+      request
+        .get('/api/search/users?q=invalid+user')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(202);
+          res.body.status.should.equal('Success');
+          res.body.result.should.eql([]);
+          done();
+        });
+    });
+  });
   describe('When a user tries to search for other users with input', () => {
     it('should display all users in database', (done) => {
       request
-        .get('/api/search/users?q=t')
+        .get('/api/search/users?q=full')
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(202);
