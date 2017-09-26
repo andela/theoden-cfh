@@ -100,7 +100,7 @@ class Game {
     };
   }
   /**
-   * 
+   *
    * @param {string} msg 
    * @returns {*} void
    */
@@ -136,7 +136,6 @@ class Game {
    * @returns {*} void
    */
   prepareGame() {
-    console.log(this.state);
     this.state = 'game in progress';
 
     this.io.sockets.in(this.gameID).emit('prepareGame',
@@ -154,10 +153,6 @@ class Game {
         Game.getAnswers
       ],
       (err, results) => {
-        if (err) {
-          console.log(err, 'error');
-        }
-        console.log(results);
         self.questions = results[0];
         self.answers = results[1];
 
@@ -168,7 +163,6 @@ class Game {
    * @returns {*} void
    */
   startGame() {
-    console.log(this.gameID, this.state);
     Game.shuffleCards(this.questions);
     Game.shuffleCards(this.answers);
     Game.stateChoosing(this);
@@ -181,13 +175,12 @@ class Game {
     this.io.sockets.in(this.gameID).emit('gameUpdate', this.payload());
   }
   /**
-   * 
+   *
    * @param {object} self 
    * @returns {*} void
    */
   static stateChoosing(self) {
     self.state = 'waiting for players to pick';
-    // console.log(self.gameID,self.state);
     self.table = [];
     self.winningCard = -1;
     self.winningCardPlayer = -1;
@@ -218,13 +211,12 @@ class Game {
   selectFirst() {
     if (this.table.length) {
       this.winningCard = 0;
-      const winnerIndex = this._findPlayerIndexBySocket(this.table[0].player);
+      const winnerIndex = this.findPlayerIndexBySocket(this.table[0].player);
       this.winningCardPlayer = winnerIndex;
       this.players[winnerIndex].points += 1;
       this.winnerAutopicked = true;
       Game.stateResults(this);
     } else {
-      // console.log(this.gameID,'no cards were picked!');
       Game.stateChoosing(this);
     }
   }
@@ -235,7 +227,6 @@ class Game {
    */
   static stateJudging(self) {
     self.state = 'waiting for czar to decide';
-    // console.log(self.gameID,self.state);
 
     if (self.table.length <= 1) {
       // Automatically select a card if only one card was submitted
@@ -249,13 +240,12 @@ class Game {
     }
   }
   /**
-   * 
-   * @param {object} self instamnce of class
+   *
+   * @param {object} self instance of class
    * @returns {*} void
    */
   static stateResults(self) {
     self.state = 'winner has been chosen';
-    console.log(self.state);
     // TODO: do stuff
     let winner = -1;
     for (let i = 0; i < self.players.length; i += 1) {
@@ -273,7 +263,7 @@ class Game {
     }, self.timeLimits.stateResults * 1000);
   }
   /**
-   * 
+   *
    * @param {number} winner 
    * @returns {*} void
    */
@@ -290,7 +280,7 @@ class Game {
     this.sendUpdate();
   }
   /**
-   * 
+   *
    * @param {*} cb 
    * @returns {*} void
    */
@@ -300,7 +290,7 @@ class Game {
     });
   }
   /**
-   * 
+   *
    * @param {*} cb 
    * @returns {*} void
    */
@@ -310,7 +300,7 @@ class Game {
     });
   }
   /**
-   * 
+   *
    * @param {object} cards 
    * @returns {*} void
    */
@@ -329,7 +319,7 @@ class Game {
   }
 
   /**
-   * 
+   *
    * @param {number} maxAnswers 
    * @returns {*} void
    */
@@ -348,11 +338,11 @@ class Game {
     }
   }
   /**
-   * 
+   *
    * @param {object} thisPlayer instance of class
    * @returns {*} void
    */
-  _findPlayerIndexBySocket(thisPlayer) {
+  findPlayerIndexBySocket(thisPlayer) {
     let playerIndex = -1;
     _.each(this.players, (player, index) => {
       if (player.socket.id === thisPlayer) {
@@ -362,7 +352,7 @@ class Game {
     return playerIndex;
   }
   /**
-   * 
+   *
    * @param {array} thisCardArray 
    * @param {number} thisPlayer 
    * @returns {*} void
@@ -371,8 +361,7 @@ class Game {
     // Only accept cards when we expect players to pick a card
     if (this.state === 'waiting for players to pick') {
       // Find the player's position in the players array
-      const playerIndex = this._findPlayerIndexBySocket(thisPlayer);
-      console.log('player is at index', playerIndex);
+      const playerIndex = this.findPlayerIndexBySocket(thisPlayer);
       if (playerIndex !== -1) {
         // Verify that the player hasn't previously picked a card
         let previouslySubmitted = false;
@@ -391,11 +380,9 @@ class Game {
                 cardIndex = j;
               }
             }
-            console.log('card', i, 'is at index', cardIndex);
             if (cardIndex !== null) {
               tableCard.push(this.players[playerIndex].hand.splice(cardIndex, 1)[0]);
             }
-            console.log('table object at', cardIndex, ':', tableCard);
           }
           if (tableCard.length === this.curQuestion.numAnswers) {
             this.table.push({
@@ -403,7 +390,6 @@ class Game {
               player: this.players[playerIndex].socket.id
             });
           }
-          console.log('final table object', this.table);
           if (this.table.length === this.players.length - 1) {
             clearTimeout(this.choosingTimeout);
             Game.stateJudging(this);
@@ -417,24 +403,24 @@ class Game {
     }
   }
   /**
-   * 
+   *
    * @param {object} thisPlayer: instance of class
    * @returns {object} player index
    */
   getPlayer(thisPlayer) {
-    const playerIndex = this._findPlayerIndexBySocket(thisPlayer);
+    const playerIndex = this.findPlayerIndexBySocket(thisPlayer);
     if (playerIndex > -1) {
       return this.players[playerIndex];
     }
     return {};
   }
   /**
-   * 
+   *@description remove players
    * @param {object} thisPlayer: instance of class
    * @returns {*} void
    */
   removePlayer(thisPlayer) {
-    const playerIndex = this._findPlayerIndexBySocket(thisPlayer);
+    const playerIndex = this.findPlayerIndexBySocket(thisPlayer);
 
     if (playerIndex !== -1) {
       // Just used to send the remaining players a notification
@@ -480,7 +466,7 @@ class Game {
   }
 
   /**
-   * 
+   *
    * @param {number} thisCard 
    * @param {*} thisPlayer 
    * @param {*} autopicked 
@@ -488,7 +474,7 @@ class Game {
    */
   pickWinning(thisCard, thisPlayer, autopicked) {
     autopicked = autopicked || false;
-    const playerIndex = this._findPlayerIndexBySocket(thisPlayer);
+    const playerIndex = this.findPlayerIndexBySocket(thisPlayer);
     if ((playerIndex === this.czar || autopicked) && this.state === 'waiting for czar to decide') {
       let cardIndex = -1;
       _.each(this.table, (winningSet, index) => {
@@ -498,7 +484,7 @@ class Game {
       });
       if (cardIndex !== -1) {
         this.winningCard = cardIndex;
-        const winnerIndex = this._findPlayerIndexBySocket(this.table[cardIndex].player);
+        const winnerIndex = this.findPlayerIndexBySocket(this.table[cardIndex].player);
         this.sendNotification(`${this.players[winnerIndex].username} has won the round!`);
         this.winningCardPlayer = winnerIndex;
         this.players[winnerIndex].points += 1;
