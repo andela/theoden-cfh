@@ -118,9 +118,13 @@ angular.module('mean.system')
     $scope.startGame = () => {
       if (game.players.length < game.playerMinLimit) {
         const popupModal = $('#popupModal');
+        const plural = (game.playerMinLimit - game.players.length) > 1 ? 's' : '';
+        const popupText = `Not enough players, 
+        expecting ${game.playerMinLimit - game.players.length}
+        more player${plural}`;
         popupModal
           .find('.modal-body')
-          .text('You guys aint enough, you should wait though');
+          .text(popupText);
         popupModal.modal('show');
       } else {
         game.startGame();
@@ -139,6 +143,7 @@ angular.module('mean.system')
         searchModal.modal('show');
       }
     };
+
     $scope.quickSearchUsers = () => {
       const invitePlayersSearch = $scope.searchUserText;
       if (invitePlayersSearch.length >= 1) {
@@ -147,8 +152,9 @@ angular.module('mean.system')
           url: `/api/search/users?q=${invitePlayersSearch}`
         }).then((searchResponse) => {
           $scope.foundUsers = searchResponse.data.result;
-          console.log(searchResponse.data.result);
         });
+      } else {
+        $scope.foundUsers = [];
       }
     };
 
@@ -156,9 +162,6 @@ angular.module('mean.system')
       game.leaveGame();
       $location.path('/');
     };
-
-    // Catches changes to round to update when no players pick card
-    // (because game.state remains the same)
     $scope.$watch('game.round', () => {
       $scope.hasPickedCards = false;
       $scope.showTable = false;
