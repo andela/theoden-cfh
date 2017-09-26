@@ -47,7 +47,7 @@ exports.signup = function (req, res) {
 
 
 /**
- * @description Auth callback
+ * @description The user can signin and a JWT token is produced
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @return {object} returns redirect
@@ -73,7 +73,7 @@ exports.login = (req, res) => {
         }
         const password = req.body.password;
         if (bcrypt.compareSync(password, user.hashed_password)) {
-          getJWT(user._id, user.email, user.username)
+          getJWT(user.email, user.username)
             .then((token) => {
               if (token.status === 'Success') {
                 res
@@ -130,7 +130,7 @@ exports.login = (req, res) => {
 
 
 /**
- * @description Signup
+ * @description User signs up and signs in with a JWT toke stored in local Storage
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -168,7 +168,7 @@ exports.create = (req, res) => {
             return user
               .save()
               .then((user) => {
-                getJWT(user.id, user.email, user.username)
+                getJWT(user.email, user.username)
                   .then((token) => {
                     const credentials = {
                       email: user.email,
@@ -211,8 +211,6 @@ exports.create = (req, res) => {
       }
     }).catch(error =>
       res.status(422).send(error));
-
-  // if (!req.user) {   res.redirect('/#!/signup'); } else { }
 };
 
 
