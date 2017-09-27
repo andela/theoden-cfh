@@ -1,16 +1,17 @@
 /**
  * Module dependencies.
  */
-let should = require('should'),
-  app = require('../../server'),
-  mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  faker = require ('faker');
-  chai = require ('chai');
+const should = require('should');
+const app = require('../../server');
+const mongoose = require('mongoose');
+
+const User = mongoose.model('User');
+const faker = require('faker');
+const chai = require('chai');
 
 
 // Globals
-const user;
+let user;
 
 // The tests
 describe('<Unit Test>', () => {

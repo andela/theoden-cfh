@@ -17,7 +17,6 @@ angular.module('mean.system')
       };
 
       $scope.signIn = () => {
-       
         $http.post('api/auth/signin', JSON.stringify($scope.formData))
           .success((data) => {
             if (data.success === true) {
