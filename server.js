@@ -7,6 +7,7 @@ var express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
+var dotenv = require('dotenv');
 
 /**
  * Main application entry file.
@@ -15,6 +16,8 @@ var express = require('express'),
 
 //Load configurations
 //if test env, load example file
+
+dotenv.config();
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
     config = require('./config/config'),
     auth = require('./config/middlewares/authorization'),
