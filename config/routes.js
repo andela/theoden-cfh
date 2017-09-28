@@ -4,15 +4,16 @@ const index = require('../app/controllers/index');
 const avatars = require('../app/controllers/avatars');
 const users = require('../app/controllers/users');
 const search = require('../app/controllers/search');
-
 const authorization = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {
+
   // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
   app.get('/signout', users.signout);
+
 
   // Setting up the users api
   app.post('/users', users.create);
@@ -76,13 +77,13 @@ module.exports = (app, passport, auth) => {
   app.param('userId', users.user);
 
   // Answer Routes
-
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
   // Question Routes
+ 
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
   // Finish with setting up the questionId param
@@ -94,8 +95,4 @@ module.exports = (app, passport, auth) => {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
-
-  // Game routes
-  app.get('/api/search/users', search.userSearch);
-  // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
 };
