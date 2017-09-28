@@ -2,9 +2,11 @@
  * Module dependencies.
  */
 const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+
+// mongoose.Promise = global.Promise;
 const bcrypt = require('bcryptjs');
 
+mongoose.Promise = global.Promise;
 const User = mongoose.model('User');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
@@ -140,76 +142,80 @@ exports.create = (req, res) => {
   const name = req.body.name;
   const password = req.body.password;
   if (!email || !name || !password) {
-    return res.status(400).send('all fields are required');
-  }
-  validator
-    .validatorEmail(email)
-    .then((validEmail) => {
-      if (validEmail === 'Valid') {
-        return User
-          .findOne({
-            email: req.body.email
-          })
-          .then((userExists) => {
-            if (userExists && userExists.email === email) {
-              res
-                .status(409)
-                .json({
-                  success: false,
-                  message: 'This email has already been selected before'
-                });
-              // res.redirect('/#!/app');
-              return;
-            }
-            const user = new User(req.body);
-            user.avatar = avatars[user.avatar];
-            user.provider = 'local';
-            return user
-              .save()
-              .then((validuser) => {
-                getJWT(validuser.email, validuser.name)
-                  .then((token) => {
-                    const credentials = {
-                      email: validuser.email,
-                      name: validuser.name
-                    };
-                    if (token.status === 'Success') {
-                      // console.log(token, '---------------', credentials);
+    res.status(400).send('all fields are required');
+  } else {
+    validator
+      .validatorEmail(email)
+      .then((validEmail) => {
+        if (validEmail === 'Valid') {
+          User
+            .findOne({
+              email: req.body.email
+            })
+            .then((userExists) => {
+              if (userExists) {
+                res
+                  .status(409)
+                  .json({
+                    success: false,
+                    message: 'This email has already been selected before'
+                  });
+                // res.redirect('/#!/app');
+              } else {
+                const user = new User(req.body);
+                user.avatar = avatars[user.avatar];
+                user.provider = 'local';
+                user
+                  .save((error, validuser) => {
+                    if (error) {
                       res
-                        .status(201)
+                        .status(400)
                         .send({
-                          message: 'Welcome to Cards for Humanity, You are now logged in',
-                          token: token.token,
-                          credentials,
-                          success: true
+                          success: false,
+                          error: error.errors
+                        });
+                    } else {
+                      getJWT(validuser.email, validuser.name)
+                        .then((token) => {
+                          const credentials = {
+                            email: validuser.email,
+                            name: validuser.name
+                          };
+                          res
+                            .status(201)
+                            .json({
+                              success: true,
+                              status: 'Success',
+                              token: token.token,
+                              credentials
+                            });
+                          // }
+                        }).catch((err) => {
+                          res
+                            .status(500)
+                            .json({
+                              error: err,
+                              message: 'Something went wrong try again'
+                            });
                         });
                     }
-                  }).catch((err) => {
-                    res
-                      .status(500)
-                      .json({
-                        err: false,
-                        message: 'Something went wrong try again'
-                      });
                   });
-              })
-              .catch((error) => {
-                res
-                  .status(400)
-                  .send({
-                    success: false,
-                    error: error.errors
-                  });
-              });
-          })
-          .catch(error => res.status(500).send({
-            success: false,
-            error: error.errors
-          }));
-      }
-    }).catch(error =>
-      res.status(422).send(error));
-
+              }
+            })
+            .catch(error => res.status(500).send({
+              success: false,
+              error: error.errors
+            }));
+        } else {
+          res.status(422).json({
+            status: 'Unsuccessful',
+            message: 'Try again please'
+          });
+        }
+      })
+      .catch(error =>
+        res.status(422).send(error));
+  }
   // if (!req.user) {   res.redirect('/#!/signup'); } else { }
 };
 
@@ -331,7 +337,7 @@ exports.user = function (req, res, next, id) {
     })
     .exec((err, user) => {
       if (err) { return next(err); }
-      if (!user) { return next(new Error(`Failed to load User ${id}`)); }
+      if (!user) { return next(new Error(`Failed to load User ${id} `)); }
       req.profile = user;
       next();
     });

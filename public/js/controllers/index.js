@@ -12,9 +12,9 @@ angular.module('mean.system')
       $scope.showError = function () {
         if ($location.search().error) {
           return $location.search().error;
-        } else {
-          return false;
         }
+        return false;
+
       };
 
       $scope.signIn = () => {
@@ -23,8 +23,7 @@ angular.module('mean.system')
             if (data.success === true) {
               $window.localStorage.setItem('token', data.token);
               $location.path('/');
-              //$window.location.reload();
-
+              $window.location.reload();
             } else {
               $scope.showMessage = data.message;
             }
@@ -36,11 +35,11 @@ angular.module('mean.system')
       $scope.signUp = () => {
         $http.post('api/auth/signup', JSON.stringify($scope.formData))
           .success((data) => {
-            console.log(data);
             if (data.success === true) {
-              // console.log(data.token, '????????????????????');
               $window.localStorage.setItem('token', data.token);
+              // $window.localStorage.setItem('credentials', data.credentials);
               $location.path('/#!/');
+              // $window.location.reload();
             } else {
               $scope.showMessage = data.message;
             }
@@ -58,8 +57,7 @@ angular.module('mean.system')
 
       $scope.avatars = [];
       AvatarService.getAvatars()
-        .then(function (data) {
+        .then((data) => {
           $scope.avatars = data;
         });
-
     }]);
