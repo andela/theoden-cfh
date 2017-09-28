@@ -195,7 +195,7 @@ exports.create = (req, res) => {
                             .status(500)
                             .json({
                               error: err,
-                              message: 'Something went wrong try again'
+                              message: 'Something went wrong try logging in again'
                             });
                         });
                     }
