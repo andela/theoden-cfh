@@ -28,7 +28,8 @@ exports.authCallback = (req, res, next) => {
 /**
  * Show login form
  */
-exports.signin = function (req, res) {
+
+exports.signin = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signin?error=invalid');
   } else {
@@ -39,7 +40,8 @@ exports.signin = function (req, res) {
 /**
  * Show sign up form
  */
-exports.signup = function (req, res) {
+
+exports.signup = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signup');
   } else {
@@ -223,7 +225,8 @@ exports.create = (req, res) => {
 /**
  * Logout
  */
-exports.signout = function (req, res) {
+
+exports.signout = (req, res) => {
   req.logout();
   res.redirect('/');
 };
@@ -231,7 +234,8 @@ exports.signout = function (req, res) {
 /**
  * Session
  */
-exports.session = function (req, res) {
+
+exports.session = (req, res) => {
   res.redirect('/');
 };
 
@@ -240,12 +244,11 @@ exports.session = function (req, res) {
  * already has an avatar. If they don't have one, redirect them
  * to our Choose an Avatar page.
  */
-exports.checkAvatar = function (req, res) {
+
+exports.checkAvatar = (req, res) => {
   if (req.user && req.user._id) {
     User
-      .findOne({
-        _id: req.user._id
-      })
+      .findOne({_id: req.user._id})
       .exec((err, user) => {
         if (user.avatar !== undefined) {
           res.redirect('/#!/');
@@ -259,17 +262,52 @@ exports.checkAvatar = function (req, res) {
   }
 };
 
+/**
+ * Create user
+ */
+
+exports.create = (req, res) => {
+  if (req.body.name && req.body.password && req.body.email) {
+    User
+      .findOne({ email: req.body.email })
+      .exec((err, existingUser) => {
+        if (!existingUser) {
+          const user = new User(req.body);
+          // Switch the user's avatar index to an actual avatar url
+          user.avatar = avatars[user.avatar];
+          user.provider = 'local';
+          user.save((err) => {
+            if (err) {
+              return res.render('/#!/signup?error=unknown', {
+                errors: err.errors,
+                user
+              });
+            }
+            req
+              .logIn(user,  (err) => {
+                if (err) 
+                  return next(err);
+                return res.redirect('/#!/');
+              });
+          });
+        } else {
+          return res.redirect('/#!/signup?error=existinguser');
+        }
+      });
+  } else {
+    return res.redirect('/#!/signup?error=incomplete');
+  }
+};
 
 /**
  * Assign avatar to user
  */
-exports.avatars = function (req, res) {
+
+exports.avatars =  (req, res) => {
   // Update the current user's profile to include the avatar choice they've made
   if (req.user && req.user._id && req.body.avatar !== undefined && /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
     User
-      .findOne({
-        _id: req.user._id
-      })
+      .findOne({ _id: req.user._id })
       .exec((err, user) => {
         user.avatar = avatars[req.body.avatar];
         user.save();
@@ -278,15 +316,13 @@ exports.avatars = function (req, res) {
   return res.redirect('/#!/app');
 };
 
-exports.addDonation = function (req, res) {
+exports.addDonation = (req, res) => {
   if (req.body && req.user && req.user._id) {
     // Verify that the object contains crowdrise data
     if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
       User
-        .findOne({
-          _id: req.user._id
-        })
-        .exec((err, user) => {
+        .findOne({ _id: req.user._id })
+        .exec((err, user)  => {
           // Confirm that this object hasn't already been entered
           let duplicate = false;
           for (let i = 0; i < user.donations.length; i++) {
@@ -311,8 +347,9 @@ exports.addDonation = function (req, res) {
 /**
  *  Show profile
  */
-exports.show = function (req, res) {
-  const user = req.profile;
+
+exports.show = (req, res)=> {
+  let user = req.profile;
 
   res.render('users/show', {
     title: user.name,
@@ -323,21 +360,22 @@ exports.show = function (req, res) {
 /**
  * Send User
  */
-exports.me = function (req, res) {
+
+exports.me = (req, res)=> {
   res.jsonp(req.user || null);
 };
 
 /**
  * Find user by id
  */
-exports.user = function (req, res, next, id) {
+exports.user = (req, res, next, id)=> {
   User
-    .findOne({
-      _id: id
-    })
+    .findOne({_id: id})
     .exec((err, user) => {
-      if (err) { return next(err); }
-      if (!user) { return next(new Error(`Failed to load User ${id}`)); }
+      if (err) 
+        return next(err);
+      if (!user) 
+        return next(new Error('Failed to load User ' + id));
       req.profile = user;
       next();
     });

@@ -1,67 +1,46 @@
-angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
-    function ($scope, Global, $location, $http, $window, socket, game, AvatarService) {
+angular
+  .module('mean.system')
+  .controller('IndexController', [
+    '$scope',
+    'Global',
+    '$location',
+    'socket',
+    'game',
+    'AvatarService',
+    '$http',
+    ($scope, Global, $location, socket, game, AvatarService, $http) => {
       $scope.global = Global;
-      $scope.formData = {};
-
-      $scope.playAsGuest = function () {
+      $scope.playAsGuest = () => {
         game.joinGame();
         $location.path('/app');
       };
 
-      $scope.showError = function () {
+      $scope.showError = () => {
         if ($location.search().error) {
-          return $location.search().error;
+          return $location
+            .search()
+            .error;
+        } else {
+          return false;
         }
-        return false;
-
-
       };
-
-
-      $scope.signIn = () => {
-        $http.post('api/auth/signin', JSON.stringify($scope.formData))
-          .success((data) => {
-            if (data.success === true) {
-              $window.localStorage.setItem('token', data.token);
-              $location.path('/');
-              $window.location.reload();
-            } else {
-              $scope.showMessage = data.message;
-            }
-          }).error(() => {
-            $scope.showMessage = 'Wrong email or password';
-          });
-      };
-
-
-      $scope.signUp = () => {
-        $http.post('api/auth/signup', JSON.stringify($scope.formData))
-          .success((data) => {
-            if (data.success === true) {
-              $window.localStorage.setItem('token', data.token);
-              // $window.localStorage.setItem('credentials', data.credentials);
-              $location.path('/#!/');
-              // $window.location.reload();
-            } else {
-              $scope.showMessage = data.message;
-            }
-          }).error((error) => {
-            $scope.showMessage = `${error.message}`;
-          });
-      };
-
-
-      $scope.signout = () => {
-        $window.localStorage.removeItem('token');
-        $location.path('/');
-        $window.location.reload();
-      };
-
 
       $scope.avatars = [];
-      AvatarService.getAvatars()
+      AvatarService
+        .getAvatars()
         .then((data) => {
           $scope.avatars = data;
         });
-    }]);
+      $scope.enterGame = () => {
+        console.log('here');
+        $http({ method: 'GET', url: '/play' }).then(() => {
+          $location.path('/app');
+        });
+      };
+      $scope.playGame = () => {
+        const gameModal = $('#modal1');
+        gameModal
+          .modal('show');
+      };
+    }
+  ]);
