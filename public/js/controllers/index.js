@@ -1,6 +1,8 @@
 angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$cookieStore', '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
-    function ($scope, Global, $cookieStore, $cookies, $location, $http, $window, socket, game, AvatarService) {
+  .controller('IndexController', ['$scope', 'Global', '$cookieStore',
+    '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
+    function ($scope, Global, $cookieStore, $cookies, $location, $http,
+      $window, socket, game, AvatarService) {
       $scope.global = Global;
       $scope.formData = {};
 

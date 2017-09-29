@@ -46,7 +46,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
     window.userDonationCb = function (donationObject) {
       DonationService.userDonated(donationObject);
     };
-  }]);
+  }]).run(function ($http, $window) {
+    $http.defaults.headers.common.Authorization = $window.localStorage.token;
+  });
 
 angular.module('mean.system', []);
 angular.module('mean.directives', []);
