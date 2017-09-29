@@ -39,7 +39,6 @@ angular
       };
       $scope.playGame = () => {
         const gameModal = $('#modal1');
-        // // gameModal // find('.modal-b') // .text('Something');
         gameModal
           .modal('show');
       };

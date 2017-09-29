@@ -113,14 +113,7 @@ angular.module('mean.system')
       }
     };
 
-<<<<<<< HEAD
-    $scope.winnerPicked = () =>
-      game.winningCard !== -1;
-
-
-=======
     $scope.winnerPicked = () => game.winningCard !== -1;
->>>>>>> becd35b... feat(start game): Users should be able to create/start a new game
     $scope.startGame = () => {
       if (game.players.length < game.playerMinLimit) {
         const popupModal = $('#popupModal');
