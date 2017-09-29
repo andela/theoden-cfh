@@ -140,13 +140,13 @@ exports.login = (req, res) => {
 
 
 /**
- * 
- * @param {*} req 
- * @param {*} res 
+* @description The user can get Token for the Users logging on through social platforms
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
 exports.getToken = (req, res) => {
   const cookie = getToken(req);
-  console.log(cookie, '?????????????');
   res.json({
     success: true,
     cookie
@@ -155,7 +155,7 @@ exports.getToken = (req, res) => {
 
 
 /**
- * @description Signup
+ * @description Creat function that signs users up
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -213,7 +213,6 @@ exports.create = (req, res) => {
                               token: token.token,
                               credentials
                             });
-                          // }
                         }).catch((err) => {
                           res
                             .status(500)
@@ -271,11 +270,11 @@ exports.checkAvatar = function (req, res) {
       })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
-          //console.log(user,' Avatar  defined')
+          // console.log(user,' Avatar  defined')
           res.redirect('/#!/app');
         } else {
           res.redirect('/#!/choose-avatar');
-          //console.log(user,' Avatar  not defined')
+          // console.log(user,' Avatar  not defined')
         }
       });
   } else {
