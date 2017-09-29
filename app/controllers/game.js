@@ -32,6 +32,7 @@ exports.startGame = (req, res) => {
     if (error) {
       return error;
     }
+    console.log(res.json(game));
     res.json(game);
   });
 };

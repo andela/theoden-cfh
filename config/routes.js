@@ -5,6 +5,7 @@ const questions = require('../app/controllers/questions');
 const avatars = require('../app/controllers/avatars');
 const index = require('../app/controllers/index');
 const game = require('../app/controllers/game');
+const auth = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {
   // User Routes
@@ -78,5 +79,5 @@ module.exports = (app, passport, auth) => {
   app.get('/', index.render);
 
   // Game Route
-  app.post('/api/games/:id/start', users.ensureToken, game.startGame);
+  app.post('/api/games/:id/start', auth.requiresLogin, game.startGame);
 };
