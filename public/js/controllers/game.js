@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', '$dialog', ($scope, game, $timeout, $location, MakeAWishFactsService, $http, $dialog) => {
+.controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', '$http', ($scope, game, $timeout, $location, MakeAWishFactsService, $dialog, $http) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -10,7 +10,6 @@ angular.module('mean.system')
     $scope.pickedCards = [];
     let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
     $scope.makeAWishFact = makeAWishFacts.pop();
-
     $scope.pickCard = (card) => {
       if (!$scope.hasPickedCards) {
         if ($scope.pickedCards.indexOf(card.id) < 0) {
@@ -33,11 +32,13 @@ angular.module('mean.system')
     $scope.pointerCursorStyle = () => {
       if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
         return { cursor: 'pointer' };
+      } else {
+        return {};
       }
       return {};
     };
 
-    $scope.sendPickedCards = () => {
+    $scope.sendPickedCards = ()=> {
       game.pickCards($scope.pickedCards);
       $scope.showTable = true;
     };
@@ -49,7 +50,7 @@ angular.module('mean.system')
       return false;
     };
 
-    $scope.cardIsSecondSelected = (card) => {
+    $scope.cardIsSecondSelected =(card)=> {
       if (game.curQuestion.numAnswers > 1) {
         return card === $scope.pickedCards[1];
       }
@@ -57,45 +58,46 @@ angular.module('mean.system')
     };
 
     $scope.firstAnswer = ($index) => {
-      if ($index % 2 === 0 && game.curQuestion.numAnswers > 1) {
+      if($index % 2 === 0 && game.curQuestion.numAnswers > 1){
         return true;
       }
       return false;
     };
 
-    $scope.secondAnswer = ($index) => {
-      if ($index % 2 === 1 && game.curQuestion.numAnswers > 1) {
+    $scope.secondAnswer = ($index)=> {
+      if($index % 2 === 1 && game.curQuestion.numAnswers > 1){
         return true;
       }
       return false;
     };
 
-    $scope.showFirst = card =>
-      game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
+    $scope.showFirst = (card) => {
+      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
+    };
 
+    $scope.showSecond = (card) => {
+      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
+    };
 
-    $scope.showSecond = card =>
-      game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
+    $scope.isCzar = () => {
+      return game.czar === game.playerIndex;
+    };
 
+    $scope.isPlayer = ($index) => {
+      return $index === game.playerIndex;
+    };
 
-    $scope.isCzar = () =>
-      game.czar === game.playerIndex;
+    $scope.isCustomGame = () => {
+      return !(/^\d+$/).test(game.gameID) && game.state === 'awaiting players';
+    };
 
-    $scope.isPlayer = $index =>
-      $index === game.playerIndex;
+    $scope.isPremium = ($index)=> {
+      return game.players[$index].premium;
+    };
 
-
-    $scope.isCustomGame = () =>
-      !(/^\d+$/).test(game.gameID) && game.state === 'awaiting players';
-
-
-    $scope.isPremium = $index =>
-      game.players[$index].premium;
-
-
-    $scope.currentCzar = $index =>
-      $index === game.czar;
-
+    $scope.currentCzar = ($index) => {
+      return $index === game.czar;
+    };
 
     $scope.winningColor = ($index) => {
       if (game.winningCardPlayer !== -1 && $index === game.winningCard) {
@@ -104,7 +106,7 @@ angular.module('mean.system')
       return '#f9f9f9';
     };
 
-    $scope.pickWinning = (winningSet) => {
+    $scope.pickWinning = (winningSet)=> {
       if ($scope.isCzar()) {
         game.pickWinning(winningSet.card[0]);
         $scope.winningCardPicked = true;
@@ -162,6 +164,9 @@ angular.module('mean.system')
       game.leaveGame();
       $location.path('/');
     };
+
+    // Catches changes to round to update when no players pick card
+    // (because game.state remains the same)
     $scope.$watch('game.round', () => {
       $scope.hasPickedCards = false;
       $scope.showTable = false;
@@ -178,6 +183,33 @@ angular.module('mean.system')
       if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
         $scope.showTable = true;
       }
+      if ($scope.isCzar() && game.state === 'czar pick card' && game.table.length === 0) {
+        $('#czarModal').modal({
+          dismissible: false
+        });
+        $('#czarModal').modal('open');
+      }
+      if (game.state === 'game dissolved') {
+        $('#czarModal').modal('close');
+      }
+      if ($scope.isCzar() === false && game.state === 'czar pick card'
+           && game.state !== 'game dissolved'
+           && game.state !== 'awaiting players' && game.table.length === 0) {
+        $scope.czarHasDrawn = 'Wait! Czar is drawing Card';
+      }
+      if (game.state !== 'czar pick card'
+          && game.state !== 'awaiting players'
+           && game.state !== 'game dissolve') {
+        $scope.czarHasDrawn = '';
+      }
+      if ($scope.game.state === 'game dissolved' || $scope.game.state === 'game ended') {
+        const gameData = { gameId: $scope.game.gameID,
+          gameOwner: $scope.game.players[0].username,
+          gameWinner: $scope.game.players[game.gameWinner].username,
+          gamePlayers: $scope.game.players
+        };
+        $http.post(`/api/games/${game.gameID}/start`, gameData);
+      }
     });
 
     $scope.$watch('game.gameID', () => {
@@ -190,7 +222,7 @@ angular.module('mean.system')
           // Once the game ID is set, update the URL if this is a game with friends,
           // where the link is meant to be shared.
           $location.search({ game: game.gameID });
-          if (!$scope.modalShown) {
+          if(!$scope.modalShown) {
             setTimeout(() => {
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
