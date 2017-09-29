@@ -1,6 +1,6 @@
 angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
-    function ($scope, Global, $location, $http, $window, socket, game, AvatarService) {
+  .controller('IndexController', ['$scope', 'Global', '$cookieStore', '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
+    function ($scope, Global, $cookieStore, $cookies, $location, $http, $window, socket, game, AvatarService) {
       $scope.global = Global;
       $scope.formData = {};
 
@@ -14,7 +14,20 @@ angular.module('mean.system')
           return $location.search().error;
         }
         return false;
+      };
 
+      $scope.setToken = () => {
+        $http.get('/users/token')
+          .success((data) => {
+            if (data.cookie) {
+              $window.localStorage.setItem('token', data.cookie);
+            } else {
+              $scope.showMessage = data.message;
+            }
+          })
+          .error(() => {
+            $scope.showMessage = 'User failed social authentication';
+          });
       };
 
       $scope.signIn = () => {
@@ -37,9 +50,7 @@ angular.module('mean.system')
           .success((data) => {
             if (data.success === true) {
               $window.localStorage.setItem('token', data.token);
-              // $window.localStorage.setItem('credentials', data.credentials);
               $location.path('/#!/');
-              // $window.location.reload();
             } else {
               $scope.showMessage = data.message;
             }
@@ -51,6 +62,9 @@ angular.module('mean.system')
 
       $scope.signout = () => {
         $window.localStorage.removeItem('token');
+        angular.forEach($cookies, (v, k) => {
+          $cookieStore.remove(k);
+        });
         $location.path('/');
         $window.location.reload();
       };
