@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 $main-font: "helvetica neue", helvetica, sans-serif;
 
 $mq-mobile-portrait : 320px !default;
@@ -291,7 +293,7 @@ background-image: linear-gradient(to bottom right, #0B394E 0%, #ABCE8D 100%);
     cursor: pointer;
 }
 
-.card {
+.card1 {
     position: relative;
 
     display: inline-block;
@@ -386,39 +388,39 @@ html, body, .main-container, .cont, #first-section, #inner-container{
     height: 100%;
 }
 
-html{
-    // margin: 20px;
-    // margin-top: 5px;
-    // background: url(/img/minimal-wallpaper.jpg) no-repeat center center fixed;
-    // -webkit-background-size: cover;
-    // -moz-background-size: cover;
-    // -o-background-size: cover;
-    // background-size: cover;
-    @include gradient-bg;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    position: relative;
+html21 {
+  margin: 20px;
+  margin-top: 5px;
+  background: url(/img/minimal-wallpaper.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  @include gradient-bg;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  position: relative;
 
-    @include mobile-only{
-        //margin: 3px;
-        margin-top: 0px;
+  @include mobile-only {
+    margin: 3px;
+    margin-top: 0px;
     }
 }
-body{
+body2{
     font-family: $main-font;
     background: transparent;
     margin: 10px;
 
-    @include tablet-portrait-only{
+    @include tablet-portrait-only {
         margin: 5px;
     }
 
-    @include mobile-only{
+    @include mobile-only {
         margin: 1px;
     }
 }
 
-.navbar .nav>li>a.brand {
+.navbar2 .nav>li>a.brand {
     padding-left:20px;
     margin-left:0
 }
@@ -429,7 +431,7 @@ body{
 }
 
 
-#main-container{
+#main-container {
     height: 100%;
     #app-container {
         height: 100%;
@@ -437,7 +439,7 @@ body{
         margin: 0px auto;
         position: relative;
 
-        #menu-container{
+        #menu-container {
             width: 100%;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
@@ -447,37 +449,36 @@ body{
             margin-top: 5px;
             padding: 5px;
 
-            @include mobile-only{
+            @include mobile-only {
                 margin-bottom: 1px;
                 margin-top: 0px;
             }
 
-            #logo{
+            #logo {
                 display: inline-block;
                 margin-left: 10px;
                 font-size: 28px;
                 font-family: 'Lobster', cursive;
 
-                @include mobile-only{
+                @include mobile-only {
                     font-size: 20px;
                 }
 
-                #first-word{
+                #first-word {
                     color: #7CE4E8;
                 }
 
-                #second-word{
+                #second-word {
                     color: #FFFFA5;
                 }
 
-                #third-word{
+                #third-word {
                     color: #FC575E;
                 }
             }
 
-            #abandon-game-button{
+            #abandon-game-button {
                 display: inline-block;
-                float:right;
                 border-radius: 8px;
                 -moz-border-radius: 8px;
                 -webkit-border-radius: 8px;
@@ -494,7 +495,7 @@ body{
                 width: 140px;
                 cursor: pointer;
 
-                @include mobile-only{
+                @include mobile-only {
                     font-size: 0.7rem;
                     margin-top: 5px;
                     margin-right: 1px;
@@ -503,11 +504,11 @@ body{
                 }
             }
 
-            #abandon-game-button:hover{
+            #abandon-game-button:hover {
                background:#F34444;
             }
 
-            #tweet-container{
+            #tweet-container {
                 float: right;
                 padding-top: 10px;
                 width: 77px;
@@ -537,14 +538,14 @@ body{
             }
         }
 
-        #social-bar-container{
+        #social-bar-container {
             width: 20%;
             height: 63%;
             position: absolute;
             right: 0;
             top: 60px;
 
-            @include mobile-only{
+            @include mobile-only {
                 top: auto;
                 width: 100%;
                 height: 50px;
@@ -554,7 +555,7 @@ body{
                 // background: white;
             }
 
-            #player-container{
+            #player-container {
                 height: 13.166667%;
                 position: relative;
                 padding-top: 4%;
@@ -564,7 +565,7 @@ body{
                 margin: 0 0 6% 8%;
                 @include br;
 
-                @include mobile-only{
+                @include mobile-only {
                     min-height: 0;
                     display: inline-block;
                     margin: 0px .5%;
@@ -574,11 +575,11 @@ body{
                     padding-bottom: 0;
                 }
 
-                #above-czar-container{
+                #above-czar-container {
                     height: 65%;
                     width: 100%;
 
-                    @include mobile-only{
+                    @include mobile-only {
                         height: 100%;
                     }
 
@@ -623,7 +624,7 @@ body{
                                 margin-left: 3px;
                             }
 
-                            @include mobile-only{
+                            @include mobile-only {
                                 height: 69%;
                                 width: 100%;
                                 min-height: 0;
@@ -632,7 +633,7 @@ body{
                             }
                         }
                     }
-                    #player-container-inner{
+                    #player-container-inner {
                         float: left;
                         position: relative;
                         bottom: 8px;
@@ -640,30 +641,30 @@ body{
                         max-width: 62%;
                         overflow: hidden;
 
-                        @include tablet-portrait-only{
+                        @include tablet-portrait-only {
                             left: 3px;
                         }
 
-                        @include mobile-only{
+                        @include mobile-only {
                             bottom: 0;
                             left: 0;
                             height: 100%;
                             width: 60%;
                         }
 
-                        #player-name{
+                        #player-name {
 
-                            h4{
+                            h4 {
                                 font-family: 'Lobster', cursive;
                                 margin-bottom: 0px;
                             }
-                            h4{
+                            h4 {
 
-                                @include tablet-portrait-only{
+                                @include tablet-portrait-only {
                                     font-size: 14px;
                                 }
 
-                                @include mobile-only{
+                                @include mobile-only {
                                     font-family: 'Lobster', cursive;
                                     font-size: 10px;
                                     margin-top: 3px;
@@ -672,37 +673,37 @@ body{
                             }
                         }
 
-                        #player-score{
+                        #player-score {
                             float: left;
 
-                            h2{
+                            h2 {
 
                                 font-size: 26px;
                                 margin-top: 0;
                                 margin-bottom: 0;
 
-                                @include tablet-portrait-only{
+                                @include tablet-portrait-only {
                                     font-size: 21px;
                                 }
 
-                                @include mobile-only{
+                                @include mobile-only {
                                     font-size: 17px;
                                     line-height: 40%;
                                 }
                             }
                         }
 
-                        #player-star{
+                        #player-star {
                         float: left;
                         margin-top: 3px;
                         margin-left: 10px;
 
-                        @include tablet-portrait-only{
+                        @include tablet-portrait-only {
                             margin-top: 1px;
                             margin-left: 5px;
                         }
 
-                        @include mobile-only{
+                        @include mobile-only {
                             display: none;
                         }
 
@@ -726,16 +727,16 @@ body{
                     background: black;
                     opacity:0.4;
 
-                    @include mobile-only{
+                    @include mobile-only {
                         overflow: auto;
                     }
 
-                    #the-czar{
+                    #the-czar {
                         color: #fff;
                         font-weight: bold;
                         font-size: 20px;
 
-                        @include mobile-only{
+                        @include mobile-only {
                             display: none;
                         }
                     }
@@ -743,11 +744,11 @@ body{
             }
         }
 
-        #gameplay-container{
+        #gameplay-container {
             height: 100%;
             width: 80%;
 
-            @include mobile-only{
+            @include mobile-only {
                 width: 100%;
                 height: 91%;
             }
@@ -758,34 +759,34 @@ body{
                 min-height: 220px;
                 max-height: 220px;
 
-                @include mobile-only{
+                @include mobile-only {
                     min-height: 140px;
                     max-height: 140px;
 
                 }
 
-                @include tablet-portrait-only{
+                @include tablet-portrait-only {
                     height: 16%;
                     min-height: 180px;
                     max-height: 180px;
                 }
 
-                #menu-timeremaining-container{
+                #menu-timeremaining-container {
                     float: left;
                     width: 19%;
                     height: 100%;
                     margin-right: 2%;
 
-                    @include tablet-portrait-only{
+                    @include tablet-portrait-only {
                         width: 21%;
                     }
 
-                    @include mobile-only{
+                    @include mobile-only {
                         width: 27%;
                         margin-right: 1%;
                     }
 
-                    #menu-container{
+                    #menu-container {
                         display: none;
                         @include soft-button;
                         height: 20%;
@@ -793,7 +794,7 @@ body{
                         line-height: 20%;
                         @include br;
 
-                        #menu-button{
+                        #menu-button {
                             position: absolute;
                             top: 50%;
                             left: 0;
@@ -804,7 +805,7 @@ body{
                     #timer-container {
                         height: 100%;
 
-                        #inner-timer-container{
+                        #inner-timer-container {
                             text-align: center;
                             @include soft-button;
                             background: #FFF;
@@ -816,7 +817,7 @@ body{
                             height: 100%;
                             color: #000;
 
-                            #timer-status-round, #timer-status-czar-choosing{
+                            #timer-status-round, #timer-status-czar-choosing {
                                 position: absolute;
                                 left: 0;
                                 right: 0;
@@ -824,16 +825,16 @@ body{
                                 padding-bottom: 8px;
                                 bottom: 0;
 
-                                @include tablet-landscape-and-below{
+                                @include tablet-landscape-and-below {
                                     font-size: 13px;
                                 }
 
-                                @include mobile-only{
+                                @include mobile-only {
                                     font-size: 12px;
                                 }
                             }
 
-                            #time{
+                            #time {
                                 font-family: 'Lobster', cursive;
                                 font-size: 110px;
                                 position: absolute;
@@ -841,7 +842,7 @@ body{
                                 left: 0;
                                 right: 0;
 
-                                @include tablet-landscape-and-below{
+                                @include tablet-landscape-and-below {
                                     font-size: 90px;
                                 }
 
@@ -858,18 +859,18 @@ body{
                     float: left;
                     width: 79%;
 
-                    @include tablet-portrait-only{
+                    @include tablet-portrait-only {
                         width: 77%;
                         float: right;
                     }
 
-                    @include mobile-only{
+                    @include mobile-only {
                         float: left;
                         width: 71%;
                         margin-left: 1%;
                     }
 
-                    #question-container-inner{
+                    #question-container-inner {
                         width: 100%;
                         height: 100%;
                         .card{
@@ -884,7 +885,7 @@ body{
                                 padding: 10px;
                             }
 
-                            #startGame{
+                            #startGame {
                                 width: 100%;
                                 overflow: hidden;
                                 height: 100%;
@@ -896,27 +897,27 @@ body{
                                     text-align: center;
                                     margin-top: 15px;
 
-                                    @include mobile-only{
+                                    @include mobile-only {
                                         font-size: 21px;
                                         margin-top: 0;
                                     }
                                 }
 
-                                #player-count-container, #loading-container, #start-game-container{
+                                #player-count-container, #loading-container, #start-game-container {
                                     width: 33.333%;
                                     float: left;
                                     text-align: center;
                                 }
 
-                                #player-count-container{
+                                #player-count-container {
                                     #player-count{
                                         font-size: 33px;
 
-                                        @include mobile-only{
+                                        @include mobile-only {
                                             font-size: 21px;
                                         }
                                     }
-                                    #the-word-players{
+                                    #the-word-players {
                                         font-size: 17px;
                                     }
                                 }
@@ -924,15 +925,15 @@ body{
                                 #loading-gif{
                                     margin: 20px;
 
-                                    @include mobile-only{
+                                    @include mobile-only {
                                         margin-top: 5px;
                                     }
                                 }
 
-                                #start-game-container{
+                                #start-game-container {
                                     color: #333;
 
-                                    #start-game-button{
+                                    #start-game-button {
                                         border-radius: 8px;
                                         -moz-border-radius: 5px;
                                         -webkit-border-radius: 5px;
@@ -946,18 +947,18 @@ body{
                                         width: 65%;
                                         cursor: pointer;
 
-                                        @include tablet-portrait-only{
+                                        @include tablet-portrait-only {
                                             padding: 0.65em 2px;
                                             font-size: 1.1rem;
                                         }
 
-                                        @include mobile-only{
+                                        @include mobile-only {
                                             padding: 0.65em 1px;
                                             font-size: 1rem;
                                         }
                                     }
 
-                                    #start-game-button:hover{
+                                    #start-game-button:hover {
                                        background:#41C2CA;
                                     }
                                 }
@@ -1311,9 +1312,7 @@ body{
     }
 }
 
-
-
-.gradientButton{
+.gradientButton {
     width: 80% !important;
     margin-top: 8px !important;
     background: rgb(244,120,31) !important;
@@ -1324,6 +1323,9 @@ body{
     .donateNow{
         border-top: 0px solid black !important;
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> feature(update): Modify signin and signup UI screens to material design
 }
-
-
+>>>>>>> 70a320a... feat(redesign): design effective landing page

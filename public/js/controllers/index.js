@@ -14,7 +14,10 @@ angular.module('mean.system')
           return $location.search().error;
         }
         return false;
+
+
       };
+
 
       $scope.signIn = () => {
         $http.post('api/auth/signin', JSON.stringify($scope.formData))
@@ -31,6 +34,7 @@ angular.module('mean.system')
           });
       };
 
+
       $scope.signUp = () => {
         $http.post('api/auth/signup', JSON.stringify($scope.formData))
           .success((data) => {
@@ -38,7 +42,7 @@ angular.module('mean.system')
               $window.localStorage.setItem('token', data.token);
               // $window.localStorage.setItem('credentials', data.credentials);
               $location.path('/#!/');
-              $window.location.reload();
+              // $window.location.reload();
             } else {
               $scope.showMessage = data.message;
             }
@@ -46,12 +50,14 @@ angular.module('mean.system')
             $scope.showMessage = `${error.message}`;
           });
       };
+
+
       $scope.signout = () => {
-        console.log('this is executing');
         $window.localStorage.removeItem('token');
         $location.path('/');
         $window.location.reload();
       };
+
 
       $scope.avatars = [];
       AvatarService.getAvatars()

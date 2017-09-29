@@ -1,3 +1,7 @@
+
+/**
+ * Module dependencies.
+ */
 const express = require('express');
 const mongoStore = require('connect-mongo')(express);
 const flash = require('connect-flash');
@@ -61,6 +65,7 @@ module.exports = function (app, passport, mongoose) {
     app.use(passport.session());
 
     app.use('/api', auth);
+
 
     // routes should be at the last
     app.use(app.router);

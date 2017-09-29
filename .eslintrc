@@ -2,10 +2,15 @@
   "root": true,
   "extends": "airbnb-base",
   "env": {
+    "browser": "true",
     "node": true,
+    "jquery": true,
     "es6": true,
     "mocha": true
   },
+  "plugins": [
+    "jquery"
+  ],
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,

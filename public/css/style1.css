@@ -1,0 +1,243 @@
+body, html {
+  height:100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: "Roboto", sans-serif !important;
+}
+
+c{
+  color: #2B5F7A;
+}
+f{
+  color: white;
+}
+h{
+  color: #C09c3d;
+}
+
+.parallax-container {
+  height: 100%;
+  width: 100% !important;
+}
+.bright-overlay{
+  /* background: #ef6c00; */
+  /* background: rgba(21,38,40, 0.8); */
+  overflow: auto;
+  height: 100%;
+  z-index: 2;
+  opacity: 1;
+}
+
+.logo{
+  margin-left: 5%;
+  margin-top: 3% !important;
+}
+
+nav{
+  background:none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.logo h3{
+  font-family: Work Sans;
+}
+
+.intro{
+  margin-left: 5%;
+  margin-top: 8% !important;
+}
+
+.brand-logo {
+  word-spacing: -1px;
+  letter-spacing: -1px;
+}
+
+.intro h4{
+  color: white;
+  margin: 0.5px;
+}
+.intro h1{
+  font-family: Work Sans;
+  color: white;
+  margin: 2px;
+}
+
+.home{
+  margin-left: 5%;
+  margin-top: 3% !important;
+}
+.home-button1{
+  background-color: #C05A3D;
+  color: white;
+  border: 2px solid #C05A3D;
+}
+.home-button2{
+  background-color: white;
+  color: #2B5F7A;
+  border: 2px solid #2B5F7A;
+}
+.how h3{
+  color: #2B5F7A;
+  font-family: Work Sans;
+}
+.carousel{
+height: 800px !important;
+margin-top: -250px !important;
+margin-left: -68px !important;
+}
+.carousel-item img{
+  height: 500px;
+  width: 350px !important;
+}
+.how-to{
+  margin-top: 3% !important;
+}
+.about h3{
+  color: #C05A3D;
+  font-family: Work Sans;
+  margin-top: 7% !important;
+}
+.about-text{
+  margin-top: 6% !important;
+  color: white;
+}
+.about-btn{
+  margin-top: 7% !important;
+}
+.about p{
+ color: white;
+}
+.about {
+  background: rgba(0,0,0, 1);
+  overflow: hidden;
+  height: 100%;
+  z-index: 2;
+  /* opacity: 0.8; */
+}
+
+w{
+  color:red;
+}
+.btn-flat{
+  padding:10.4px 30px;
+  line-height:26.4px;
+  height:auto;
+}
+
+.charity h3{
+  color: #2B5F7A;
+  font-family: Work Sans;
+  margin-top: 5% !important;
+}
+.charity h5{
+  margin-top: 3% !important;
+}
+.charity-desc img{
+  margin-top: 20% !important;
+}
+
+.charity-desc h5{
+ text-align: left;
+ line-height: 30px;
+}
+
+/***************************************************
+ Cfh default colors
+****************************************************/
+
+c, f, h{
+  margin-right: -7px;
+}
+
+.cfh-blue {
+  background-color: #2B5F7A !important;
+}
+
+.cfh-blue-text {
+  color: #2B5F7A !important;
+}
+
+.cfh-orange{
+  background-color: #C05A3D !important;
+}
+
+.cfh-orange-text{
+  color: #C05A3D !important;
+}
+
+.cfh-gold{
+  background-color: #C09c3d !important;
+}
+
+.cfh-gold-text {
+  color: #C09c3d !important;
+}
+
+.cfh-red {
+  background-color: #ff1744;
+}
+
+.cfh-red-text {
+  color: #ff1744;
+}
+
+.cfh-deep-blue {
+  background-color: #002;
+}
+
+.cfh-deep-blue-text {
+  color: #002 !important;
+}
+
+.cfh-light-green {
+  background-color: #ff1744;
+}
+
+.cfh-light-green-text {
+  color: #ff1744;
+}
+
+.login-form {
+  margin-top: 70px !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .login-form {
+    margin-top: 5px !important;
+  }
+
+  nav .brand-logo {
+    font-size: 1.5rem !important;
+  }
+}
+
+.side-nav{
+  background-color: #002 !important;
+}
+
+.side-nav li a{
+color: white;
+}
+
+/***** Form Customization  *******/
+/* label color */
+   /* label focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #002 !important;
+  box-shadow: 0 1px 0 0 #002 !important;
+  color: #002;
+  font-size: 14px;
+}
+
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field input[type=password]:focus + label {
+color: #002 !important;
+}
+
+.icon-image img {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  width: 30px !important;
+  height: 30px !important;
+}
