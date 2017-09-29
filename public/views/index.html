@@ -99,9 +99,9 @@
               </a>
           </span>
         </span>
-        <span ng-hide="showOptions">
-          <a href="/play"><div id="sign-up-btn-landing">Play Game with Strangers</div></a>
-          <a href="/play?custom"><div id="sign-up-btn-landing">Play Game with Friends</div></a>
+        <span ng-controller = "IndexController" ng-hide="showOptions">
+          <a ng-click="playGame()"><div id="sign-up-btn-landing">Play Game with Strangers</div></a>
+          <a ng-click="playGame()"><div id="sign-up-btn-landing">Play Game with Friends</div></a>
               <span id='twitter-facebook'>
                 <span id="tweet-container-index">
                   <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
@@ -257,4 +257,22 @@
   </div>
 </section>
 <!-- Footer End -->
+</div>
+
+
+<div class="modal fade text-dark" id="modal1" ng-controller = "IndexController">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title text-center" id="modalTitle">Cards For Humanity</h2>
+      </div>
+      <div class="modal-body">
+        <h3 class='text-center'>Are you sure you want to start</h3>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary center" ng-click="enterGame()">Start Game</button>
+        <button class="btn btn-secondary center " data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -6,6 +6,11 @@
    text-transform: uppercase;
  }
 
+ .modal{
+   z-index: 300px !important;
+   margin-top: 150px;
+ }
+
  #landing-charity {
    width: 300px !important;
    margin-left: 15px !important;

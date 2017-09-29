@@ -53,6 +53,7 @@
     "sinon": "~1.7.3",
     "socket.io": "~0.9.16",
     "socket.io-client": "~0.9.16",
+    "sweetalert2": "^6.9.1",
     "underscore": "~1.5.2",
     "validator": "^8.2.0",
     "view-helpers": "~0.1.3"

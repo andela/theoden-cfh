@@ -371,7 +371,7 @@ exports.me = (req, res)=> {
 exports.user = (req, res, next, id)=> {
   User
     .findOne({_id: id})
-    .exec((err, user) {
+    .exec((err, user) => {
       if (err) 
         return next(err);
       if (!user) 
