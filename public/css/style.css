@@ -188,7 +188,7 @@
    color: #FC575E;
 }
 
- .wpb-top-bar {
+.wpb-top-bar {
    height: 60px;
    background: transparent;
    position: fixed;
@@ -196,15 +196,15 @@
    width: 100%;
    z-index:10000;
    max-width: 1400px;
- }
+}
 
- .wpb-logo-container {
+.wpb-logo-container {
    color: #fff;
    font-weight: bold;
    font-size: 11px;
    max-width: 100%;
    margin-right: 9px;
- }
+}
 
  .wpb-logo-container a {
    color: #ffffff !important;
@@ -213,7 +213,6 @@
 
  .wpb-menu-container {
    float: right;
-
  }
 
  .wpb-menu-container .wpb-dropdown-menu {
@@ -237,7 +236,7 @@
    height: 100%;
    position: relative;
    cursor: pointer;
- } 
+ }
 
   .wpb-menu-container .wpb-main-menu li a:hover {
    color: #2ECC71 !important;
@@ -263,9 +262,7 @@
    text-transform: uppercase;
    position: relative;
    z-index:1000;
- } 
-
-
+ }
 
 
  /**** LANDING ****/
@@ -326,7 +323,7 @@
    text-transform: uppercase;
    line-height: 60px;
    text-align: center;
- } 
+ }
 
  #slogan {
    text-align: center;
@@ -346,7 +343,7 @@
 
 #navver {
    height: 60px;
-} 
+}
 
 
  /**** Section Title ****/
@@ -370,7 +367,7 @@
    padding-left: 5px;
    line-height: 100px;
    display: inline-block;
-   vertical-align: top; 
+   vertical-align: top;
  }
 
  #create {
@@ -431,7 +428,7 @@
    max-width: 84% !important;
    width: 84%;
    margin: 0 8%;
- } 
+ }
 
   #gitcat {
    max-width: 50px !important;
@@ -523,7 +520,7 @@
 
  #contain-avatars {
    margin-top: 25px;
- } 
+ }
 
   .avatar-list {
    overflow: hidden;
@@ -540,7 +537,7 @@
    float: left;
    margin: 2px 5px;
    border-radius: 8px;
- } */
+ }
 
  /**** Portfolio ****/
  .wpb-portfolio-list .wpb-portfolio-item {
@@ -565,7 +562,7 @@
    height: 170px;
    overflow: hidden;
    position:relative;
- } 
+ }
 
 
   .wpb-portfolio-item .wpb-portfolio-thumbnail>img {
@@ -592,7 +589,7 @@
    width: 100%;
    text-align: center;
    font-size: 3em;
- } 
+ }
 
   .wpb-portfolio-details {
    padding: 0px 25px 10px 25px;
@@ -624,7 +621,7 @@
 
  .wpb-portfolio-body .wpb-portfolio-filter-container {
    padding-top: 50px;
- } 
+ }
 
  .wpb-portfolio-body .wpb-portfolio-filter-container span {
    display: inline-block;
@@ -656,7 +653,7 @@
    -ms-transition: background-color 0.5s ease;
    -o-transition:  background-color 0.5s ease;
    transition:  background-color 0.5s ease;
- } 
+ }
 
 
 
@@ -679,7 +676,7 @@
    height: 300px;
    overflow: hidden;
    position:relative;
- } 
+ }
 
   .wpb-team-item .wpb-team-thumbnail:hover .wpb-team-overlay {
    opacity:1;
@@ -704,7 +701,7 @@
    z-index:1001;
    background: rgba(55, 50, 53, 0.9);
    opacity:0;
- } 
+ }
 
  .wpb-team-item .wpb-team-thumbnail .wpb-team-overlay img {
    min-width: none !important;
@@ -755,7 +752,7 @@
  .wpb-team-details h3 {
    font-size: 18px;
    color: white !important;
- } 
+ }
 
   .wpb-team-details p {
    color:#515e65 !important;
@@ -808,7 +805,7 @@
    height: 100%;
    max-width: none !important;
    min-width: 100%;
- } 
+ }
 
   .wpb-single-portfolio .wpb-portfolio-thumbnail .wpb-portfolio-overlay {
    -webkit-transition: opacity 0.5s ease;
@@ -862,8 +859,6 @@
    text-transform: uppercase;
  }
 
-
-
  .wpb-single-portfolio .wpb-portfolio-description ul li p {
    padding: 0;
    margin: 0;
@@ -871,7 +866,7 @@
 
  .wpb-single-portfolio .wpb-portfolio-description h3 {
    margin: 0;
- } 
+ }
 
  /**** Contact Us ****/
  .wpb-contact-us {
@@ -920,7 +915,7 @@
  .wpb-contact-us-info ul li {
    padding-bottom:10px;
  }
- 
+
 
  /**** Footer ****/
 
@@ -936,7 +931,7 @@
 
  .legal {
    color: white;
- } 
+ }
 
  /**** Margins ****/
 
@@ -969,7 +964,7 @@
   -webkit-animation-delay: 5s;
   -moz-animation-delay: 5s;
   -o-animation-delay: 5s;
-} 
+}
 
 
  .landing-card {
@@ -1028,7 +1023,7 @@
       height: 100px;
       margin-top: -77px;
       font-size: .85em;
-   } 
+   }
 
    .wpb-menu-container .wpb-main-menu li a {
       display: block;
@@ -1108,7 +1103,7 @@
    }
 }
 
-  @media (max-width: 480px) {
+@media (max-width: 480px) {
 
    #sign-up-btn{
       font-size: 1.5rem;
@@ -1286,6 +1281,7 @@ nav{
  background:none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+}
 
 .nav-wrapper ul li a{
   color: white;
@@ -1490,6 +1486,11 @@ nav{
 .brand-logo {
   word-spacing: -1px;
   letter-spacing: -1px;
+}
+
+icon-image img{
+  width: 50px;
+  height: 50px;
 }
 
 .login-form {
