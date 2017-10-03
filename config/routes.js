@@ -5,7 +5,7 @@ const questions = require('../app/controllers/questions');
 const avatars = require('../app/controllers/avatars');
 const index = require('../app/controllers/index');
 const game = require('../app/controllers/game');
-const region = require('../app/controllers/region');
+// const region = require('../app/controllers/region');
 const auth = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {

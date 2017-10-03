@@ -20,7 +20,7 @@ const AnswerSchema = new Schema({
   official: {
     type: Boolean
   },
-  region: {
+  regionId: {
     type: String,
     default: '',
     trim: true
