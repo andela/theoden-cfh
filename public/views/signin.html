@@ -22,23 +22,22 @@
       <div class="section">
         <div class="row">
           <br/>
-          <form class="col s12 m8 offset-m2 l6 offset-l3 login-form" method="post" action="/users/session">
+          <form class="col s12 m8 offset-m2 l6 offset-l3 login-form" ng-submit="signIn()">
             <div class="card col s12">
               <div class="card-content">
                 <p class="card-title center-align cfh-deep-blue-text"><b>Sign Into Account</b></p>
                 <br/>
-                <div class="red-text center-align" ng-show="showError() === 'invalid'">
-                  Please check your username/password and try again.
-                </div>
+                <div class="red-text center-align">{{showMessage}}</div>
+                <br/>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="email" name="email" type="email" class="validate">
+                    <input id="email" name="email" type="email" class="validate" ng-model="formData.email">
                     <label for="email">Email</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="password" name="password" type="password" class="validate">
+                    <input id="password" name="password" type="password" class="validate" ng-model="formData.password">
                     <label for="password">Password</label>
                   </div>
                 </div>

@@ -1,4 +1,6 @@
 $(document).ready(() => {
-  $('.button-collapse').sideNav();
+  $('.button-collapse').sideNav({
+    menuWidth: 200
+  });
   $('.parallax').parallax();
 });

@@ -7,12 +7,10 @@
         </a>
         <ul class="right hide-on-med-and-down">
           <li><a href="/">Home</a></li>
-          <li><a href="/signin">Signin</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
           <li><a href="/">Home</a></li>
-          <li><a href="/signin">Signin</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
       </div>
@@ -22,35 +20,30 @@
       <div class="section">
         <div class="row">
           <br/>
-          <form action="/users" method="post" class="col s12 m8 offset-m2 l6 offset-l3 login-form">
+          <form ng-submit="signUp()" class="col s12 m8 offset-m2 l6 offset-l3 login-form">
             <div class="card col s12">
               <div class="card-content">
                 <p class="card-title center-align cfh-deep-blue-text">
                   <b>Create an Account</b>
                 </p>
                 <br/>
-                <div class="red-text center-align" ng-show="showError() === 'incomplete'">
-                  Please fill out all fields!
-                </div>
-                <div class="red-text center-align" ng-show="showError() === 'existinguser'">
-                  Sorry, this email is already taken!
-                </div>
+                <div class="red-text center-align">{{showMessage}}</div>
                 <br/>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="name" name="name" type="text" required class="validate">
+                    <input id="name" name="name" type="text" required class="validate" ng-model="formData.name">
                     <label for="name">Full name</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="email" name="email" required type="email" class="validate">
+                    <input id="email" name="email" required type="email" class="validate" ng-model="formData.email">
                     <label for="email">Email</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input id="password" name="password" required type="password" class="validate">
+                    <input id="password" name="password" required type="password" class="validate" ng-model="formData.password">
                     <label for="password">Password</label>
                   </div>
                 </div>

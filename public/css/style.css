@@ -237,7 +237,7 @@
    height: 100%;
    position: relative;
    cursor: pointer;
- } 
+ }
 
   .wpb-menu-container .wpb-main-menu li a:hover {
    color: #2ECC71 !important;
@@ -263,7 +263,7 @@
    text-transform: uppercase;
    position: relative;
    z-index:1000;
- } 
+ }
 
 
 
@@ -326,7 +326,7 @@
    text-transform: uppercase;
    line-height: 60px;
    text-align: center;
- } 
+ }
 
  #slogan {
    text-align: center;
@@ -346,7 +346,7 @@
 
 #navver {
    height: 60px;
-} 
+}
 
 
  /**** Section Title ****/
@@ -370,7 +370,7 @@
    padding-left: 5px;
    line-height: 100px;
    display: inline-block;
-   vertical-align: top; 
+   vertical-align: top;
  }
 
  #create {
@@ -431,7 +431,7 @@
    max-width: 84% !important;
    width: 84%;
    margin: 0 8%;
- } 
+ }
 
   #gitcat {
    max-width: 50px !important;
@@ -523,7 +523,7 @@
 
  #contain-avatars {
    margin-top: 25px;
- } 
+ }
 
   .avatar-list {
    overflow: hidden;
@@ -565,7 +565,7 @@
    height: 170px;
    overflow: hidden;
    position:relative;
- } 
+ }
 
 
   .wpb-portfolio-item .wpb-portfolio-thumbnail>img {
@@ -592,7 +592,7 @@
    width: 100%;
    text-align: center;
    font-size: 3em;
- } 
+ }
 
   .wpb-portfolio-details {
    padding: 0px 25px 10px 25px;
@@ -624,7 +624,7 @@
 
  .wpb-portfolio-body .wpb-portfolio-filter-container {
    padding-top: 50px;
- } 
+ }
 
  .wpb-portfolio-body .wpb-portfolio-filter-container span {
    display: inline-block;
@@ -656,7 +656,7 @@
    -ms-transition: background-color 0.5s ease;
    -o-transition:  background-color 0.5s ease;
    transition:  background-color 0.5s ease;
- } 
+ }
 
 
 
@@ -679,7 +679,7 @@
    height: 300px;
    overflow: hidden;
    position:relative;
- } 
+ }
 
   .wpb-team-item .wpb-team-thumbnail:hover .wpb-team-overlay {
    opacity:1;
@@ -704,7 +704,7 @@
    z-index:1001;
    background: rgba(55, 50, 53, 0.9);
    opacity:0;
- } 
+ }
 
  .wpb-team-item .wpb-team-thumbnail .wpb-team-overlay img {
    min-width: none !important;
@@ -755,7 +755,7 @@
  .wpb-team-details h3 {
    font-size: 18px;
    color: white !important;
- } 
+ }
 
   .wpb-team-details p {
    color:#515e65 !important;
@@ -808,7 +808,7 @@
    height: 100%;
    max-width: none !important;
    min-width: 100%;
- } 
+ }
 
   .wpb-single-portfolio .wpb-portfolio-thumbnail .wpb-portfolio-overlay {
    -webkit-transition: opacity 0.5s ease;
@@ -871,7 +871,7 @@
 
  .wpb-single-portfolio .wpb-portfolio-description h3 {
    margin: 0;
- } 
+ }
 
  /**** Contact Us ****/
  .wpb-contact-us {
@@ -920,7 +920,7 @@
  .wpb-contact-us-info ul li {
    padding-bottom:10px;
  }
- 
+
 
  /**** Footer ****/
 
@@ -936,7 +936,7 @@
 
  .legal {
    color: white;
- } 
+ }
 
  /**** Margins ****/
 
@@ -969,7 +969,7 @@
   -webkit-animation-delay: 5s;
   -moz-animation-delay: 5s;
   -o-animation-delay: 5s;
-} 
+}
 
 
  .landing-card {
@@ -1010,7 +1010,7 @@
    .wpb-logo-container {
       margin-right: 0;
    }
-} 
+}
  @media(max-width: 680px) {
    .wpb-menu-container {
       display: none;
@@ -1027,7 +1027,7 @@
       height: 100px;
       margin-top: -77px;
       font-size: .85em;
-   } 
+   }
 
    .wpb-menu-container .wpb-main-menu li a {
       display: block;
@@ -1105,7 +1105,7 @@
    #ang-logo {
       width: 37% !important;
    }
-} 
+}
   @media (max-width: 480px) {
 
    #sign-up-btn{
@@ -1282,8 +1282,8 @@ c{
 /* navigation menus */
 nav{
  background:none !important;
-  -webkit-box-shadow: none !important; 
-  box-shadow: none !important; 
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .nav-wrapper ul li a{
@@ -1292,8 +1292,13 @@ nav{
 .nav-wrapper ul li a:hover{
   color: white  !important;
 }
+
 .side-nav li a{
   color: white !important;
+}
+
+.side-nav {
+  background-color: #ef6c00 !important;
 }
 
 /*landing home*/
@@ -1327,7 +1332,7 @@ nav{
 .home-button1 a:hover {
   background-color: white!important;
   color: #ef6c00  !important;
-} 
+}
 .home-button2{
   background-color: white !important;
   color: black !important;
@@ -1336,7 +1341,7 @@ nav{
 .home-button2 a:hover {
   background-color: white!important;
   color: black !important;
-} 
+}
 .btn-flat{
   padding:10.4px 30px !important;
   line-height:26.4px !important;
@@ -1367,7 +1372,7 @@ nav{
 .how h3{
   margin-top: 5% !important;
   font-family: Berkshire Swash;
-  
+
 }
 .carousel{
 height: 800px !important;
@@ -1385,7 +1390,7 @@ margin-left: -68px !important;
 .about h3{
   font-family: Berkshire Swash;
   margin-top: 7% !important;
-  
+
 }
 .about-text{
   margin-top: 9% !important;
@@ -1395,7 +1400,7 @@ margin-left: -68px !important;
   margin-top: 6% !important;
 }
 .about p{
- color: white; 
+ color: white;
 }
 .about {
   /* background: rgba(0,0,0, 1); */
@@ -1450,4 +1455,78 @@ w{
   .charity-desc h5{
   text-align: center;
   }
+}
+
+/*  Sol's styles */
+body, html {
+  height:100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar {
+  border-radius: 0px !important;
+}
+
+.bright-overlay{
+  /* background: #ef6c00; */
+  /* background: rgba(21,38,40, 0.8); */
+  overflow: auto;
+  height: 100%;
+  z-index: 2;
+  opacity: 1;
+}
+
+nav{
+  background:none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.brand-logo {
+  word-spacing: -1px;
+  letter-spacing: -1px;
+}
+
+.login-form {
+  margin-top: 70px !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .login-form {
+    margin-top: 5px !important;
+  }
+
+  nav .brand-logo {
+    font-size: 1.5rem !important;
+  }
+}
+
+/***** Form Customization  *******/
+/* label color */
+   /* label focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #002 !important;
+  box-shadow: 0 1px 0 0 #002 !important;
+  color: #002;
+  font-size: 14px;
+}
+
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field input[type=password]:focus + label {
+color: #002 !important;
+}
+
+.icon-image img {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+input[type="radio"] {
+  position:relative !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
 }
