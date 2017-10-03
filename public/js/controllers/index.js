@@ -3,18 +3,15 @@ angular.module('mean.system')
     '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
     function ($scope, Global, $cookieStore, $cookies, $location, $http,
       $window, socket, game, AvatarService) {
-
       $scope.checkAuth = () => {
         if ($cookies.token) {
           $window.localStorage.setItem('token', $cookies.token);
         }
-      }
+      };
 
       $scope.global = Global;
       $scope.formData = {};
       $scope.checkAuth();
-
-
 
       $scope.playAsGuest = function () {
         game.joinGame();
@@ -62,14 +59,14 @@ angular.module('mean.system')
       $scope.signout = () => {
         $http.get('/signout').success(() => {
           angular.forEach($cookies, (v, k) => {
-            $cookieStore.remove(k)
+            $cookieStore.remove(k);
           });
           $window.localStorage.removeItem('token');
 
           $location.path('/');
           $window.location.reload();
-        })
-      }
+        });
+      };
 
 
       $scope.avatars = [];
