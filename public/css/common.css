@@ -64,7 +64,14 @@
 html, body, .main-container, .cont, #first-section, #inner-container {
   height: 100%; }
 
-html {
+html21 {
+  margin: 20px;
+  margin-top: 5px;
+  background: url(/img/minimal-wallpaper.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   /* IE10 Consumer Preview */
   background-image: -ms-linear-gradient(top left, #0B394E 0%, #ABCE8D 100%);
   /* Mozilla Firefox */
@@ -81,7 +88,8 @@ html {
   background-repeat: no-repeat;
   position: relative; }
   @media (max-width: 520px) {
-    html {
+    html21 {
+      margin: 3px;
       margin-top: 0px; } }
 
 body {
@@ -139,7 +147,6 @@ body {
           color: #FC575E; }
       #main-container #app-container #menu-container #abandon-game-button {
         display: inline-block;
-        float: right;
         border-radius: 8px;
         -moz-border-radius: 8px;
         -webkit-border-radius: 8px;
