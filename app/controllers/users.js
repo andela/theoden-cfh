@@ -1,17 +1,18 @@
+
 /**
  * Module dependencies.
  */
 const mongoose = require('mongoose');
-
-// mongoose.Promise = global.Promise;
 const bcrypt = require('bcryptjs');
-
-mongoose.Promise = global.Promise;
-const User = mongoose.model('User');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
 const getToken = require('./middleware/auth').getToken;
 const validator = require('./validators/validators');
+
+mongoose.Promise = global.Promise;
+
+const User = mongoose.model('User');
+
 
 /**
  * @description Auth callback
@@ -154,7 +155,7 @@ exports.getToken = (req, res) => {
 
 
 /**
- * @description Creat function that signs users up
+ * @description User signs up and signs in with a JWT token stored in local Storage
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -238,7 +239,6 @@ exports.create = (req, res) => {
       .catch(error =>
         res.status(422).send(error));
   }
-  // if (!req.user) {   res.redirect('/#!/signup'); } else { }
 };
 
 
@@ -361,7 +361,7 @@ exports.user = function (req, res, next, id) {
     })
     .exec((err, user) => {
       if (err) { return next(err); }
-      if (!user) { return next(new Error(`Failed to load User ${id} `)); }
+      if (!user) { return next(new Error(`Failed to load User ${id}`)); }
       req.profile = user;
       next();
     });

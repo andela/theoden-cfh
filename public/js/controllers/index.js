@@ -25,6 +25,7 @@ angular.module('mean.system')
         return false;
       };
 
+
       $scope.signIn = () => {
         $http.post('api/auth/signin', JSON.stringify($scope.formData))
           .success((data) => {
@@ -39,6 +40,7 @@ angular.module('mean.system')
             $scope.showMessage = 'Wrong email or password';
           });
       };
+
 
       $scope.signUp = () => {
         $http.post('api/auth/signup', JSON.stringify($scope.formData))
@@ -66,6 +68,7 @@ angular.module('mean.system')
           $window.location.reload();
         });
       };
+
 
       $scope.avatars = [];
       AvatarService.getAvatars()
