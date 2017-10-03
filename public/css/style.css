@@ -237,7 +237,7 @@
    height: 100%;
    position: relative;
    cursor: pointer;
- }
+ } 
 
   .wpb-menu-container .wpb-main-menu li a:hover {
    color: #2ECC71 !important;
@@ -263,7 +263,7 @@
    text-transform: uppercase;
    position: relative;
    z-index:1000;
- }
+ } 
 
 
 
@@ -326,7 +326,7 @@
    text-transform: uppercase;
    line-height: 60px;
    text-align: center;
- }
+ } 
 
  #slogan {
    text-align: center;
@@ -346,7 +346,7 @@
 
 #navver {
    height: 60px;
-}
+} 
 
 
  /**** Section Title ****/
@@ -370,7 +370,7 @@
    padding-left: 5px;
    line-height: 100px;
    display: inline-block;
-   vertical-align: top;
+   vertical-align: top; 
  }
 
  #create {
@@ -431,7 +431,7 @@
    max-width: 84% !important;
    width: 84%;
    margin: 0 8%;
- }
+ } 
 
   #gitcat {
    max-width: 50px !important;
@@ -523,7 +523,7 @@
 
  #contain-avatars {
    margin-top: 25px;
- }
+ } 
 
   .avatar-list {
    overflow: hidden;
@@ -565,7 +565,7 @@
    height: 170px;
    overflow: hidden;
    position:relative;
- }
+ } 
 
 
   .wpb-portfolio-item .wpb-portfolio-thumbnail>img {
@@ -592,7 +592,7 @@
    width: 100%;
    text-align: center;
    font-size: 3em;
- }
+ } 
 
   .wpb-portfolio-details {
    padding: 0px 25px 10px 25px;
@@ -624,7 +624,7 @@
 
  .wpb-portfolio-body .wpb-portfolio-filter-container {
    padding-top: 50px;
- }
+ } 
 
  .wpb-portfolio-body .wpb-portfolio-filter-container span {
    display: inline-block;
@@ -656,7 +656,7 @@
    -ms-transition: background-color 0.5s ease;
    -o-transition:  background-color 0.5s ease;
    transition:  background-color 0.5s ease;
- }
+ } 
 
 
 
@@ -679,7 +679,7 @@
    height: 300px;
    overflow: hidden;
    position:relative;
- }
+ } 
 
   .wpb-team-item .wpb-team-thumbnail:hover .wpb-team-overlay {
    opacity:1;
@@ -704,7 +704,7 @@
    z-index:1001;
    background: rgba(55, 50, 53, 0.9);
    opacity:0;
- }
+ } 
 
  .wpb-team-item .wpb-team-thumbnail .wpb-team-overlay img {
    min-width: none !important;
@@ -755,7 +755,7 @@
  .wpb-team-details h3 {
    font-size: 18px;
    color: white !important;
- }
+ } 
 
   .wpb-team-details p {
    color:#515e65 !important;
@@ -808,7 +808,7 @@
    height: 100%;
    max-width: none !important;
    min-width: 100%;
- }
+ } 
 
   .wpb-single-portfolio .wpb-portfolio-thumbnail .wpb-portfolio-overlay {
    -webkit-transition: opacity 0.5s ease;
@@ -871,7 +871,7 @@
 
  .wpb-single-portfolio .wpb-portfolio-description h3 {
    margin: 0;
- }
+ } 
 
  /**** Contact Us ****/
  .wpb-contact-us {
@@ -920,7 +920,7 @@
  .wpb-contact-us-info ul li {
    padding-bottom:10px;
  }
-
+ 
 
  /**** Footer ****/
 
@@ -936,7 +936,7 @@
 
  .legal {
    color: white;
- }
+ } 
 
  /**** Margins ****/
 
@@ -969,7 +969,7 @@
   -webkit-animation-delay: 5s;
   -moz-animation-delay: 5s;
   -o-animation-delay: 5s;
-}
+} 
 
 
  .landing-card {
@@ -1011,6 +1011,7 @@
       margin-right: 0;
    }
 }
+
  @media(max-width: 680px) {
    .wpb-menu-container {
       display: none;
@@ -1027,7 +1028,7 @@
       height: 100px;
       margin-top: -77px;
       font-size: .85em;
-   }
+   } 
 
    .wpb-menu-container .wpb-main-menu li a {
       display: block;
@@ -1106,6 +1107,7 @@
       width: 37% !important;
    }
 }
+
   @media (max-width: 480px) {
 
    #sign-up-btn{
@@ -1284,7 +1286,6 @@ nav{
  background:none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-}
 
 .nav-wrapper ul li a{
   color: white;
@@ -1333,6 +1334,7 @@ nav{
   background-color: white!important;
   color: #ef6c00  !important;
 }
+
 .home-button2{
   background-color: white !important;
   color: black !important;
@@ -1342,6 +1344,7 @@ nav{
   background-color: white!important;
   color: black !important;
 }
+
 .btn-flat{
   padding:10.4px 30px !important;
   line-height:26.4px !important;
@@ -1401,6 +1404,7 @@ margin-left: -68px !important;
 }
 .about p{
  color: white;
+
 }
 .about {
   /* background: rgba(0,0,0, 1); */
