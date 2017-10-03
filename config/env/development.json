@@ -6,6 +6,7 @@
         "clientID": "1815167408775418",
         "clientSecret": "562c52a7e224d620fc48128b60d48c88",
         "callbackURL": "http://localhost:3000/auth/facebook/callback"
+        
     },
     "twitter": {
         "clientID": "O8fSzdjZBhU0y7uIbiqWeKkno",
