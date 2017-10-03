@@ -40,19 +40,6 @@ angular.module('mean.system')
         return {};
       };
 
-      $scope.setToken = () => {
-        $http.get('/users/token')
-          .success((data) => {
-            if (data.cookie) {
-              $window.localStorage.setItem('token', data.cookie);
-            } else {
-              $scope.showMessage = data.message;
-            }
-          })
-          .error(() => {
-            $scope.showMessage = 'User failed social authentication';
-          });
-      };
 
       $scope.sendPickedCards = () => {
         game.pickCards($scope.pickedCards);

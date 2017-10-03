@@ -25,9 +25,9 @@ exports.authCallback = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signin?error=socialautherror');
   } else {
-    getJWT('', req.username).then((token) => {
+    getJWT(req.email, req.username).then((token) => {
       res.cookie('token', token.token);
-      res.redirect('/chooseavatars');
+      res.redirect('/#!/');
     });
   }
 };

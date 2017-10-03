@@ -3,8 +3,19 @@ angular.module('mean.system')
     '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
     function ($scope, Global, $cookieStore, $cookies, $location, $http,
       $window, socket, game, AvatarService) {
+
+      $scope.checkAuth =() =>{
+        if($cookies.token)
+          {
+            $window.localStorage.setItem('token', $cookies.token);
+          }
+      }
+
       $scope.global = Global;
       $scope.formData = {};
+      $scope.checkAuth();
+
+
 
       $scope.playAsGuest = function () {
         game.joinGame();
@@ -17,21 +28,6 @@ angular.module('mean.system')
         }
         return false;
       };
-
-      $scope.setToken = () => {
-        $http.get('/users/token')
-          .success((data) => {
-            if (data.cookie) {
-              $window.localStorage.setItem('token', data.cookie);
-            } else {
-              $scope.showMessage = data.message;
-            }
-          })
-          .error(() => {
-            $scope.showMessage = 'User failed social authentication';
-          });
-      };
-
 
       $scope.signIn = () => {
         $http.post('api/auth/signin', JSON.stringify($scope.formData))
@@ -65,13 +61,14 @@ angular.module('mean.system')
 
 
       $scope.signout = () => {
+        $http.get('/signout').success(() => {         
         $window.localStorage.removeItem('token');
         angular.forEach($cookies, (v, k) => {
-          $cookieStore.remove(k);
         });
         $location.path('/');
-        $window.location.reload();
-      };
+        $window.location.reload();     
+      })
+    }
 
 
       $scope.avatars = [];
