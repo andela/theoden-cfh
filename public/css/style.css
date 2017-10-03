@@ -6,6 +6,10 @@
    text-transform: uppercase;
  }
 
+ .playModal{
+   margin-left: 12%;
+ }
+
  .modal{
    z-index: 300px !important;
    margin-top: 150px;
