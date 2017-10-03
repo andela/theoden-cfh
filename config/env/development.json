@@ -3,25 +3,23 @@
         "name": "Cards for Humanity - Development"
     },
     "facebook": {
-        "clientID": "1815167408775418",
-        "clientSecret": "562c52a7e224d620fc48128b60d48c88",
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
         "callbackURL": "http://localhost:3000/auth/facebook/callback"
-        
     },
     "twitter": {
-        "clientID": "O8fSzdjZBhU0y7uIbiqWeKkno",
-        "clientSecret": "ffA66gYaybmLmFMWKoUK7PonUXSQ1PQA8woFhFp1xiNVB2yiW7",
+        "clientID": "CONSUMER_KEY",
+        "clientSecret": "CONSUMER_SECRET",
         "callbackURL": "http://localhost:3000/auth/twitter/callback"
     },
     "github": {
-        "clientID": "2d7ea1172d905c4d342b",
-        "clientSecret": "d58e32096588ddb0da62370547ed81e3f9df8dab",
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
         "callbackURL": "http://localhost:3000/auth/github/callback"
     },
     "google": {
-        "clientID": "359476330800-foua8tdr462n40cbk6it7e8boa9ubprj.apps.googleusercontent.com",
-        "clientSecret": "5fBW4jZbyp4fvr9YymiaAmrN",
+        "clientID": "APP_ID",
+        "clientSecret": "APP_SECRET",
         "callbackURL": "http://localhost:3000/auth/google/callback"
     }
 }
-

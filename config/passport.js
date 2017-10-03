@@ -89,11 +89,13 @@ module.exports = function (passport) {
   passport.use(new FacebookStrategy({
     clientID: process.env.FB_CLIENT_ID || config.facebook.clientID,
     clientSecret: process.env.FB_CLIENT_SECRET || config.facebook.clientSecret,
-    callbackURL: config.facebook.callbackURL
+    callbackURL: config.facebook.callbackURL,
+    profileFields: ['id', 'displayName', 'email']
   },
     function (accessToken, refreshToken, profile, done) {
       User.findOne({
-        'facebook.id': profile.id
+        'facebook.id': profile.id,
+        
       }, function (err, user) {
         if (err) {
           return done(err);
