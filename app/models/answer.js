@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 /**
  * Answer Schema
  */
-var AnswerSchema = new Schema({
+const AnswerSchema = new Schema({
   id: {
     type: Number
   },
@@ -20,6 +20,12 @@ var AnswerSchema = new Schema({
   official: {
     type: Boolean
   },
+  region: {
+    type: String,
+    default: '',
+    trim: true
+  },
+
   expansion: {
     type: String,
     default: '',

@@ -108,6 +108,7 @@
         <span ng-controller = "IndexController" ng-hide="showOptions">
           <a ng-click="playGame()"><div id="sign-up-btn-landing">Play Game with Strangers</div></a>
           <a ng-click="playGame()"><div id="sign-up-btn-landing">Play Game with Friends</div></a>
+          <a ng-click="showRegion()" id="play-with-stranger" class="stranger-btn">Play Game</a>
               <span id='twitter-facebook'>
                 <span id="tweet-container-index">
                   <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
@@ -242,7 +243,7 @@
 </div>
 
 
-<div class="modal fade text-dark" id="modal1" ng-controller = "IndexController">
+<div class="modal fade text-dark" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -254,7 +255,71 @@
       <div class="modal-footer">
         <button class="btn btn-primary center" ng-click="enterGame()">Start Game</button>
         <button class="btn btn-secondary center " data-dismiss="modal">Cancel</button>
+        <button id="guest-btn" ng-click="showRegionGuest()" >Play as Guest</button><br>
       </div>
     </div>
   </div>
+</div>
+
+<!--  Select Region -->
+<div class="modal" id="select-region" tabindex="-1" role="document" ng-controller="IndexController" aria-labelledby="myModalLabel"
+aria-hidden="true" style="overflow-y:hidden;"> 
+    <div class="modal-dialog panel"> 
+        <div class="modal-content"> 
+            <div class="modal-header popUpHeader"> 
+              <h3 class="modal-title">Select Region</h3> 
+            </div> 
+            <div class="modal-body">
+              <div class="headerText usernameHeader"><span>Select Region</span></div>
+              <div  class="modalHeight">
+               <select ng-model="region" class="form-control">
+                 <option value="NG">Nigeria</option>
+                 <option value="UK">United Kingdom</option>
+               </select>
+              </div>
+              </div> 
+              <center><div>
+                <button class="btn btn-default" ng-click="playWithStrangers()" >
+                  PLAY WITH STRANGERS
+                </button>
+                 <button class="btn btn-warning" ng-click="playWithFriends()" >
+                  PLAY WITH FRIENDS
+                </button>
+                <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
+              </div></center>
+            <div class="modal-footer">Cards for Humanity</div> 
+        </div> 
+    </div> 
+</div> 
+
+<div class="modal" id="select-region-guest" tabindex="-1" role="document" ng-controller="IndexController" aria-labelledby="myModalLabel"
+aria-hidden="true" style="overflow-y:hidden;"> 
+    <div class="modal-dialog panel"> 
+        <div class="modal-content"> 
+            <div class="modal-header popUpHeader"> 
+              <h3 class="modal-title">Select Region</h3> 
+            </div> 
+            <div class="modal-body">
+              <div class="headerText usernameHeader"><span>Select Region</span></div>
+              <div  class="modalHeight">
+               <select ng-model="region" class="form-control">
+                 <option value="NG">Nigeria</option>
+                 <option value="US">USA</option>
+                 <option value="FR">France</option>
+                 <option value="IT">ITALY</option>
+               </select>
+              </div>
+              </div> 
+              <center>
+                <div>
+                <button class="btn btn-warning" ng-click="playWithStrangers()" >
+                  PLAY GAME
+                </button>
+                <button data-dismiss="modal" class="modalBtn">Cancel</button>
+              </div>
+                </center>
+            <div class="modal-footer">Cards for Humanity</div> 
+        </div> 
+    </div> 
+</div> 
 </div>
