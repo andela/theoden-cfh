@@ -16,9 +16,6 @@ angular.module('mean.system')
         return false;
       };
 
-<<<<<<< HEAD
-
-=======
       $scope.setToken = () => {
         $http.get('/users/token')
           .success((data) => {
@@ -31,7 +28,6 @@ angular.module('mean.system')
           .error(() => {
             $scope.showMessage = 'User failed social authentication';
           });
->>>>>>> ##### OAuth authentication
       };
 
 
