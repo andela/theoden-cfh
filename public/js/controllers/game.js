@@ -182,6 +182,25 @@ angular.module('mean.system')
         if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
           $scope.showTable = true;
         }
+        if ($scope.isCzar() && game.state === 'czar pick card' && game.table.length === 0) {
+          $('#shuffleModal').modal({
+            dismissible: false
+          });
+          $('#shuffleModal').modal('open');
+        }
+        if (game.state === 'game dissolved') {
+          $('#shuffleModal').modal('close');
+        }
+        if ($scope.isCzar() === false && game.state === 'czar pick card'
+                  && game.state !== 'game dissolved'
+                  && game.state !== 'awaiting players' && game.table.length === 0) {
+          $scope.czarHasDrawn = 'Wait! Czar is drawing Card';
+        }
+        if (game.state !== 'czar pick card'
+                  && game.state !== 'awaiting players'
+                  && game.state !== 'game dissolve') {
+          $scope.czarHasDrawn = '';
+        }
       });
 
       $scope.$watch('game.gameID', () => {

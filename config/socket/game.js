@@ -258,7 +258,7 @@ class Game {
       if (winner !== -1) {
         self.stateEndGame(winner);
       } else {
-        self.stateChoosing(self);
+        Game.stateChoosing(self);
       }
     }, self.timeLimits.stateResults * 1000);
   }
@@ -447,7 +447,7 @@ class Game {
         if (this.state === 'waiting for players to pick') {
           clearTimeout(this.choosingTimeout);
           this.sendNotification('The Czar left the game! Starting a new round.');
-          return this.stateChoosing(this);
+          return Game.stateChoosing(this);
         } else if (this.state === 'waiting for czar to decide') {
           // If players are waiting on a czar to pick, auto pick.
           this.sendNotification('The Czar left the game! First answer submitted wins!');

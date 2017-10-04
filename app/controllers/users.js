@@ -25,7 +25,7 @@ exports.authCallback = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signin?error=socialautherror');
   } else {
-    getJWT(req.email, req.username).then((token) => {
+    getJWT(req.user._id,req.email, req.user.name).then((token) => {
       res.cookie('token', token.token);
       res.redirect('/#!/');
     });
@@ -83,7 +83,7 @@ exports.login = (req, res) => {
         }
         const password = req.body.password;
         if (bcrypt.compareSync(password, user.hashed_password)) {
-          getJWT(user.email, user.username)
+          getJWT(user.id, user.email, user.username)
             .then((token) => {
               if (token.status === 'Success') {
                 res
@@ -199,7 +199,7 @@ exports.create = (req, res) => {
                           error: error.errors
                         });
                     } else {
-                      getJWT(validuser.email, validuser.name)
+                      getJWT(validuser._id,validuser.email, validuser.name)
                         .then((token) => {
                           const credentials = {
                             email: validuser.email,
@@ -270,15 +270,13 @@ exports.checkAvatar = function (req, res) {
       })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
-          // console.log(user,' Avatar  defined')
           res.redirect('/#!/app');
         } else {
           res.redirect('/#!/choose-avatar');
-          // console.log(user,' Avatar  not defined')
         }
       });
   } else {
-    // If user doesn't even exist, redirect to /
+
     res.redirect('/');
   }
 };
