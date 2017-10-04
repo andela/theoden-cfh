@@ -1508,7 +1508,12 @@ icon-image img{
 
 .login-form .btn-flat, .login-form .btn-flat:hover{
   background-color: transparent !important;
-  color: black !important;
+  color: #ef6c00 !important;
+}
+
+.social-links {
+  font-size: 18px;
+  margin-bottom: 10px !important;
 }
 
 .nav-wrapper a:hover {
