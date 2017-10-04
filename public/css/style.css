@@ -1348,9 +1348,9 @@ nav{
   overflow: hidden;
 }
 
-
 .btn-flat:hover:before {
   opacity:1;
+
 }
 
 .btn-flat:before {
@@ -1407,6 +1407,8 @@ margin-left: -68px !important;
   overflow: hidden;
   height: 100%;
   z-index: 2;
+  background-image: url("../img/bgcard.jpg");
+  background-repeat: repeat;
 }
 .cfh-warning{
   margin-top: 5% !important;
@@ -1462,6 +1464,8 @@ body, html {
   height:100%;
   margin: 0 !important;
   padding: 0 !important;
+  background-image: url("../img/bgcard.jpg");
+  background-repeat: repeat;
 }
 
 .navbar {
@@ -1478,7 +1482,6 @@ body, html {
 }
 
 nav{
-  background:none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -1486,6 +1489,7 @@ nav{
 .brand-logo {
   word-spacing: -1px;
   letter-spacing: -1px;
+  font-family: Berkshire Swash !important;
 }
 
 icon-image img{
@@ -1494,7 +1498,21 @@ icon-image img{
 }
 
 .login-form {
-  margin-top: 70px !important;
+  margin-top: 40px !important;
+}
+
+.login-form .card-title {
+  font-family: Berkshire Swash !important;
+  font-size: 30px;
+}
+
+.login-form .btn-flat, .login-form .btn-flat:hover{
+  background-color: transparent !important;
+  color: black !important;
+}
+
+.nav-wrapper a:hover {
+  color: white !important;
 }
 
 @media only screen and (max-width: 480px) {
