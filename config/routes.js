@@ -96,6 +96,5 @@ module.exports = (app, passport, auth) => {
   app.get('/', index.render);
 
   // Game routes
-  app.get('/api/search/users', search.userSearch);
-  // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
+  app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
 };
