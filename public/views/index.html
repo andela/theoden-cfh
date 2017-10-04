@@ -71,9 +71,9 @@
               </span>
               </div>
               </span>
-              <span ng-hide="showOptions">
-                <a href="/play" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
-                <a href="/play?custom" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
+              <span ng-controller="IndexController" ng-hide="showOptions">
+              <a ng-click="playGame()" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
+              <a ng-click="playGame()" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
               <div>
                 <span id='twitter-facebook'>
                   <span id="tweet-container-index">
@@ -195,6 +195,7 @@
     }
     );
     $('.slider').slider();
+    $('.modal').modal();
   });
 
   const scrollWin = (x, y) => {
@@ -203,28 +204,42 @@
 
 </script>
 
+<!---->
 <div class="modal fade text-dark" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
-  <div class="modal-dialog">
+  
     <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title text-center" id="modalTitle">Cards For Humanity</h2>
-      </div>
+      
+        <h3 class="modal-title text-center" id="modalTitle">Theoden's Cards For Humanity</h3>
+      
       <div class="modal-body">
-        <h3 class='text-center'>Are you sure you want to start</h3>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary center" ng-click="enterGame()">Start Game</button>
-        <button class="btn btn-secondary center " data-dismiss="modal">Cancel</button>
-        <button id="guest-btn" ng-click="showRegionGuest()" >Play as Guest</button><br>
+        <p class='text-center'>Are you sure you want to start?</p>
       </div>
     </div>
-  </div>
+      <div class="modal-footer">
+        
+        <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+        <a ng-click="enterGame()" class="modal-action modal-close waves-effect waves-orange btn-flat">Start Game</a>
+        
+      </div>
+    
 </div>
+
+<!-- -->
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
 
 <!--  Select Region -->
 <div class="modal" id="select-region" tabindex="-1" role="document" ng-controller="IndexController" aria-labelledby="myModalLabel"
 aria-hidden="true" style="overflow-y:hidden;"> 
-    <div class="modal-dialog panel"> 
+    
         <div class="modal-content"> 
             <div class="modal-header popUpHeader"> 
               <h3 class="modal-title">Select Region</h3> 
@@ -238,17 +253,18 @@ aria-hidden="true" style="overflow-y:hidden;">
                </select>
               </div>
               </div> 
-              <center><div>
-                <button class="btn btn-default" ng-click="playWithStrangers()" >
-                  PLAY WITH STRANGERS
-                </button>
-                 <button class="btn btn-warning" ng-click="playWithFriends()" >
-                  PLAY WITH FRIENDS
-                </button>
-                <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
-              </div></center>
+              <center>
+                <div>
+                  <button class="btn btn-default" ng-click="enterGame()" >
+                    PLAY WITH STRANGERS
+                  </button>
+                  <button class="btn btn-warning" ng-click="enterGame()" >
+                    PLAY WITH FRIENDS
+                  </button>
+                  <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                </div></center>
             <div class="modal-footer">Cards for Humanity</div> 
-        </div> 
+
     </div> 
 </div> 
 
@@ -272,7 +288,7 @@ aria-hidden="true" style="overflow-y:hidden;">
               </div> 
               <center>
                 <div>
-                <button class="btn btn-warning" ng-click="playWithStrangers()" >
+                <button class="btn btn-warning" ng-click="enterGame()" >
                   PLAY GAME
                 </button>
                 <button data-dismiss="modal" class="modalBtn">Cancel</button>

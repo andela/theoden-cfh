@@ -67,12 +67,12 @@ angular
 
       $scope.showRegion = () => {
         const myModal = $('#select-region');
-        myModal.modal('show');
+        myModal.modal('hide');
       };
 
       $scope.showRegionGuest = () => {
         const myModal = $('#select-region-guest');
-        myModal.modal('show');
+        myModal.modal('open');
       };
   
 
@@ -108,7 +108,7 @@ angular
             console.log(data);
           });
         const myModal = $('#select-region');
-        myModal.modal('hide');
+        myModal.modal('open');
         $window.location.href = '/play?custom';
       };
 
@@ -132,20 +132,19 @@ angular
         });
         
       $scope.enterGame = () => {
-        console.log('here');
         const gameModal = $('#modal1');
         gameModal
-          .modal('hide');
+          .modal('close');
         $http({ method: 'GET', url: '/play' }).then(() => {
           $location.path('/app');
           $window.location.reload();
-         
         });
       };
       $scope.playGame = () => {
         const gameModal = $('#modal1');
+        console.log(gameModal,'---');
         gameModal
-          .modal('show');
+          .modal('open');
       };
     }
   ]);
