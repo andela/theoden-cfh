@@ -3,6 +3,7 @@ angular.module('mean.system')
     '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
     function ($scope, Global, $cookieStore, $cookies, $location, $http,
       $window, socket, game, AvatarService) {
+        
       $scope.checkAuth = () => {
         if ($cookies.token) {
           $window.localStorage.setItem('token', $cookies.token);
