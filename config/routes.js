@@ -1,23 +1,42 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
 const answers = require('../app/controllers/answers');
 const questions = require('../app/controllers/questions');
 const index = require('../app/controllers/index');
 const avatars = require('../app/controllers/avatars');
 const users = require('../app/controllers/users');
 const search = require('../app/controllers/search');
+<<<<<<< HEAD
 
 const authorization = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {
+=======
+const authorization = require('./middlewares/authorization');
+
+module.exports = (app, passport, auth) => {
+
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
   // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
   app.get('/signout', users.signout);
 
+<<<<<<< HEAD
   // Setting up the users api
   app.post('/users', users.create);
   app.post('/users/avatars', users.avatars);
+=======
+
+  // Setting up the users api
+  app.post('/users', users.create);
+  app.post('/users/avatars', users.avatars);
+  app.post('/api/auth/signin', users.login);
+  app.post('/api/auth/signup', users.create);
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
 
   // Donation Routes
   app.post('/donations', users.addDonation);
@@ -75,13 +94,20 @@ module.exports = (app, passport, auth) => {
   app.param('userId', users.user);
 
   // Answer Routes
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
   // Question Routes
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
   // Finish with setting up the questionId param
@@ -93,8 +119,11 @@ module.exports = (app, passport, auth) => {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
+<<<<<<< HEAD
 
   // Game routes
   app.get('/api/search/users', search.userSearch);
   // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
+=======
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
 };

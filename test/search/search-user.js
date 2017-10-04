@@ -10,9 +10,13 @@ const app = require('../../server');
 const request = supertest(app);
 const User = mongoose.model('User');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> feat(feature): increase max game invite
+=======
+
+>>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
 let user, user2, user3;
 
 describe('POST /api/search/user', () => {
