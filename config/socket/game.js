@@ -68,7 +68,7 @@ class Game {
     this.guestNames = guestNames.slice();
   }
   /**
-   * @description 
+   * @description
    * @return {void} void
    */
   payload() {
@@ -101,7 +101,7 @@ class Game {
   }
   /**
    *
-   * @param {string} msg 
+   * @param {string} msg
    * @returns {*} void
    */
   sendNotification(msg) {
@@ -176,7 +176,7 @@ class Game {
   }
   /**
    *
-   * @param {object} self 
+   * @param {object} self
    * @returns {*} void
    */
   static stateChoosing(self) {
@@ -221,7 +221,7 @@ class Game {
     }
   }
   /**
-   * 
+   *
    * @param {object} self instance of class
    * @returns {*} void
    */
@@ -258,13 +258,13 @@ class Game {
       if (winner !== -1) {
         self.stateEndGame(winner);
       } else {
-        self.stateChoosing(self);
+        Game.stateChoosing(self);
       }
     }, self.timeLimits.stateResults * 1000);
   }
   /**
    *
-   * @param {number} winner 
+   * @param {number} winner
    * @returns {*} void
    */
   stateEndGame(winner) {
@@ -281,7 +281,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getQuestions(cb) {
@@ -291,7 +291,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getAnswers(cb) {
@@ -301,7 +301,7 @@ class Game {
   }
   /**
    *
-   * @param {object} cards 
+   * @param {object} cards
    * @returns {*} void
    */
   static shuffleCards(cards) {
@@ -320,7 +320,7 @@ class Game {
 
   /**
    *
-   * @param {number} maxAnswers 
+   * @param {number} maxAnswers
    * @returns {*} void
    */
   dealAnswers(maxAnswers) {
@@ -353,8 +353,8 @@ class Game {
   }
   /**
    *
-   * @param {array} thisCardArray 
-   * @param {number} thisPlayer 
+   * @param {array} thisCardArray
+   * @param {number} thisPlayer
    * @returns {*} void
    */
   pickCards(thisCardArray, thisPlayer) {
@@ -447,7 +447,7 @@ class Game {
         if (this.state === 'waiting for players to pick') {
           clearTimeout(this.choosingTimeout);
           this.sendNotification('The Czar left the game! Starting a new round.');
-          return this.stateChoosing(this);
+          return Game.stateChoosing(this);
         } else if (this.state === 'waiting for czar to decide') {
           // If players are waiting on a czar to pick, auto pick.
           this.sendNotification('The Czar left the game! First answer submitted wins!');
@@ -467,9 +467,9 @@ class Game {
 
   /**
    *
-   * @param {number} thisCard 
-   * @param {*} thisPlayer 
-   * @param {*} autopicked 
+   * @param {number} thisCard
+   * @param {*} thisPlayer
+   * @param {*} autopicked
    * @returns {*} void
    */
   pickWinning(thisCard, thisPlayer, autopicked) {
