@@ -12,8 +12,12 @@ class SearchUsers {
   * @returns {object} returns response with response code
   */
   static userSearch(request, response) {
+
     User
-      .find({}, (error, result) => {
+      .find({})
+      .lean()
+      .select('name username email')
+      .exec((error, result) => {
         if (error) {
           response.status(400).send({
             status: 'Unsuccessful',
@@ -22,7 +26,7 @@ class SearchUsers {
         } else if (result) {
           response.status(200).send({
             status: 'Success',
-            result,
+            result
           });
         }
       });

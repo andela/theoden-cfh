@@ -21,11 +21,7 @@ const mongoose = require('mongoose');
 
 
 // Bootstrap db connection
-<<<<<<< HEAD
 const db = mongoose.connect(config.db);
-=======
-const db = mongoose.createConnection(config.db);
->>>>>>> feat(feature): increase max game invite
 // compartible with mongoose 4.11
 
 // Bootstrap models

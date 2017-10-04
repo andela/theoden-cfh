@@ -155,9 +155,9 @@ class Game {
       ],
       (err, results) => {
         if (err) {
-          console.log(err);
+          console.log(err, 'error');
         }
-
+        console.log(results);
         self.questions = results[0];
         self.answers = results[1];
 

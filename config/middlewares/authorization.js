@@ -1,7 +1,4 @@
 /**
- * 
- */
-/**
  * @description Generic require login routing middleware
  * @param  {object} req HTTP Request object
  * @param  {object} res HTTP Response object
