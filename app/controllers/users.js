@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
+const getToken = require('./middleware/auth').getToken;
 const validator = require('./validators/validators');
 
 mongoose.Promise = global.Promise;
@@ -20,8 +21,15 @@ const User = mongoose.model('User');
  * @param {function} next function
  * @return {object} returns redirect
  */
-exports.authCallback = (req, res, next) => {
-  res.redirect('/chooseavatars');
+exports.authCallback = (req, res) => {
+  if (!req.user) {
+    res.redirect('/#!/signin?error=socialautherror');
+  } else {
+    getJWT('', req.username).then((token) => {
+      res.cookie('token', token.token);
+      res.redirect('/chooseavatars');
+    });
+  }
 };
 
 
@@ -32,7 +40,7 @@ exports.signin = function (req, res) {
   if (!req.user) {
     res.redirect('/#!/signin?error=invalid');
   } else {
-    res.redirect('/#!/app');
+    res.redirect('/#!/chooseavatars');
   }
 };
 
@@ -132,7 +140,26 @@ exports.login = (req, res) => {
 
 
 /**
+<<<<<<< HEAD
  * @description User signs up and signs in with a JWT toke stored in local Storage
+=======
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.getToken = (req, res) => {
+  const cookie = getToken(req);
+  console.log(cookie, '?????????????');
+  res.json({
+    success: true,
+    cookie
+  });
+};
+
+
+/**
+ * @description Signup
+>>>>>>> ##### OAuth authentication
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -248,9 +275,11 @@ exports.checkAvatar = function (req, res) {
       })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
-          res.redirect('/#!/');
+          //console.log(user,' Avatar  defined')
+          res.redirect('/#!/app');
         } else {
           res.redirect('/#!/choose-avatar');
+          //console.log(user,' Avatar  not defined')
         }
       });
   } else {

@@ -1,5 +1,5 @@
 angular.module('mean.system')
-  .controller('GameController', ['$scope', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$http', '$dialog', ($scope, game, $timeout, $location, MakeAWishFactsService, $http, $dialog) => {
+  .controller('GameController', ['$scope', 'game', '$timeout', '$http', '$window', '$location', 'MakeAWishFactsService', '$dialog', ($scope, game, $timeout, $http, $window, $location, MakeAWishFactsService, $dialog) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -35,6 +35,20 @@ angular.module('mean.system')
         return { cursor: 'pointer' };
       }
       return {};
+    };
+
+    $scope.setToken = () => {
+      $http.get('/users/token')
+        .success((data) => {
+          if (data.cookie) {
+            $window.localStorage.setItem('token', data.cookie);
+          } else {
+            $scope.showMessage = data.message;
+          }
+        })
+        .error(() => {
+          $scope.showMessage = 'User failed social authentication';
+        });
     };
 
     $scope.sendPickedCards = () => {
@@ -195,7 +209,7 @@ angular.module('mean.system')
               const link = document.URL;
               const txt = 'Give the following link to your friends so they can join your game: ';
               $('#lobby-how-to-play').text(txt);
-              $('#oh-el').css({ 'text-align': 'center', 'font-size': '22px', 'background': 'white', 'color': 'black' }).text(link);
+              $('#oh-el').css({ 'text-align': 'center', 'font-size': '22px', background: 'white', color: 'black' }).text(link);
             }, 200);
             $scope.modalShown = true;
           }

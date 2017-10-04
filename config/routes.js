@@ -29,6 +29,7 @@ module.exports = (app, passport, auth) => {
     failureFlash: 'Invalid email or password.'
   }), users.session);
 
+  app.get('/users/token', users.getToken);
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
 
