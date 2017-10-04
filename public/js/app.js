@@ -20,12 +20,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         when('/signup', {
           templateUrl: '/views/signup.html'
         }).
-<<<<<<< HEAD
-=======
         when('/signout', {
           templateUrl: 'views/index.html'
         }).
->>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
         when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
         }).

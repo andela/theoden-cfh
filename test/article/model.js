@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-const app = require('../../server');// eslint-disable-line no-unused-vars
-=======
 // /**
 //  * Module dependencies.
 //  */
@@ -59,4 +56,3 @@ const app = require('../../server');// eslint-disable-line no-unused-vars
 //         });
 //     });
 // });
->>>>>>> 2ce28fa6eae0393280f35b66ef74a0c971771fb5
