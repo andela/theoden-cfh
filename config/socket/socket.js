@@ -199,6 +199,9 @@ module.exports = (io) => {
     if (gamesNeedingPlayers.length <= 0) {
       gameID += 1;
       const gameIDStr = gameID.toString();
+      // Clear past game room chats saved on firebase
+      // If it is a new game
+      database.ref(`chat/room_${gameID}`).remove();
       game = new Game(gameIDStr, io);
       allPlayers[socket.id] = true;
       game.players.push(player);
@@ -211,6 +214,11 @@ module.exports = (io) => {
       game.assignGuestNames();
       game.sendUpdate();
     } else {
+      if (game.players.length < 1) {
+        // Clear past game room chats saved on firebase
+        // If the user is the first to get in
+        database.ref(`chat/room_${gameID}`).remove();
+      }
       game = gamesNeedingPlayers[0];
       allPlayers[socket.id] = true;
       game.players.push(player);
