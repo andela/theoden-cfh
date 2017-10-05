@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const helpers = require('view-helpers');
 const config = require('./config');
 const auth = require('../app/controllers/middleware/auth').authenticate;
+require('dotenv').config();
 
 module.exports = function (app, passport, mongoose) {
   app.set('showStackError', true);

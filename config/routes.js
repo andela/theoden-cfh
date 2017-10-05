@@ -4,6 +4,8 @@ const index = require('../app/controllers/index');
 const avatars = require('../app/controllers/avatars');
 const users = require('../app/controllers/users');
 const search = require('../app/controllers/search');
+const authenticate = require('../app/controllers/middleware/auth').authenticate;
+
 const authorization = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {
@@ -29,6 +31,7 @@ module.exports = (app, passport, auth) => {
     failureFlash: 'Invalid email or password.'
   }), users.session);
 
+  app.get('/users/token', users.getToken);
   app.get('/users/me', users.me);
   app.get('/users/:userId', users.show);
 
@@ -95,4 +98,8 @@ module.exports = (app, passport, auth) => {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
+
+  // Game routes
+  app.get('/api/search/users', authenticate, search.userSearch);
+  // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
 };

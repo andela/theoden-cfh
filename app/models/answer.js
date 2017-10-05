@@ -31,11 +31,11 @@ var AnswerSchema = new Schema({
  * Statics
  */
 AnswerSchema.statics = {
-  load: function(id, cb) {
-    this.findOne({
-      id: id
-    }).select('-_id').exec(cb);
-  }
+    load: function (id, cb) {
+        this.findOne({
+            id: id
+        }).select('-_id').exec(cb);
+    }
 };
 
 mongoose.model('Answer', AnswerSchema);
