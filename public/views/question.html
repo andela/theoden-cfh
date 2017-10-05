@@ -8,10 +8,11 @@
           </h5>
         </div>
         <div class="col s3 m3 center-align" id="player-count-container">
-          <p class="question">{{game.players.length}} / {{game.playerMaxLimit}}</p>
-          <p>Players</p>
+          <h5>{{game.players.length}} / {{game.playerMaxLimit}}</h5>
+          <p class="normal-text">Players</p>
         </div>
         <div class="col s12 m9">
+          <br/>
           <p>
             <button class="btn orange darken-3" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
               Start Game
@@ -21,7 +22,7 @@
             </button>
           </p>
           <br/>
-          <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
+          <div id="notifications" class="question" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
         </div>
       </div><!--end start game -->
 

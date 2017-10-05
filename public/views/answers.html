@@ -1,38 +1,45 @@
-<div ng-cloak class="card black" id="cards-container" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
-  <div class="card-content white-text no-padding-top">
+<div ng-cloak class="card black gaming-container" id="" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
+  <div class='hand card-container'>
     <span ng-show="winnerPicked()"></span>
 
-    <div class="row" ng-hide="showTable || isCzar()">
-      <div class="col s6 m4 l2" ng-style="{'cursor':'pointer'}" class="small-card" id='answers' ng-click="pickCard(card)" ng-repeat="card in game.players[game.playerIndex].hand"
-       ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
-        <span ng-bind-html-unsafe="card.text" class="black-text"></span>
+    <div ng-style="{'cursor':'pointer'}" class="gaming-card smallest" id='answers' ng-click="pickCard(card)" ng-hide="showTable || isCzar()"
+    ng-repeat="card in game.players[game.playerIndex].hand" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
+        <span ng-bind-html-unsafe="card.text"></span>
         <span id='selection-number' ng-show="showFirst(card)"> 1 </span>
         <span id='selection-number' ng-show="showSecond(card)"> 2 </span>
-      </div>
     </div>
 
-      <div class="row" ng-repeat="answer in game.table">
-        <div class="col s6 m4 l2 small-card" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
+    <span ng-repeat="answer in game.table">
+        <div class="gaming-card smallest" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
         ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
             <span ng-bind-html-unsafe="card.text"></span>
             <span id='selection-number' ng-show="firstAnswer($index)"> 1 </span>
-            <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>>
+            <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>
         </div>
-      </div>
-
+    </span>
   </div>
 </div>
 
 <div class="card black longSpan" id="info-container" ng-show="game.state === 'awaiting players'">
   <div class="card-content white-text no-padding-top">
     <h5 class="center-align" id="lobby-how-to-play">How To Play</h5>
-    <ol id="oh-el" class="instruction-text">
+    <ol class="ol-eh instruction-text">
       <li>Each player begins with, and will always have, 10 white answer cards.</li>
       <li>For each round, one player is randomly chosen as the Card Czar.</li>
       <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
       <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
       <li>*Want to adorn your avatar with a glorious crown? Donate to charity after the game!</li>
     </ol>
+
+    <br/>
+    <br/>
+    <p class="question center-align orange-text">Please remember to donate to save a child!</p>
+    <br/>
+    <p class="center-align">
+      <a class="btn orange darken-3" href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
+          Make a Donation
+      </a>
+    </p>
   </div>
 </div>
 
@@ -52,6 +59,7 @@
         </p>
       </div>
       <br/>
+      <br/>
       <div id='inner-text-container'>
         <a href='/#!/app' class="btn btn-flat white black-text">
           <div id="join-new-game" ng-click="game.joinGame('joinNewGame')">
@@ -66,28 +74,32 @@
       </div>
     </div>
   </div>
-  <div class="col s12 m4" id="charity-widget-container">
+  <div class="col s12 m4 center-align">
       <!-- This is real -->
       <a href="http://www.crowdrise.com" id="crowdriseStaticLink-fundraiser-121142" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
-      <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script>
+      <a href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
+        <img class="donate" src="../img/donate.png">
+      </a>
       <!-- This is for testing -->
       <!-- <a href="http://www.crowdrise.com" id="crowdriseStaticLink-project-36715" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a> -->
       <!-- <script type="text/javascript" src="https://apisandbox.crowdrise.com/widgets/donate/project/36715/?callback=userDonationCb"></script> -->
   </div>
 </div>
 
-<div class="card black longSpan" id="czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+<div class="card black longSpan czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
   <div class="card-content white-text no-padding-top ">
-    <h5 center-align>You are the CZAR</h5>
-    <span class="question">Players are choosing their answers. Prepare to select a winner.</span>
-    <div id='charity-fact-container'>
-      <h5>Did you know?</h5>
+    <h5 center-align>You are the Card CZAR</h5>
+    <span>Players are choosing their answers. Prepare to select a winner.</span>
 
-      <p class="question">{{ makeAWishFact }}</p>
-      <br/>
-      <p>
-        <img src='/img/make-a-wish-logo.png'/>
-      </p>
+    <div id='charity-fact-container' class="card col s12">
+      <div class="card-content black-text">
+        <p class="question">Did you know?</p>
+        <p>{{ makeAWishFact }}</p>
+        <br/>
+        <p>
+          <img src='/img/make-a-wish-logo.png'/>
+        </p>
+      </div>
     </div>
   </div>
 </div>

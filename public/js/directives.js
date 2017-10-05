@@ -76,9 +76,12 @@ angular.module('mean.directives', [])
         } else {
           scope.showOptions = true;
         }
-
-        
-  
       }
     };
-  });
+  }).directive('timer', function(){
+    return{
+      restrict: 'EA',
+      templateUrl: '/views/timer.html',
+      link: function(scope, elem, attr){}
+    };
+  })
