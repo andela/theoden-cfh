@@ -67,7 +67,7 @@ angular
 
       $scope.showRegion = () => {
         const myModal = $('#select-region');
-        myModal.modal('hide');
+        myModal.modal('open');
       };
 
       $scope.showRegionGuest = () => {
@@ -83,16 +83,20 @@ angular
       
       $scope.playWithStrangers = ()=> {
         if ($scope.region === undefined) {
+          console.log(`what region: ${$scope.region}`);
           alert('Please Select your Region');
           return;
         }
+       
+        alert("Region selected");
         $scope.data = { player_region: $scope.region };
+
         $http.post('/setregion', $scope.data)
           .success((data) => {
             console.log(data);
           });
         const myModal = $('#select-region');
-        myModal.modal('hide');
+        myModal.modal('close');
         $window.location.href = '/play';
       };
 
@@ -101,7 +105,7 @@ angular
           alert('Please Select your Region');
           return;
         }
-  
+
         $scope.data = { player_region: $scope.region };
         $http.post('/setregion', $scope.data)
           .success((data) => {
@@ -111,8 +115,6 @@ angular
         myModal.modal('open');
         $window.location.href = '/play?custom';
       };
-
-
 
       $scope.showError = () => {
         if ($location.search().error) {
@@ -142,7 +144,6 @@ angular
       };
       $scope.playGame = () => {
         const gameModal = $('#modal1');
-        console.log(gameModal,'---');
         gameModal
           .modal('open');
       };

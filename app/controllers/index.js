@@ -22,3 +22,8 @@ exports.render = (req, res) => {
     user: req.user ? JSON.stringify(req.user) : 'null'
   });
 };
+
+exports.setRegion = (req, res) => {
+  localStorage.setItem('player_region', req.body.player_region);
+};
+

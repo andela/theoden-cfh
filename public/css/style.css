@@ -6,14 +6,30 @@
    text-transform: uppercase;
  }
 
- .playModal{
+ /* .playModal{
    margin-left: 12%;
- }
+ } */
 
  .modal{
    z-index: 300px !important;
    margin-top: 150px;
- }
+   border-radius: 12px;
+   box-shadow: 10px 10px 5px #888888;
+   background-color: rgba(255,162,52,0.8);
+   color: white;
+   width: 40% !important ; 
+   
+   
+   
+  }
+  #modalTitle{
+    font-family: Berkshire Swash;
+
+  }
+  a .modal-close{
+    color:orange accent-4;
+  }
+  
 
  #landing-charity {
    width: 300px !important;

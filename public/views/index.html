@@ -49,9 +49,9 @@
                 <img src="../img/Artboard1.svg">
               </div>
               <div class="home">
-                <span ng-show="showOptions">
+                <span ng-show="showOptions" ng-controller="IndexController">
             <a href="#!/signup" class="home-button1 waves-effect btn-flat">Sign up</a>
-            <a href="#!/app" class="home-button2 waves-effect btn-flat">Play as guest</a>
+            <a ng-click="playAsGuest()" class="home-button2 waves-effect btn-flat">Play as guest</a>
             <div>
               <br/>
               <span id="tweet-container-index">
@@ -195,7 +195,11 @@
     }
     );
     $('.slider').slider();
-    $('.modal').modal();
+    $('.modal').modal({
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+    });
+    $('select').material_select();
   });
 
   const scrollWin = (x, y) => {
@@ -204,98 +208,45 @@
 
 </script>
 
-<!---->
+
 <div class="modal fade text-dark" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
-  
-    <div class="modal-content">
-      
-        <h3 class="modal-title text-center" id="modalTitle">Theoden's Cards For Humanity</h3>
-      
-      <div class="modal-body">
-        <p class='text-center'>Are you sure you want to start?</p>
-      </div>
-    </div>
-      <div class="modal-footer">
-        
-        <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
-        <a ng-click="enterGame()" class="modal-action modal-close waves-effect waves-orange btn-flat">Start Game</a>
-        
-      </div>
-    
+
+  <div class="modal-content">
+
+    <h3 class="modal-title center-align" id="modalTitle">Cards For Humanity</h3>
+    <p class='center-align'>Are you sure you want to start?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+    <a ng-click="enterGame()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+  </div>
+
 </div>
 
-<!-- -->
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+
 
 <!--  Select Region -->
 <div class="modal" id="select-region" tabindex="-1" role="document" ng-controller="IndexController" aria-labelledby="myModalLabel"
-aria-hidden="true" style="overflow-y:hidden;"> 
-    
-        <div class="modal-content"> 
-            <div class="modal-header popUpHeader"> 
-              <h3 class="modal-title">Select Region</h3> 
-            </div> 
-            <div class="modal-body">
-              <div class="headerText usernameHeader"><span>Select Region</span></div>
-              <div  class="modalHeight">
-               <select ng-model="region" class="form-control">
-                 <option value="NG">Nigeria</option>
-                 <option value="UK">United Kingdom</option>
-               </select>
-              </div>
-              </div> 
-              <center>
-                <div>
-                  <button class="btn btn-default" ng-click="enterGame()" >
-                    PLAY WITH STRANGERS
-                  </button>
-                  <button class="btn btn-warning" ng-click="enterGame()" >
-                    PLAY WITH FRIENDS
-                  </button>
-                  <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                </div></center>
-            <div class="modal-footer">Cards for Humanity</div> 
-
-    </div> 
-</div> 
-
-<div class="modal" id="select-region-guest" tabindex="-1" role="document" ng-controller="IndexController" aria-labelledby="myModalLabel"
-aria-hidden="true" style="overflow-y:hidden;"> 
-    <div class="modal-dialog panel"> 
-        <div class="modal-content"> 
-            <div class="modal-header popUpHeader"> 
-              <h3 class="modal-title">Select Region</h3> 
-            </div> 
-            <div class="modal-body">
-              <div class="headerText usernameHeader"><span>Select Region</span></div>
-              <div  class="modalHeight">
-               <select ng-model="region" class="form-control">
-                 <option value="NG">Nigeria</option>
-                 <option value="US">USA</option>
-                 <option value="FR">France</option>
-                 <option value="IT">ITALY</option>
-               </select>
-              </div>
-              </div> 
-              <center>
-                <div>
-                <button class="btn btn-warning" ng-click="enterGame()" >
-                  PLAY GAME
-                </button>
-                <button data-dismiss="modal" class="modalBtn">Cancel</button>
-              </div>
-                </center>
-            <div class="modal-footer">Cards for Humanity</div> 
-        </div> 
-    </div> 
-</div> 
+  aria-hidden="true" style="overflow-y:hidden;">
+  <div class="modal-content">
+    <h3 id="modalTitle" class="center-align">Cards for Humanity</h3>
+          <label>Select Region:</label>
+          <select class="browser-default" ng-model="region">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="AF">Africa</option>
+              <option value="AS">Asia</option>
+              <option value="AM">America</option>
+              <option value="OC">Ocenia</option>
+          </select>
+      <!--
+      <button class="btn btn-default" ng-click="enterGame()"> PLAY WITH STRANGERS </button>
+      <button class="btn btn-warning" ng-click="enterGame()"> PLAY WITH FRIENDS </button>
+      <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
+      -->
+    </div>
+    <div class="modal-footer">
+        <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+        <a ng-click="playWithStrangers()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+    </div>
+  </div>
 </div>
