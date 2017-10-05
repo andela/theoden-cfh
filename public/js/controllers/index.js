@@ -1,8 +1,17 @@
 angular.module('mean.system')
-  .controller('IndexController', ['$scope', 'Global', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
-    function ($scope, Global, $location, $http, $window, socket, game, AvatarService) {
+  .controller('IndexController', ['$scope', 'Global', '$cookieStore',
+    '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
+    function ($scope, Global, $cookieStore, $cookies, $location, $http,
+      $window, socket, game, AvatarService) {
+      $scope.checkAuth = () => {
+        if ($cookies.token) {
+          $window.localStorage.setItem('token', $cookies.token);
+        }
+      };
+
       $scope.global = Global;
       $scope.formData = {};
+      $scope.checkAuth();
 
       $scope.playAsGuest = function () {
         game.joinGame();
@@ -14,8 +23,6 @@ angular.module('mean.system')
           return $location.search().error;
         }
         return false;
-
-
       };
 
 
@@ -40,9 +47,7 @@ angular.module('mean.system')
           .success((data) => {
             if (data.success === true) {
               $window.localStorage.setItem('token', data.token);
-              // $window.localStorage.setItem('credentials', data.credentials);
               $location.path('/#!/');
-              // $window.location.reload();
             } else {
               $scope.showMessage = data.message;
             }
@@ -53,9 +58,15 @@ angular.module('mean.system')
 
 
       $scope.signout = () => {
-        $window.localStorage.removeItem('token');
-        $location.path('/');
-        $window.location.reload();
+        $http.get('/signout').success(() => {
+          angular.forEach($cookies, (v, k) => {
+            $cookieStore.remove(k);
+          });
+          $window.localStorage.removeItem('token');
+
+          $location.path('/');
+          $window.location.reload();
+        });
       };
 
 
