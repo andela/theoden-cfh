@@ -1,43 +1,43 @@
 angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
-    function ($routeProvider) {
-      $routeProvider.
-        when('/', {
+    ($routeProvider) => {
+      $routeProvider
+        .when('/', {
           templateUrl: 'views/index.html'
-        }).
-        when('/app', {
+        })
+        .when('/app', {
           templateUrl: '/views/app.html',
-        }).
-        when('/privacy', {
+        })
+        .when('/privacy', {
           templateUrl: '/views/privacy.html',
-        }).
-        when('/bottom', {
+        })
+        .when('/bottom', {
           templateUrl: '/views/bottom.html'
-        }).
-        when('/signin', {
+        })
+        .when('/signin', {
           templateUrl: '/views/signin.html'
-        }).
-        when('/signup', {
+        })
+        .when('/signup', {
           templateUrl: '/views/signup.html'
-        }).
-        when('/signout', {
-          templateUrl: 'views/index.html'
-        }).
-        when('/choose-avatar', {
+        })
+        .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
-        }).
-        otherwise({
+        })
+        .when('/tour', {
+          templateUrl: '/views/tour.html'
+        })
+        .otherwise({
           redirectTo: '/'
         });
     }
   ]).config(['$locationProvider',
-    function ($locationProvider) {
-      $locationProvider.hashPrefix("!");
+    ($locationProvider) => {
+      $locationProvider.hashPrefix('!');
     }
-  ]).run(['$rootScope', function ($rootScope) {
-    $rootScope.safeApply = function (fn) {
-      var phase = this.$root.$$phase;
-      if (phase == '$apply' || phase == '$digest') {
+  ]).run(['$rootScope', ($rootScope) => {
+    $rootScope.safeApply = (fn) => {
+      const phase = this.$root.$$phase;
+      if (phase === '$apply' || phase === '$digest') {
         if (fn && (typeof (fn) === 'function')) {
           fn();
         }
@@ -45,8 +45,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         this.$apply(fn);
       }
     };
-  }]).run(['DonationService', function (DonationService) {
-    window.userDonationCb = function (donationObject) {
+  }])
+  .run(['DonationService', (DonationService) => {
+    window.userDonationCb = (donationObject) => {
       DonationService.userDonated(donationObject);
     };
   }]);
