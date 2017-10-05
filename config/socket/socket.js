@@ -1,9 +1,23 @@
 const mongoose = require('mongoose');
+const firebase = require('firebase');
 const Game = require('./game');
 const Player = require('./player');
 require('console-stamp')(console, 'm/dd HH:MM:ss');
 
 const User = mongoose.model('User');
+
+// Initialize Firebase
+// Set database ref
+const config = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_ID
+};
+
+firebase.initializeApp(config);
 
 const avatars = require('../../app/controllers/avatars.js').all();
 // Valid characters to use to generate random private game IDs
@@ -19,10 +33,30 @@ module.exports = (io) => {
   const allPlayers = {};
   const gamesNeedingPlayers = [];
   let gameID = 0;
+  let chatMessages = [];
+  const database = firebase.database();
 
   io.sockets.on('connection', (socket) => {
     console.log(`${socket.id} Connected`);
     socket.emit('id', { id: socket.id });
+
+    // Load chat when new user connects
+    // socket.emit('loadChat', chatMessages);
+    setTimeout(() => database.ref(`chat/room_${socket.gameID}`).once('value', (snapshot) => {
+      const savedMessages = [];
+      snapshot.forEach((message) => {
+        savedMessages.push(message);
+      });
+      chatMessages = savedMessages;
+      socket.emit('loadChat', savedMessages);
+    }), 300);
+
+    // send recieved chat message to all connected sockets
+    socket.on('new message', (message) => {
+      socket.broadcast.to(socket.gameID).emit('add message', message);
+      chatMessages.push(message);
+      database.ref(`chat/room_${socket.gameID}`).push(message);
+    });
 
     socket.on('pickCards', (data) => {
       console.log(socket.id, 'picked', data);
@@ -165,6 +199,9 @@ module.exports = (io) => {
     if (gamesNeedingPlayers.length <= 0) {
       gameID += 1;
       const gameIDStr = gameID.toString();
+      // Clear past game room chats saved on firebase
+      // If it is a new game
+      database.ref(`chat/room_${gameID}`).remove();
       game = new Game(gameIDStr, io);
       allPlayers[socket.id] = true;
       game.players.push(player);
@@ -177,6 +214,11 @@ module.exports = (io) => {
       game.assignGuestNames();
       game.sendUpdate();
     } else {
+      if (game.players.length < 1) {
+        // Clear past game room chats saved on firebase
+        // If the user is the first to get in
+        database.ref(`chat/room_${gameID}`).remove();
+      }
       game = gamesNeedingPlayers[0];
       allPlayers[socket.id] = true;
       game.players.push(player);
