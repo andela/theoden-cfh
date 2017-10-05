@@ -71,6 +71,7 @@ nav{
   background-color: white!important;
   color: #ef6c00  !important;
 }
+
 .home-button2{
   background-color: white !important;
   color: black !important;
@@ -85,6 +86,7 @@ nav{
   background-color: white!important;
   color: black !important;
 }
+
 .btn-flat{
   padding:10.4px 30px !important;
   line-height:26.4px !important;
@@ -143,6 +145,7 @@ margin-left: -68px !important;
   margin-top: 6% !important;
 }
 .about p{
+ color: white;
 
 }
 .about {
@@ -201,7 +204,6 @@ w{
   }
 }
 
-
 /*  Sol's styles */
 body, html {
   height:100%;
@@ -238,6 +240,14 @@ nav{
 
 .game h5 {
   font-family: Berkshire Swash;
+
+  font-family: Berkshire Swash !important;
+}
+
+icon-image img{
+  width: 50px;
+  height: 50px;
+
 }
 
 .login-form {
@@ -483,3 +493,4 @@ input[type="radio"] {
   background-color: rgba(255,255,255,0.1) !important;
   /*alpha: 0.5;*/
 }
+
