@@ -1,4 +1,4 @@
-<div ng-cloak class="card black gaming-container" id="" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
+<div ng-cloak class="card cfh-black gaming-container" id="" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'">
   <div class='hand card-container'>
     <span ng-show="winnerPicked()"></span>
 
@@ -20,8 +20,9 @@
   </div>
 </div>
 
-<div class="card black longSpan" id="info-container" ng-show="game.state === 'awaiting players'">
+<div class="card cfh-black longSpan" id="info-container" ng-show="game.state === 'awaiting players'">
   <div class="card-content white-text no-padding-top">
+    <br/>
     <h5 class="center-align" id="lobby-how-to-play">How To Play</h5>
     <ol class="ol-eh instruction-text">
       <li>Each player begins with, and will always have, 10 white answer cards.</li>
@@ -31,21 +32,24 @@
       <li>*Want to adorn your avatar with a glorious crown? Donate to charity after the game!</li>
     </ol>
 
-    <br/>
-    <br/>
-    <p class="question center-align orange-text">Please remember to donate to save a child!</p>
-    <br/>
-    <p class="center-align">
-      <a class="btn orange darken-3" href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
-          Make a Donation
-      </a>
-    </p>
+    <div id='charity-fact-container' class="card col s12">
+      <div class="card-content black-text">
+        <p class="question center-align">Please remember to donate to save a child!</p>
+          <br/>
+          <p class="center-align">
+            <a class="btn-flat home-button1 waves-effect waves-light" href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
+                Make a Donation
+            </a>
+          </p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="card black longSpan" id="game-end-container" ng-show="game.state === 'game ended' || game.state ==='game dissolved'">
+<div class="card cfh-black longSpan" id="game-end-container" ng-show="game.state === 'game ended' || game.state ==='game dissolved'">
   <div class="card-content white-text no-padding-top">
     <div class="col s12 m8" id="inner-info-exit">
+      <br/>
       <div class="game-end-answer-text" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
         <h5>What would you like to do now?</h5>
         <p class="normal-text">
@@ -61,12 +65,12 @@
       <br/>
       <br/>
       <div id='inner-text-container'>
-        <a href='/#!/app' class="btn btn-flat white black-text">
+        <a href='/#!/app' class="btn btn-flat home-button21 black-text waves-effect waves-light">
           <div id="join-new-game" ng-click="game.joinGame('joinNewGame')">
             Join a New Game
           </div>
         </a>
-        <a href='/' class="btn btn-flat white black-text">
+        <a href='/' class="btn btn-flat home-button1 black-text waves-effect waves-light">
           <div id="exit-match">
             Return to Lobby
           </div>
@@ -86,10 +90,11 @@
   </div>
 </div>
 
-<div class="card black longSpan czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
-  <div class="card-content white-text no-padding-top ">
+<div class="card cfh-black longSpan czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+  <div class="card-content white-text no-padding-top">
+    <br/>
     <h5 center-align>You are the Card CZAR</h5>
-    <span>Players are choosing their answers. Prepare to select a winner.</span>
+    <span class="normal-text">Players are choosing their answers. Prepare to select a winner.</span>
 
     <div id='charity-fact-container' class="card col s12">
       <div class="card-content black-text">
