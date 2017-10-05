@@ -26,6 +26,52 @@
       <button id='invite-players-button' class="btn" ng-click="invitePlayers()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
           Invite Other Players</br>
         </button>
+      <div id="searchModal" class="modal">
+        <div class="modal-content">
+          <h5 class="modal-title">Theoden's Card for Humanity</h5>
+          <div class="row">
+            <div class="col m6 s6 l6">
+              <div class="search">
+                <i class="material-icons">search</i>
+                <input ng-change="quickSearchUsers()" autocomplete="off" ng-model="searchUserText" id="search">
+              </div>
+
+              <div class="search-results">
+                <ul class="collection" ng-show="foundUsers.length">
+                  <li class="collection-item" ng-repeat="user in foundUsers">
+                    <div>{{user.name}}
+                      <a href="" class="secondary-content" ng-click="invitePlayersClick(user)">
+                    <i class="material-icons">add</i>
+                  </a>
+                      <a href="" class="secondary-content second">
+                    <i class="material-icons">group_add</i>
+                  </a>
+                    </div>
+                  </li>
+                </ul>
+                </ul>
+              </div>
+            </div>
+            <div class="col m5 s5 l5 offset-m1 offset-s1 offset-l1">
+              <div class="row">
+                <ul ng-show="selectedUsers.length" class="collection">
+                  <li class="collection-item" ng-repeat="selectedUser in selectedUsers">
+                    {{selectedUser.name}}
+                  </li>
+                </ul>
+              </div>
+              <div class="row" class="collection">
+                <ul class="collection">
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+        </div>
+      </div>
       <!-- </div> -->
     </div>
     <!-- Game Over Stuff -->
@@ -61,39 +107,10 @@
     </div>
   </div>
 </div>
-<div id="searchModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- close button-->
-        <button type="button" class="close" data-dismiss="modal">&times;
-          </button>
-        <h4 class="modal-title">Theoden's Card for Humanity</h4>
-      </div>
-      <div class="modal-body">
-        <!-- <form ng-submit=""> -->
-        <div class="row">
-          <div class="form-group">
-            <input type="text" class="searchBar form-control" ng-change="quickSearchUsers()" autocomplete="off" ng-model="searchUserText"
-              id="search" placeholder="search for other users">
-          </div>
-        </div>
-        <!-- </form> -->
-        <div class="row searches">
-          <div class="col-md-6 col s6">
-            <div ng-show="foundUsers.length">
-              <li ng-repeat="user in foundUsers">
-                {{user.name}}
-              </li>
-            </div>
-          </div>
-          <div class="col-md-6 col s6">
-            <div ng-show="selectedUsers.length">
+<script>
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+</script>

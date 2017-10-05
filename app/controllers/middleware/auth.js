@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 * @return {string} token response
 */
 const getToken = (req) => {
-  const token = req.body.token || req.headers['x-access-token'] || req.headers.Authorization;
+  const token = req.body.token || req.headers.cookie.token || req.headers.authorization;
   return token;
 };
 
@@ -24,7 +24,7 @@ const authenticate = (req, res, next) => {
   if (req.url.startsWith('/auth')) return next();
   const token = getToken(req);
   if (token) {
-    jwt.verify(token, process.env.SECRET, (error, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return res
           .status(401)
@@ -55,7 +55,7 @@ const getJWT = (id, email, username) => new Promise((resolve, reject) => {
       username
     }, process.env.JWT_SECRET,
     {
-      expiresIn: 1440
+      expiresIn: '10h'
     }, (error, token) => {
       if (error) {
         reject(

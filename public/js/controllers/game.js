@@ -129,7 +129,7 @@ angular.module('mean.system')
           popupModal
             .find('.modal-body')
             .text(popupText);
-          popupModal.modal('show');
+          popupModal.modal('open');
         } else {
           game.startGame();
         }
@@ -140,11 +140,11 @@ angular.module('mean.system')
           popupModal
             .find('.modal-body')
             .text('Too many players in game already');
-          popupModal.modal('show');
+          popupModal.modal('open');
         } else {
           $scope.searchUserText = '';
           const searchModal = $('#searchModal');
-          searchModal.modal('show');
+          searchModal.modal('open');
         }
       };
 
