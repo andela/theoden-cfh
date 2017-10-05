@@ -22,7 +22,6 @@ const User = mongoose.model('User');
  * @return {object} returns redirect
  */
 exports.authCallback = (req, res) => {
-  console.log(req.user,'-----------')
   if (!req.user) {
     res.redirect('/#!/signin?error=socialautherror');
   } else {
