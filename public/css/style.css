@@ -14,20 +14,22 @@
    z-index: 300px !important;
    margin-top: 150px;
    border-radius: 12px;
-   box-shadow: 10px 10px 5px #888888;
+   box-shadow: 10px 10px 5px #888888; 
    background-color: rgba(255,162,52,0.8);
    color: white;
-   width: 40% !important ; 
-   
-   
-   
+   min-width: 30% !important ; 
+  
   }
   #modalTitle{
     font-family: Berkshire Swash;
-
   }
   a .modal-close{
     color:orange accent-4;
+  }
+
+  .btn-flat:before {
+    background-color: rgba(255,162,52,0.8) !important;
+    color: #fff;
   }
   
 
@@ -164,7 +166,7 @@
 
  a:hover {
    text-decoration: none;
-   color: #2ecc71;
+   color: #fff
    border-radius:0px !important;
  }
 
@@ -617,7 +619,7 @@ nav{
 }
 .home-button2 a:hover {
   background-color: white!important;
-  color: black !important;
+  color:rgba(255,162,52,0.8); !important;
 }
 
 .btn-flat{
