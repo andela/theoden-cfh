@@ -5,7 +5,6 @@ angular.module('mean.system')
         user: window.user,
         authenticated: !! window.user
     };
-
     return _this._data;
   }])
   .factory('AvatarService', ['$http', '$q', function($http, $q) {

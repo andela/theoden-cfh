@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 * @return {string} token response
 */
 const getToken = (req) => {
-  const token = req.body.token || req.headers['x-access-token'] || req.headers.Authorization;
+  const token = req.body.token || req.headers.cookie.token || req.headers.authorization;
   return token;
 };
 
@@ -24,7 +24,7 @@ const authenticate = (req, res, next) => {
   if (req.url.startsWith('/auth')) return next();
   const token = getToken(req);
   if (token) {
-    jwt.verify(token, process.env.SECRET, (error, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return res
           .status(401)
@@ -41,19 +41,21 @@ const authenticate = (req, res, next) => {
 };
 
 /**
- * Generates a json web token with the supplied parameters
+ * @description Generates a json web token with the supplied parameters
+ * @param {number} id user id
  * @param  {String} email email address 
  * @param  {String} username username
  * @return {promise} signed token
  */
-const getJWT = (email, username) => new Promise((resolve, reject) => {
+const getJWT = (id, email, username) => new Promise((resolve, reject) => {
   jwt.sign(
     {
+      id,
       email,
       username
     }, process.env.JWT_SECRET,
     {
-      expiresIn: 1440
+      expiresIn: '10h'
     }, (error, token) => {
       if (error) {
         reject(
@@ -76,10 +78,23 @@ const getJWT = (email, username) => new Promise((resolve, reject) => {
       }
     });
 });
+/**
+ * @description decodes the token and returns the user id or unauthenticated
+ * @param {string} encodedToken 
+ * @return {string} decoded user Id if successful or unauthenticated
+ */
+const decodeJWT = (encodedToken) => {
+  const decodedToken = jwt.decode(encodedToken);
 
+  if (decodedToken) {
+    return decodedToken;
+  }
+  return 'unauthenticated';
+};
 
 module.exports = {
   getJWT,
   authenticate,
-  getToken
+  getToken,
+  decodeJWT
 };

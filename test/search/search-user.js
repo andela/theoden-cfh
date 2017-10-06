@@ -9,7 +9,6 @@ const app = require('../../server');
 
 const request = supertest(app);
 const User = mongoose.model('User');
-
 let user, user2, user3;
 
 describe('POST /api/search/user', () => {

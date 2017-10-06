@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const avatars = require('./avatars').all();
 const getJWT = require('./middleware/auth').getJWT;
+const getToken = require('./middleware/auth').getToken;
 const validator = require('./validators/validators');
 
 mongoose.Promise = global.Promise;
@@ -20,8 +21,15 @@ const User = mongoose.model('User');
  * @param {function} next function
  * @return {object} returns redirect
  */
-exports.authCallback = (req, res, next) => {
-  res.redirect('/chooseavatars');
+exports.authCallback = (req, res) => {
+  if (!req.user) {
+    res.redirect('/#!/signin?error=socialautherror');
+  } else {
+    getJWT(req.user._id,req.email, req.user.name).then((token) => {
+      res.cookie('token', token.token);
+      res.redirect('/#!/');
+    });
+  }
 };
 
 
@@ -32,7 +40,7 @@ exports.signin = function (req, res) {
   if (!req.user) {
     res.redirect('/#!/signin?error=invalid');
   } else {
-    res.redirect('/#!/app');
+    res.redirect('/#!/chooseavatars');
   }
 };
 
@@ -75,7 +83,7 @@ exports.login = (req, res) => {
         }
         const password = req.body.password;
         if (bcrypt.compareSync(password, user.hashed_password)) {
-          getJWT(user.email, user.username)
+          getJWT(user.id, user.email, user.username)
             .then((token) => {
               if (token.status === 'Success') {
                 res
@@ -132,7 +140,22 @@ exports.login = (req, res) => {
 
 
 /**
- * @description User signs up and signs in with a JWT toke stored in local Storage
+* @description The user can get Token for the Users logging on through social platforms
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
+ */
+exports.getToken = (req, res) => {
+  const cookie = getToken(req);
+  res.json({
+    success: true,
+    cookie
+  });
+};
+
+
+/**
+ * @description Creat function that signs users up
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -176,7 +199,7 @@ exports.create = (req, res) => {
                           error: error.errors
                         });
                     } else {
-                      getJWT(validuser.email, validuser.name)
+                      getJWT(validuser._id,validuser.email, validuser.name)
                         .then((token) => {
                           const credentials = {
                             email: validuser.email,
@@ -190,7 +213,6 @@ exports.create = (req, res) => {
                               token: token.token,
                               credentials
                             });
-                          // }
                         }).catch((err) => {
                           res
                             .status(500)
@@ -248,13 +270,13 @@ exports.checkAvatar = function (req, res) {
       })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
-          res.redirect('/#!/');
+          res.redirect('/#!/app');
         } else {
           res.redirect('/#!/choose-avatar');
         }
       });
   } else {
-    // If user doesn't even exist, redirect to /
+
     res.redirect('/');
   }
 };
