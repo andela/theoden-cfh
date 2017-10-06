@@ -68,7 +68,7 @@ class Game {
     this.guestNames = guestNames.slice();
   }
   /**
-   * @description 
+   * @description
    * @return {void} void
    */
   payload() {
@@ -101,7 +101,7 @@ class Game {
   }
   /**
    *
-   * @param {string} msg 
+   * @param {string} msg
    * @returns {*} void
    */
   sendNotification(msg) {
@@ -179,7 +179,7 @@ class Game {
   }
   /**
    *
-   * @param {object} self 
+   * @param {object} self
    * @returns {*} void
    */
   static stateChoosing(self) {
@@ -224,7 +224,7 @@ class Game {
     }
   }
   /**
-   * 
+   *
    * @param {object} self instance of class
    * @returns {*} void
    */
@@ -261,14 +261,18 @@ class Game {
       if (winner !== -1) {
         self.stateEndGame(winner);
       } else {
+<<<<<<< HEAD
         //Game.stateChoosing(self);
         Game.changeCzar(self);
+=======
+        Game.stateChoosing(self);
+>>>>>>> #151136252 UI Redesign for gaming screen (#30)
       }
     }, self.timeLimits.stateResults * 1000);
   }
   /**
    *
-   * @param {number} winner 
+   * @param {number} winner
    * @returns {*} void
    */
   stateEndGame(winner) {
@@ -285,7 +289,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getQuestions(cb) {
@@ -295,7 +299,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getAnswers(cb) {
@@ -305,7 +309,7 @@ class Game {
   }
   /**
    *
-   * @param {object} cards 
+   * @param {object} cards
    * @returns {*} void
    */
   static shuffleCards(cards) {
@@ -324,7 +328,7 @@ class Game {
 
   /**
    *
-   * @param {number} maxAnswers 
+   * @param {number} maxAnswers
    * @returns {*} void
    */
   dealAnswers(maxAnswers) {
@@ -357,8 +361,8 @@ class Game {
   }
   /**
    *
-   * @param {array} thisCardArray 
-   * @param {number} thisPlayer 
+   * @param {array} thisCardArray
+   * @param {number} thisPlayer
    * @returns {*} void
    */
   pickCards(thisCardArray, thisPlayer) {
@@ -471,9 +475,9 @@ class Game {
 
   /**
    *
-   * @param {number} thisCard 
-   * @param {*} thisPlayer 
-   * @param {*} autopicked 
+   * @param {number} thisCard
+   * @param {*} thisPlayer
+   * @param {*} autopicked
    * @returns {*} void
    */
   pickWinning(thisCard, thisPlayer, autopicked) {
