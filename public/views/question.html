@@ -1,3 +1,4 @@
+<div id="notCzar" class="orange-text" ng-if="shownoCzar">Waiting for the Czar to choose</div>
 <div id="question-container-inner" class="row">
   <div class="card fixed-height-230 cfh-black">
     <div class="card-content white-text">
@@ -22,9 +23,11 @@
             </button>
           </p>
           <br/>
+
           <div id="notifications" class="question" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
         </div>
-      </div><!--end start game -->
+      </div>
+      <!--end start game -->
 
       <span class="white-text question" ng-bind-html-unsafe="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
 
@@ -36,9 +39,9 @@
             <span class="normal-text">Our sincere apologies.</span>
           </div>
           <div ng-show="game.state === 'game ended' && game.gameWinner === game.playerIndex">
-            <div class="game-end-headline question">Congratulations! You won the game, {{game.players[game.playerIndex].username | upperFirstLetter}}!</div>We hope you
-            feel special. If you'd like to share that special feeling with the world, consider donating to charity. Or just horde
-            it all for youself.
+            <div class="game-end-headline question">Congratulations! You won the game, {{game.players[game.playerIndex].username | upperFirstLetter}}!</div>We hope
+            you feel special. If you'd like to share that special feeling with the world, consider donating to charity. Or
+            just horde it all for youself.
           </div>
           <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
             <div class="game-end-headline question">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
@@ -105,7 +108,7 @@
     <!-- Modal content-->
     <div id="shuffle-content" class="modal-content">
       <div id="shuffleText">You are the Almighty Card Czar</h4>
-          <h5>Click a card</h5>
+        <h5>Click a card</h5>
       </div>
       <div class="center">
         <div ng-click="shuffleCards()" ng-style="{'cursor':'pointer'}" style='margin: auto;'>
@@ -127,6 +130,7 @@
   $(document).ready(function () {
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
     $('.modal').modal();
-    
+
   });
+
 </script>

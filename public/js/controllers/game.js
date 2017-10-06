@@ -13,6 +13,7 @@ angular.module('mean.system')
       $scope.pickedCards = [];
       let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
       $scope.makeAWishFact = makeAWishFacts.pop();
+      $scope.shownoCzar = false;
 
       $scope.pickCard = (card) => {
         if (!$scope.hasPickedCards) {
@@ -211,11 +212,13 @@ angular.module('mean.system')
           && game.state !== 'game dissolved'
           && game.state !== 'awaiting players' && game.table.length === 0) {
           $scope.czarHasDrawn = 'Wait! Czar is drawing Card';
+          $scope.shownoCzar = true;
         }
         if (game.state !== 'czar pick card'
           && game.state !== 'awaiting players'
           && game.state !== 'game dissolve') {
           $scope.czarHasDrawn = '';
+          $scope.shownoCzar = false;
         }
       });
 

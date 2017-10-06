@@ -114,12 +114,7 @@ nav{
 
 #shuffle-content{
   z-index: 300px !important;
-  /* margin-top: 150px;
-  border-radius: 12px;
-  box-shadow: 10px 10px 5px #888888;  */
-  
   color: white;
-  
   text-align: center;
   padding-bottom: 0.4em;
   padding-top: 0.4em;
@@ -132,6 +127,15 @@ nav{
  
  }
 
+
+ #notCzar{
+
+  font-family: Berkshire Swash;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-right: 3.2em;
+
+ }
 
  #shuffleText{
   background-color: #ef6c00;
