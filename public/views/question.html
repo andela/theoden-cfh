@@ -100,3 +100,33 @@
     </div>
   </div>
 </div>
+<div id="shuffleModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div id="shuffle-content" class="modal-content">
+      <div id="shuffleText">You are the Almighty Card Czar</h4>
+          <h5>Click a card</h5>
+      </div>
+      <div class="center">
+        <div ng-click="shuffleCards()" ng-style="{'cursor':'pointer'}" style='margin: auto;'>
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard1' />
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard2' />
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard3' />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn" id="close" data-dismiss="modal" style="display:none; ">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+    
+  });
+</script>
