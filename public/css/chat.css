@@ -1,0 +1,117 @@
+.chat-window {
+  width: 300px;
+  padding: 0px !important;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  border-radius: 5px;
+}
+
+.chat-header {
+  padding: 1px 10px !important;
+  background-color: #f57c00;
+  color: white;
+  vertical-align: middle !important;
+  font-family: 'Berkshire';
+}
+
+.mute-text {
+  color: #B8B7B7;
+}
+
+.chat-badge {
+  background-color: white !important;
+  color: teal !important;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: middle;
+  padding: 0px 5px !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 100% !important;
+}
+
+.close-icon {
+  cursor: pointer;
+  float: right;
+}
+
+.chat-body {
+  padding: 0px;
+}
+
+.chat-content {
+  background-color: white;
+  padding: 0px 10px;
+  height: 200px;
+  overflow: scroll;
+}
+
+.chat-message {
+  width: inherit;
+}
+
+.wrap-text {
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+.message-list-item {
+  display: flex;
+  margin: 15px 0px;
+}
+
+.chat-avatar {
+  padding-right: 10px;
+}
+
+.chat-avatar img {
+  height: 30px;
+  width: 30px;
+}
+
+.chat-form {
+  width: 100%;
+  margin: 0px;
+  background-color: white;
+  padding: 0px !important;
+}
+
+.chat-input {
+  margin: 0px !important;
+  height: 100%;
+  width: calc(100% - 5px) !important; 
+  padding-left: 5px !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.emojionearea-editor {
+  width: 100% !important;
+  height: inherit !important;
+}
+
+.input-group {
+  padding: 0px !important;
+  height: 44px !important;
+  border-top: 2px solid #F1E5D8 !important;
+}
+
+.input-group-btn {
+  padding: 0px !important;
+  height: inherit !important;
+}
+
+.input-group-btn button {
+  margin: 0px !important;
+  padding: 0px 5px !important;
+  width: 60px !important;
+  height: inherit !important;
+  background-color: #f57c00 !important;
+  color: white !important;
+  outline: none !important;
+}
+
+.input-group-btn :hover {
+  font-weight: bold;
+}
