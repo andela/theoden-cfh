@@ -28,7 +28,6 @@
 
       <span class="white-text question" ng-bind-html-unsafe="game.curQuestion.text" ng-hide="game.state === 'game ended' || game.state ==='game dissolved' || game.state === 'awaiting players'"></span>
 
-<<<<<<< HEAD
       <div id="player-count-container">
         <div id="player-count">{{game.players.length}} / {{game.playerMaxLimit}}</div>
         <div id="the-word-players"> Players </div>
@@ -108,26 +107,6 @@
         <div class="game-end-headline">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
         That makes you a loser, unfortunately.
       </div>
-=======
-      <!-- Game Over Stuff -->
-      <div id="game-end-info" class="row">
-        <div class="col s12 white-text">
-          <div id="people-left-game-top" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
-            <div class="game-end-headline question">What the!? The game ended because too many people left! </div>
-            <span class="normal-text">Our sincere apologies.</span>
-          </div>
-          <div ng-show="game.state === 'game ended' && game.gameWinner === game.playerIndex">
-            <div class="game-end-headline question">Congratulations! You won the game, {{game.players[game.playerIndex].username | upperFirstLetter}}!</div>We hope you
-            feel special. If you'd like to share that special feeling with the world, consider donating to charity. Or just horde
-            it all for youself.
-          </div>
-          <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
-            <div class="game-end-headline question">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
-            That makes you a loser, unfortunately.
-          </div>
-        </div>
-      </div>
->>>>>>> #151136252 UI Redesign for gaming screen (#30)
     </div>
   </div>
 </div>
@@ -158,27 +137,10 @@
           <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard2' />
           <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard3' />
         </div>
-<<<<<<< HEAD
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn" id="close" data-dismiss="modal" style="display:none; ">Close</button>
-=======
-        <!-- </form> -->
-        <div class="row searches">
-          <div class="col-md-6 col s6">
-            <div ng-show="foundUsers.length">
-              <li ng-repeat="user in foundUsers">
-                {{user.name}}
-              </li>
-            </div>
-          </div>
-          <div class="col-md-6 col s6">
-            <div ng-show="selectedUsers.length">
-            </div>
-          </div>
-        </div>
->>>>>>> #151136252 UI Redesign for gaming screen (#30)
       </div>
 
     </div>
