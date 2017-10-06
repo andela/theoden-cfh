@@ -8,7 +8,7 @@
         "callbackURL": "http://cardsforhumanity.com:3000/auth/facebook/callback"
     },
     "twitter": {
-        "clientID": "CONSUMER_KEY",
+        "clientID": "CONSUMER_KEY" ,
         "clientSecret": "CONSUMER_SECRET",
         "callbackURL": "http://cardsforhumanity.com:3000/auth/twitter/callback"
     },
