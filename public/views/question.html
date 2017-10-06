@@ -17,7 +17,7 @@
       <div id="loading-container">
         <div id="loading-gif"><img ng-src="../img/loader.gif" /></div>
       </div>
-      <div id="start-game-container" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
+      <div id="start-game-container" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride) && game.players.length >= game.playerMinLimit">
         <div id='start-game-button'>
           Start Game</br>
         </div>
@@ -107,6 +107,27 @@
     </div>
   </div>
 </div>
+<div id="shuffleModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <h4 id="shuffleText">You are the Czar - Click card to pick the next question</h4>
+      <div class="center">
+        <div ng-click="shuffleCards()" ng-style="{'cursor':'pointer'}" style='margin: auto;'>
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard1' />
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard2' />
+          <img src='../img/black-playing-card.jpg' style='width: 100px;' class='animated flipInX' id='shufflecard3' />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn" id="close" data-dismiss="modal" style="display:none; ">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered

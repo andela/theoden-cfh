@@ -204,6 +204,10 @@ angular.module('mean.system')
       socket.emit('pickWinning', { card: card.id });
     };
 
+    game.startNextRound = () => {
+      socket.emit('czarCardSelected');
+    };
+
     decrementTime();
 
     return game;

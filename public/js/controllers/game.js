@@ -166,6 +166,23 @@ angular.module('mean.system')
         game.leaveGame();
         $location.path('/');
       };
+
+      $scope.shuffleCards = () => {
+        const card = $(`#${event.target.id}`);
+        card.addClass('animated flipOutY');
+        setTimeout(() => {
+          $scope.startNextRound();
+          card.removeClass('animated flipOutY');
+          $('#shuffleModal').modal('hide');
+        }, 500);
+      };
+      $scope.startNextRound = () => {
+        if ($scope.isCzar()) {
+          game.startNextRound();
+        }
+      };
+
+
       $scope.$watch('game.round', () => {
         $scope.hasPickedCards = false;
         $scope.showTable = false;

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 * @return {string} token response
 */
 const getToken = (req) => {
-  const token = req.body.token || req.headers.cookie.token || req.headers.authorization;
+  const token = req.body.token || req.headers.cookies.token || req.headers.authorization;
   return token;
 };
 

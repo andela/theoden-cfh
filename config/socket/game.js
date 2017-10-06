@@ -163,9 +163,12 @@ class Game {
    * @returns {*} void
    */
   startGame() {
+    //    console.log(this.gameID, this.state);
     Game.shuffleCards(this.questions);
     Game.shuffleCards(this.answers);
-    Game.stateChoosing(this);
+    Game.changeCzar(this);
+    // this.stateChoosing(this);
+    this.sendUpdate();
   }
 
   /**
@@ -187,18 +190,18 @@ class Game {
     self.winnerAutopicked = false;
     self.curQuestion = self.questions.pop();
     if (!self.questions.length) {
-      Game.getQuestions((err, data) => {
+      self.getQuestions((err, data) => {
         self.questions = data;
       });
     }
     self.round += 1;
     self.dealAnswers();
-    // Rotate card czar
-    if (self.czar >= self.players.length - 1) {
-      self.czar = 0;
-    } else {
-      self.czar += 1;
-    }
+    // // Rotate card czar
+    // if (self.czar >= self.players.length - 1) {
+    //   self.czar = 0;
+    // } else {
+    //   self.czar += 1;
+    // }
     self.sendUpdate();
 
     self.choosingTimeout = setTimeout(() => {
@@ -258,7 +261,8 @@ class Game {
       if (winner !== -1) {
         self.stateEndGame(winner);
       } else {
-        Game.stateChoosing(self);
+        //Game.stateChoosing(self);
+        Game.changeCzar(self);
       }
     }, self.timeLimits.stateResults * 1000);
   }
@@ -332,7 +336,7 @@ class Game {
       while (this.players[i].hand.length < maxAnswers) {
         this.players[i].hand.push(this.answers.pop());
         if (!this.answers.length) {
-          Game.getAnswers(storeAnswers);
+          this.getAnswers(storeAnswers);
         }
       }
     }
@@ -508,5 +512,49 @@ class Game {
     clearTimeout(this.choosingTimeout);
     clearTimeout(this.judgingTimeout);
   }
+
+  /**
+   * 
+   * 
+   * @memberof Game
+   * 
+   * 
+   * 
+   * @memberOf Game
+   */
+  static changeCzar(self) {
+    self.state = 'czar pick card';
+    self.table = [];
+    if (self.czar >= self.players.length - 1) {
+      self.czar = 0;
+    } else {
+      self.czar += 1;
+    }
+    self.sendUpdate();
+  }
+
+  /**
+   * 
+   * 
+   * 
+   * @static
+   * @param {any} self 
+   * @memberof Game
+  
+   * 
+   * 
+   * @static
+   * @param {any} self 
+   * 
+   * @memberOf Game
+   */
+  static startNextRound(self) {
+    if (self.state === 'czar pick card') {
+      Game.stateChoosing(self);
+    } else if (self.state === 'czar left game') {
+      Game.changeCzar(self);
+    }
+  }
 }
+
 module.exports = Game;
