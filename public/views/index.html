@@ -49,9 +49,9 @@
                 <img src="../img/Artboard1.svg">
               </div>
               <div class="home">
-                <span ng-show="showOptions">
+                <span ng-show="showOptions" ng-controller="IndexController">
             <a href="#!/signup" class="home-button1 waves-effect btn-flat">Sign up</a>
-            <a href="#!/app" class="home-button2 waves-effect btn-flat">Play as guest</a>
+            <a ng-click="playAsGuest()" class="home-button2 waves-effect btn-flat">Play as guest</a>
             <div>
               <br/>
               <span id="tweet-container-index">
@@ -71,9 +71,9 @@
               </span>
               </div>
               </span>
-              <span ng-hide="showOptions">
-                <a href="/play" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
-                <a href="/play?custom" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
+              <span ng-controller="IndexController" ng-hide="showOptions">
+              <a ng-click="playGame()" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
+              <a ng-click="playGame()" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
               <div>
                 <span id='twitter-facebook'>
                   <span id="tweet-container-index">
@@ -157,7 +157,6 @@
   <div class="row charity-desc">
     <div class="col s12 m5 l4 offset-l2">
       <a href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0"><img class="donate" src="../img/donate.png"></a>
-
       <a href="http://www.wish.org"><img class="make" src="../img/make-a-wish-logo-white-large.png"/></a>
     </div>
     <div class="col s12 m7 l4">
@@ -188,7 +187,7 @@
 <!--Import jQuery before materialize.js-->
 
 <script type="text/javascript">
-  $(document).ready(function () {
+  $(document).ready(() => {
     $('.parallax ').parallax();
     $('.carousel ').carousel();
     $(".button-collapse").sideNav({
@@ -196,10 +195,32 @@
     }
     );
     $('.slider').slider();
+    $('.modal').modal({
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+    });
+    $('select').material_select();
   });
 
-  function scrollWin(x, y) {
+  const scrollWin = (x, y) => {
     window.scrollBy(x, y);
   }
 
 </script>
+
+
+<div class="modal fade text-dark" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
+
+  <div class="modal-content">
+
+    <h3 class="modal-title center-align" id="modalTitle">Cards For Humanity</h3>
+    <p class='center-align'>Are you sure you want to start?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+    <a ng-click="enterGame()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+  </div>
+
+</div>
+
+
