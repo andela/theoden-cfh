@@ -122,11 +122,19 @@ nav{
   line-height: 110%;
   padding: 0em !important;
  
- 
-  /* min-width: 40% !important ;  */
- 
  }
 
+.fb_iframe_widget{
+   line-height: 0px !important;
+ }
+
+ #tweet-container-index{
+  vertical-align: text-bottom!important;
+ }
+
+ #twitter-widget-2{
+  height: 22px !important;
+ }
 
  #notCzar{
 

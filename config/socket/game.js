@@ -25,10 +25,8 @@ const guestNames = [
  * 
  * @param {any} gameID 
  * @param {any} io 
- * 
- * 
- * @param {any} gameID 
- * @param {any} io 
+ * @returns
+ *
  */
 function Game(gameID, io) {
   this.io = io;
