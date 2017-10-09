@@ -144,21 +144,18 @@ nav{
   margin-right: 3.2em;
 
  }
+ 
 
  #shuffleText{
   background-color: #ef6c00;
-  font-family: Berkshire Swash;
   padding: 0.1em !important;
   margin-bottom: 0.5em;
+  font-family: Berkshire Swash;
 
  }
- #modalTitle{
-   font-family: Berkshire Swash;
-   
- }
- a .modal-close{
-   color:orange accent-4;
- }
+  .shuffle{
+   font-family: Helvetica, sans-serif !important;
+ } 
 
 
 
@@ -287,11 +284,6 @@ nav{
   margin-left: 15px !important;
 }
 
-.game h5 {
-  font-family: Berkshire Swash;
-
-  font-family: Berkshire Swash !important;
-}
 
 icon-image img{
   width: 50px;
