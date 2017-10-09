@@ -55,19 +55,16 @@
             <div>
               <br/>
               <span id="tweet-container-index">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://theodencfh-staging.herokuapp.com" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
                 <a href="https://twitter.com/cfh_app" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @cfh_app</a>
               </span>
                 <span id='facebook-share'>
-                  <a href="#"
-                    onclick="
-                      window.open(
-                        'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
-                        'facebook-share-dialog',
-                        'width=626,height=436');
-                      return false;">
-                    Share on Facebook
-                  </a>
+                <div class="fb-share-button" 
+                data-href="http://theodencfh-staging.herokuapp.com/" 
+                data-layout="button" data-size="small" data-mobile-iframe="true">
+                <a class="fb-xfbml-parse-ignore" target="_blank"
+                 href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftheodencfh-staging.herokuapp.com%2F&amp;src=sdkpreparse">
+                 Share</a></div>
               </span>
               </div>
               </span>
@@ -77,12 +74,17 @@
               <div>
                 <span id='twitter-facebook'>
                   <span id="tweet-container-index">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://theodencfh-staging.herokuapp.com" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
                     <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
                   </span>
-                  <span id='facebook-share'>
-                    <a href="#"onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog',
-                                'width=626,height=436');return false;">Share on Facebook</a>
+              <span id='facebook-share'>
+                <div class="fb-share-button"
+                 data-href="http://theodencfh-staging.herokuapp.com/" 
+                 data-layout="button" data-size="small" 
+                 data-mobile-iframe="true">
+                 <a class="fb-xfbml-parse-ignore" target="_blank" 
+                 href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftheodencfh-staging.herokuapp.com%2F&amp;src=sdkpreparse">
+                 Share</a></div>
                   </span>
               </span>
             </div>
