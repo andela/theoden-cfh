@@ -1,28 +1,46 @@
 script.
+      (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1815167408775418";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+
+script.
       var _gaq=[['_setAccount','UA-44959535-1'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src='//www.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
-script(type='text/javascript', src='/lib/jquery/jquery.js')
+
+script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
 script(type='text/javascript', src='/lib/underscore/underscore-min.js')
 
 //Bootstrap
-script(type='text/javascript', src='/lib/bootstrap/js/bootstrap.js')
+//- script(type='text/javascript', src='/lib/bootstrap/js/bootstrap.js')
 
 //AngularJS
-script(type='text/javascript', src='http://code.angularjs.org/1.1.5/angular.js')
-script(type='text/javascript', src='http://code.angularjs.org/1.1.5/angular-resource.js')
-script(type='text/javascript', src='http://code.angularjs.org/1.1.5/angular-cookies.js')
+script(type='text/javascript', src='https://code.angularjs.org/1.1.5/angular.js')
+script(type='text/javascript', src='https://code.angularjs.org/1.1.5/angular-resource.js')
+script(type='text/javascript', src='https://code.angularjs.org/1.1.5/angular-cookies.js')
 
 //Angular UI
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js')
 script(type='text/javascript', src='/lib/angular-ui-utils/modules/route.js')
+
+//Materialize
+script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+//Emojionearea
+script(type='text/javascript', src='https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.js')
 
 //Application Init
 script(type='text/javascript', src='/js/init.js')
 script(type='text/javascript', src='/js/app.js')
 script(type='text/javascript', src='/js/directives.js')
 script(type='text/javascript', src='/js/filters.js')
+script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
 
 //Application Services
 script(type='text/javascript', src='/js/services/global.js')
@@ -33,10 +51,12 @@ script(type='text/javascript', src='/js/services/game.js')
 script(type='text/javascript', src='/js/controllers/index.js')
 script(type='text/javascript', src='/js/controllers/header.js')
 script(type='text/javascript', src='/js/controllers/game.js')
+script(type='text/javascript', src='/js/controllers/chat.js')
 script(type='text/javascript', src='/js/init.js')
+script(type='text/javascript', src='/js/init-materialize.js')
 
 //Socket.io Client Library
 script(type='text/javascript', src='/socket.io/socket.io.js')
 
 //Livereload script rendered
-//script(type='text/javascript', src='http://localhost:35729/livereload.js')
+//script(type='text/javascript', src='http://localhost:35729/livereload.js'
