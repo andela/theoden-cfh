@@ -112,55 +112,6 @@ nav{
     z-index: -1;
 }
 
-#shuffle-content{
-  z-index: 300px !important;
-  color: white;
-  text-align: center;
-  padding-bottom: 0.4em;
-  padding-top: 0.4em;
-  font-size: 2.28rem;
-  line-height: 110%;
-  padding: 0em !important;
- 
- }
-
-.fb_iframe_widget{
-   line-height: 0px !important;
- }
-
- #tweet-container-index{
-  vertical-align: text-bottom!important;
- }
-
- #twitter-widget-2{
-  height: 22px !important;
- }
-
- #notCzar{
-
-  font-family: Berkshire Swash;
-  font-size: 2.2rem;
-  text-align: center;
-  margin-right: 3.2em;
-
- }
-
- #shuffleText{
-  background-color: #ef6c00;
-  font-family: Berkshire Swash;
-  padding: 0.1em !important;
-  margin-bottom: 0.5em;
-
- }
- #modalTitle{
-   font-family: Berkshire Swash;
-   
- }
- a .modal-close{
-   color:orange accent-4;
- }
-
-
 
 /* how to play div styles*/
 .how h3{
