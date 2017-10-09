@@ -630,8 +630,8 @@ input[type="radio"] {
 }
 
 .players-col {
-    height: 600px;
-    overflow: scroll;
+  max-height: 600px;
+  overflow: scroll;
 }
 
 .timer {

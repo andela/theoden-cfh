@@ -19,14 +19,12 @@
     <div class="container">
       <div class="section">
         <div class="row">
-          <br/>
           <form class="col s12 m8 offset-m2 l6 offset-l3 login-form" ng-submit="signIn()">
             <div class="card col s12">
               <div class="card-content">
                 <p class="card-title center-align cfh-deep-blue-text"><b>Sign Into Account</b></p>
                 <br/>
                 <div class="red-text center-align">{{showMessage}}</div>
-                <br/>
                 <div class="row">
                   <div class="input-field col s12">
                     <input id="email" name="email" type="email" class="validate" ng-model="formData.email">
@@ -41,7 +39,6 @@
                 </div>
                 <div class="row">
                   <div class="col s12 center-align">
-                    <br/>
                     <button type="submit" class="btn orange darken-3">
                       Sign In
                     </button>
@@ -50,7 +47,6 @@
 
                 <div class="row">
                   <div class="col s12">
-                    <br/>
                     <p class="social-links center-align">or sign in with social links</p>
                   </div>
                 </div>
@@ -62,10 +58,9 @@
                     <a href="/auth/twitter"><img src="/img/icons/twitter.png"</a>
                   </div>
                 </div>
-                <br/>
+
                 <div class="row">
                   <div class="col s12 center-align">
-                    <br/>
                     <a href="/signup" class="btn-flat btn-mine">
                       New? Sign up
                     </a>
@@ -79,3 +74,11 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(() => {
+    $('.button-collapse').sideNav({
+      menuWidth: 200
+    });
+    $('.parallax').parallax();
+  });
+  </script>

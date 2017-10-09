@@ -1,0 +1,334 @@
+<div id="app-container" ng-controller="TourController">
+    <nav class="orange darken-3" role="navigation">
+      <div class="nav-wrapper">
+        <a id="logo-container" href="#" class="brand-logo">
+            Cards for Humanity
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <span id="tweet-container">
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cfh.io" data-text="Cards for Humanity: A Game for Horrible People Desperately Trying to do Good" data-related="CFH_App">Tweet</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+              </script>
+            </span>
+            &nbsp;
+        </li>
+        <li id="abandon-game-button"><a class="btn black waves-effect waves-light" ng-click="abandonGame()">Quit</a></li>
+        </ul>
+  
+        <ul id="nav-mobile" class="side-nav">
+          <li><a ng-click="abandonGame()">Quit</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  
+    <div id="gameplay-container" class="row">
+      <br/>
+      <div class="col s12 l9">
+        <div class="row">
+          <div class="col s12 m3 l3" id="timer-container" ng-show="showTime">
+            <div class="card timer fixed-height-230">
+              <div class="card-content center-align">
+                <h1 class="countdown-timer">{{game.time}}</h1>
+                <p>
+                  <span class="normal-text" ng-hide="game.state === 'winner has been chosen' || game.state === 'waiting for czar to decide'">
+                    Time Remaining
+                  </span>
+                  <span class="normal-text" id="timer-status-czar-choosing" ng-show="game.state === 'winner has been chosen'"> Next Round In</span>
+                  <span class="normal-text" id="timer-status-czar-choosing" ng-show="game.state === 'waiting for czar to decide'">   Czar Choosing
+                  </span>
+                  <br/>
+                </p>
+              </div>
+            </div>
+                
+          </div>
+          <div class="col s12 m9 l9 game">
+            <div id="question-container-inner" class="row">
+              <div class="card fixed-height-230 cfh-black">
+                <div class="card-content white-text">
+                  <div class="row" id="startGame" ng-show="awaitingPlayers">
+                    <div class="col s12">
+                      <h5 class="center-align" id="finding-players">
+                        Finding Players <small><img ng-src="../img/loader.gif" /></small>
+                      </h5>
+                    </div>
+                    <div class="col s3 m3 center-align" id="player-count-container">
+                      <h5>{{game.players.length}} / {{game.playerMaxLimit}}</h5>
+                      <p class="normal-text">Players</p>
+                    </div>
+                    <div class="col s12 m9">
+                      <br/>
+                      <p>
+                        <button id="start-game" class="btn orange darken-3" ng-click="startGame()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
+                          Start Game
+                        </button>&nbsp;
+                        <button id='invite-players-button' class="btn white black-text" ng-click="invitePlayers()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
+                          Invite
+                        </button>
+                      </p>
+                      <br/>
+                      <div id="notifications" class="question" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">{{game.notification}}</div>
+                    </div>
+                  </div><!--end start game -->
+            
+                  <span id="question" class="white-text question" ng-bind-html-unsafe="game.curQuestion.text" ng-show="showQuestion"></span>
+            
+                  <!-- Game Over Stuff -->
+                  <div id="game-end-info" class="row">
+                    <div class="col s12 white-text">
+                      <div id="people-left-game-top" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
+                        <div class="game-end-headline question">What the!? The game ended because too many people left! </div>
+                        <span class="normal-text">Our sincere apologies.</span>
+                      </div>
+                      <div ng-show="gameEnded">
+                        <div class="game-end-headline question">Congratulations! You won the game, {{game.players[game.playerIndex].username | upperFirstLetter}}!</div>We hope you
+                        feel special. If you'd like to share that special feeling with the world, consider donating to charity.
+                      </div>
+                      <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
+                        <div class="game-end-headline question">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
+                        That makes you a loser, unfortunately.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div id="popupModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <!-- close button-->
+                    <button type="button" class="close" data-dismiss="modal">&times;
+                      </button>
+                    <h4 class="modal-title">Theoden's Card for Humanity</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Mahn whatever</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="searchModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <!-- close button-->
+                    <button type="button" class="close" data-dismiss="modal">&times;
+                      </button>
+                    <h4 class="modal-title">Theoden's Card for Humanity</h4>
+                  </div>
+                  <div class="modal-body">
+                    <!-- <form ng-submit=""> -->
+                    <div class="row">
+                      <div class="form-group">
+                        <input type="text" class="searchBar form-control" ng-change="quickSearchUsers()" autocomplete="off" ng-model="searchUserText"
+                          id="search" placeholder="search for other users">
+                      </div>
+                    </div>
+                    <!-- </form> -->
+                    <div class="row searches">
+                      <div class="col-md-6 col s6">
+                        <div ng-show="foundUsers.length">
+                          <li ng-repeat="user in foundUsers">
+                            {{user.name}}
+                          </li>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col s6">
+                        <div ng-show="selectedUsers.length">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col s12 game">
+            <div ng-cloak class="card cfh-black gaming-container" id="" ng-hide="gameEnded">
+              <div class='hand card-container'>
+                <span ng-show="winnerPicked()"></span>
+            
+                <div ng-style="{'cursor':'pointer'}" class="gaming-card smallest" id='answers' ng-click="pickCard(card)" ng-show="showCards"
+                ng-repeat="card in cards" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
+                    <span ng-bind-html-unsafe="card.text"></span>
+                    <span id='selection-number' ng-show="showFirst(card)"></span>
+                </div>
+            
+                <span ng-repeat="answer in game.table">
+                    <div class="gaming-card smallest" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showAnswers"
+                    ng-repeat="card in answers" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
+                        <span ng-bind-html-unsafe="card.text"></span>
+                        <span id='selection-number' ng-show="firstAnswer($index)"></span>
+                    </div>
+                </span>
+              </div>
+            </div>
+            
+            <div class="card cfh-black longSpan info-container" id="info-container" ng-show="awaitingPlayers">
+              <div class="card-content white-text no-padding-top">
+                <br/>
+                <h5 class="center-align" id="lobby-how-to-play">How To Play</h5>
+                <ol class="ol-eh instruction-text">
+                  <li>Each player begins with, and will always have, 10 white answer cards.</li>
+                  <li>For each round, one player is randomly chosen as the Card Czar.</li>
+                  <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
+                  <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
+                  <li>*Want to adorn your avatar with a glorious crown? Donate to charity after the game!</li>
+                </ol>
+              </div>
+            
+              <div id='charity-fact-container' class="card col s12">
+                <div class="card-content black-text">
+                  <p class="question center-align">Please remember to donate to save a child!</p>
+                    <br/>
+                    <p class="center-align">
+                      <a class="btn-flat home-button1 waves-effect waves-light" href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
+                          Make a Donation
+                      </a>
+                    </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card cfh-black longSpan" id="game-end-container" ng-show="gameEnded">
+              <div class="card-content white-text no-padding-top">
+                <div class="col s12 m8" id="inner-info-exit">
+                  <br/>
+                  <div class="game-end-answer-text" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
+                    <h5>What would you like to do now?</h5>
+                    <p class="normal-text">
+                      You might consider donating to charity to atone for the horrifying answers you've submitted. Donating will also place a lovely crown on your avatar's head.
+                    </p>
+                  </div>
+                  <div class="game-end-answer-text" ng-show="gameEnded">
+                    <h5>What would you like to do now?</h5>
+                    <p class="normal-text">
+                      Help yourself to another game or help a child in need? Donating will also place a lovely crown on your avatar's head.
+                    </p>
+                  </div>
+                  <br/>
+                  <br/>
+                  <div id='inner-text-container'>
+                    <a href='/#!/app' class="btn btn-flat home-button21 black-text waves-effect waves-light">
+                      <div id="join-new-game" ng-click="game.joinGame('joinNewGame')">
+                        Join a New Game
+                      </div>
+                    </a>
+                    <a href='/' class="btn btn-flat home-button1 black-text waves-effect waves-light">
+                      <div id="exit-match">
+                        Return to Lobby
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div id="charity-widget-container" class="col s12 m4 center-align">
+                <a href="http://www.crowdrise.com" id="crowdriseStaticLink-fundraiser-121142" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
+                <a href="https://www.crowdrise.com/donate/project/cfhio/cards4humanity/0">
+                  <img class="donate" src="../img/donate.png">
+                </a>
+              </div>
+            </div>
+            
+            <div class="card cfh-black longSpan czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+              <div class="card-content white-text no-padding-top">
+                <br/>
+                <h5 center-align>You are the Card CZAR</h5>
+                <span class="normal-text">Players are choosing their answers. Prepare to select a winner.</span>
+            
+                <div id='charity-fact-container' class="card col s12">
+                  <div class="card-content black-text">
+                    <p class="question">Did you know?</p>
+                    <p>{{ makeAWishFact }}</p>
+                    <br/>
+                    <p>
+                      <img src='/img/make-a-wish-logo.png'/>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col s12 l3">
+        <div id="social-bar-container" class="players-col">
+          <div class="col s6 m12 l12 no-padding-top" ng-repeat="player in game.players">
+            <div class="card players-layout" style="background-color:{{isPlayer($index) && colors[player.color]}}">
+              <div class="card-content no-padding-top">
+                <div id="czar-container" ng-show="currentCzar($index)">
+                  <span id='the-czar'>CZAR</span>
+                </div>
+                <span ng-show="isPlayer($index)" id="player-star">
+                  <img src="../img/11.png"/>
+                </span>
+                <div class="col s3">
+                  <div id="avatar-img">
+                    <span ng-show="isPremium($index)">
+                      <img ng-src="img/king.png" id="king">
+                    </span>
+                    <img class="avatar-icon" ng-src="{{player.avatar}}"/>
+                  </div>
+                </div>
+                <div class="col s9">
+                  <p class="player-name">{{player.username | upperFirstLetter}}</p>
+                  <p class="player-score"><span id="player-score">{{player.points}}/{{game.pointLimit}}</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        <div id="chat" class="chat-window z-depth-4">
+          <div class="chat-header">
+            <h5>Chat <span align="left" ng-show="showChatNotif" id="chat-notif" class="chat-badge chat-notif">{{chatNotifs}}</span>
+              <span id="toggle-chat" class="close-icon right" ng-click="toggleChat()">
+                <i class="material-icons">{{chatOpenClose}}</i>
+              </span>
+            </h5>
+          </div>
+          <div id="chat-body" class="chat-body" ng-show="showChat">
+            <div id="chat-content" class="chat-content">
+              <li class="message-list-item" ng-repeat="item in messages track by $index">
+                <div class="chat-avatar">
+                  <img ng-src="{{item.avatarUrl}}" alt="player avatar"/>
+                </div>
+                <div class="chat-message wrap-text">
+                  <p><strong><strong><strong>{{item.sender}}</strong></strong></strong>
+                    <span class="mute-text">
+                      <small>{{item.timeSent}}</small>
+                    </span>
+                    <br />
+                    {{item.message}}
+                  </p>
+                </div>
+              </li>
+            </div>
+            <form class='chat-form' ng-submit="send()">
+              <div id="chat-input-group" class="input-group">
+                <div id="chat-input-container">
+                  <input id="chat-input" class="form-control chat-input emojionearea-editor" type="text"
+                  ng-model="message" 
+                  autocomplete="off"
+                  placeholder="Type your message..."/>
+                </div>
+                <div class="input-group-btn">
+                  <button id="chat-submit" class="btn btn-default" action="submit">Send</button>
+                </div>
+              </div>
+            </form>
+          </div> 
+        </div>
+                    
+      </div>
+    </div>
+  </div>
+  

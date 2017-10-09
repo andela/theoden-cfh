@@ -1,0 +1,16 @@
+.introjs-fixedTooltip, .introjs-helperLayer {
+  background-color: transparent !important;
+  border: 2px solid white;
+}
+
+.introjs-bullets a.active {
+  background: #C05A3D !important;
+}
+
+.introjs-tooltiptext {
+  color: #2B5E7A !important;
+}
+
+.introjs-tooltipbuttons {
+  text-align: center !important;
+}
