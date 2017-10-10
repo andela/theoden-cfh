@@ -6,6 +6,55 @@ a:hover {
     text-decoration: none;
 }
 
+.search #search {
+    position: absolute;
+    padding-left: 10px;
+    width: 40%;
+    border-bottom: none;
+}
+
+@media only screen and (max-width: 992px) {
+    .search #search {
+        width: 78%;
+    }
+}
+
+.search input:focus,
+.search input:hover {
+    border-bottom: none;
+    -webkit-box-shadow: 0 !important;
+    box-shadow: 0 !important;
+}
+
+.search,
+chat-input-container {
+    background-color: #fff;
+    display: block;
+    height: 44px;
+    vertical-align: top;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.search:focus,
+.search:hover {
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.search i {
+    display: inline-block;
+    background: transparent;
+    border: 0;
+    float: right;
+    height: 44px;
+    line-height: 44px;
+    margin-top: -1px;
+    outline: 0;
+    padding-right: 16px;
+    position: relative;
+}
+
 
 /*crowdwise colour scheme*/
 
@@ -128,6 +177,42 @@ nav {
     z-index: -1;
 }
 
+#shuffle-content {
+    z-index: 300px !important;
+    color: white;
+    text-align: center;
+    padding-bottom: 0.4em;
+    padding-top: 0.4em;
+    font-size: 2.28rem;
+    line-height: 110%;
+    padding: 0em !important;
+}
+
+.fb_iframe_widget {
+    line-height: 0px !important;
+}
+
+#tweet-container-index {
+    vertical-align: text-bottom!important;
+}
+
+#twitter-widget-2 {
+    height: 22px !important;
+}
+
+#notCzar {
+    font-family: Berkshire Swash;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-right: 3.2em;
+}
+
+#shuffleText {
+    padding: 0.1em !important;
+    margin-bottom: 0.5em;
+    font-family: Berkshire Swash;
+}
+
 
 /* how to play div styles*/
 
@@ -219,18 +304,6 @@ w {
 
 .make {
     margin-top: 10% !important;
-.side-nav li a{
-  color: white !important;
-}
-
-.side-nav {
-  background-color: #ef6c00 !important;
-}
-
-/*landing home*/
-.joker img{
-   margin-top: 2% !important;
-
 }
 
 .footer-copyright {
@@ -245,145 +318,6 @@ w {
     .charity-desc h5 {
         text-align: center;
     }
-}
-
-.search #search {
-    position: absolute;
-    padding-left: 10px;
-    width: 40%;
-    border-bottom: none;
-}
-
-@media only screen and (max-width: 992px) {
-    .search #search {
-        width: 78%;
-    }
-}
-
-.search input:focus,
-.search input:hover {
-    border-bottom: none;
-    -webkit-box-shadow: 0 !important;
-    box-shadow: 0 !important;
-}
-
-.search,
-chat-input-container {
-    background-color: #fff;
-    display: block;
-    height: 44px;
-    vertical-align: top;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.search:focus,
-.search:hover {
-    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
-}
-
-.search i {
-    display: inline-block;
-    background: transparent;
-    border: 0;
-    float: right;
-    height: 44px;
-    line-height: 44px;
-    margin-top: -1px;
-    outline: 0;
-    padding-right: 16px;
-    position: relative;
-
-.home-button1 a:hover {
-  background-color: white!important;
-  color: #ef6c00  !important;
-}
-
-.home-button2{
-  background-color: white !important;
-  color: black !important;
-  border: 2px solid black !important;
-}
-.home-button21{
-  background-color: white !important;
-  color: black !important;
-  border: 2px solid white !important;
-}
-.home-button2 a:hover {
-  background-color: white!important;
-  color: black !important;
-}
-
-.btn-flat{
-  padding:10.4px 30px !important;
-  line-height:26.4px !important;
-  height:auto !important;
-  overflow: hidden;
-}
-
-.btn-flat:hover:before {
-  opacity:1;
-
-
-}
-
-.emojionearea {
-    display: inline-block;
-    background: transparent;
-    border: 0;
-    float: right;
-    height: 44px;
-    line-height: 44px;
-    margin-top: -1px;
-    outline: 0;
-    padding-right: 16px;
-    position: relative;
-}
-
-.secondary-content i {
-    color: #ef6c00;
-}
-
-.secondary-content.second {
-    margin-right: 15px;
-}
-
-.secondary-content.second i {
-    color: #555;
-}
-
-.collection {
-    max-height: 200px;
-    overflow-y: scroll !important;
-}
-
-.collection.smaller {
-    top: -20px;
-    max-height: 120px;
-}
-
-.xyz button {
-    float: right;
-    position: relative;
-    top: -40px;
-}
-
-.userCount {
-    background-color: white !important;
-    color: teal !important;
-    font-size: 14px;
-    font-weight: bold !important;
-    vertical-align: middle;
-    padding: 0px 5px !important;
-    min-width: 20px !important;
-    height: 20px !important;
-    border-radius: 100% !important;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-#buttom-modal {
-    color: black;
 }
 
 
@@ -421,11 +355,6 @@ nav {
     letter-spacing: -1px;
     font-family: Berkshire Swash;
     margin-left: 15px !important;
-}
-
-.game h5 {
-    font-family: Berkshire Swash;
-    font-family: Berkshire Swash !important;
 }
 
 icon-image img {
@@ -625,58 +554,6 @@ input[type="radio"] {
     .card.smallest {
         font-size: 14px;
     }
-
-#shuffle-content{
-  z-index: 300px !important;
-  color: white;
-  text-align: center;
-  padding-bottom: 0.4em;
-  padding-top: 0.4em;
-  font-size: 2.28rem;
-  line-height: 110%;
-  padding: 0em !important;
- 
- }
-
-.fb_iframe_widget{
-   line-height: 0px !important;
- }
-
- #tweet-container-index{
-  vertical-align: text-bottom!important;
- }
-
- #twitter-widget-2{
-  height: 22px !important;
- }
-
- #notCzar{
-
-  font-family: Berkshire Swash;
-  font-size: 2.2rem;
-  text-align: center;
-  margin-right: 3.2em;
-
- }
- 
-
- #shuffleText{
-  background-color: #ef6c00;
-  padding: 0.1em !important;
-  margin-bottom: 0.5em;
-  font-family: Berkshire Swash;
-
- }
-  .shuffle{
-   font-family: Helvetica, sans-serif !important;
- } 
-
-
-
-/* how to play div styles*/
-.how h3{
-  margin-top: 5% !important;
-  font-family: Berkshire Swash;
 }
 
 .gaming-card u {
@@ -698,9 +575,11 @@ input[type="radio"] {
     width: 75%;
 }
 
-.about h3{
-  font-family: Berkshire Swash;
-  margin-top: 7% !important;
+.gaming-card u .end:after {
+    position: absolute;
+    right: -0.357em;
+    display: inline-block;
+    content: '.';
 }
 
 #charity-fact-container {
@@ -716,17 +595,13 @@ input[type="radio"] {
     position: relative;
 }
 
-.about p{
- color: white;
-
+.card {
+    margin-bottom: 0px !important;
 }
-.about {
-  /* background: rgba(0,0,0, 1); */
-  overflow: hidden;
-  height: 100%;
-  z-index: 2;
-  background-image: url("../img/bgcard.jpg");
-  background-repeat: repeat;
+
+.avatar-icon {
+    width: 50px !important;
+    height: 50px !important;
 }
 
 .normal-text {
@@ -764,6 +639,51 @@ input[type="radio"] {
     box-shadow: none !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
     /*alpha: 0.5;*/
+}
+
+.secondary-content i {
+    color: #ef6c00;
+}
+
+.secondary-content.second {
+    margin-right: 15px;
+}
+
+.secondary-content.second i {
+    color: #555;
+}
+
+.collection {
+    max-height: 200px;
+    overflow-y: scroll !important;
+}
+
+.collection.smaller {
+    top: -20px;
+    max-height: 120px;
+}
+
+.xyz button {
+    float: right;
+    position: relative;
+    top: -40px;
+}
+
+.userCount {
+    background-color: white !important;
+    color: teal !important;
+    font-size: 14px;
+    font-weight: bold !important;
+    vertical-align: middle;
+    padding: 0px 5px !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    border-radius: 100% !important;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#buttom-modal {
+    color: black;
 }
 
 .tabs .tab a {
@@ -872,298 +792,7 @@ input[type="radio"] {
 #finding-players img {
     max-width: 35px;
 }
+
 h5.shuffle {
     font-family: Helvetica, sans-serif !important;
-  }
-/* for charity screen responsiveness */
-@media screen and (max-width:480px){
-  .charity-desc h5{
-  text-align: center;
-  }
 }
-
-/*  Sol's styles */
-body, html {
-  height:100%;
-  margin: 0 !important;
-  padding: 0 !important;
-  background-image: url("../img/bgcard.jpg");
-  background-repeat: repeat;
-}
-
-.navbar {
-  border-radius: 0px !important;
-}
-
-.bright-overlay{
-  /* background: #ef6c00; */
-  /* background: rgba(21,38,40, 0.8); */
-  overflow: auto;
-  height: 100%;
-  z-index: 2;
-  opacity: 1;
-}
-
-nav{
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.brand-logo {
-  word-spacing: -1px;
-  letter-spacing: -1px;
-  font-family: Berkshire Swash;
-  margin-left: 15px !important;
-}
-
-
-icon-image img{
-  width: 50px;
-  height: 50px;
-
-}
-
-.login-form {
-  margin-top: 40px !important;
-}
-
-.login-form .card-title {
-  font-family: Berkshire Swash !important;
-  font-size: 30px;
-}
-
-.login-form .btn-flat, .login-form .btn-flat:hover{
-  background-color: transparent !important;
-  color: #ef6c00 !important;
-}
-
-.social-links {
-  font-size: 18px;
-  margin-bottom: 10px !important;
-}
-
-.nav-wrapper a:hover {
-  color: white !important;
-}
-
-@media only screen and (max-width: 480px) {
-  .login-form {
-    margin-top: 5px !important;
-  }
-
-  nav .brand-logo {
-    font-size: 1.5rem !important;
-  }
-}
-
-/***** Form Customization  *******/
-/* label color */
-   /* label focus color */
-.input-field input:focus {
-  border-bottom: 1px solid #002 !important;
-  box-shadow: 0 1px 0 0 #002 !important;
-  color: #002;
-  font-size: 14px;
-}
-
-.input-field input[type=text]:focus + label,
-.input-field input[type=email]:focus + label,
-.input-field input[type=password]:focus + label {
-color: #002 !important;
-}
-
-.icon-image img {
-  margin-left: 5px !important;
-  margin-right: 5px !important;
-  width: 30px !important;
-  height: 30px !important;
-}
-
-input[type="radio"] {
-  position:relative !important;
-  opacity: 1 !important;
-  pointer-events: all !important;
-}
-
-/*** New Styles ***/
-.countdown-timer {
-  font-size: 100px;
-  color: #000000;
-}
-
-.players-layout{
-  position: relative !important;
-  overflow-y: auto;
-  padding: 5px 0;
-  margin: 0 !important;
-  border-radius: 0px !important
-}
-
-.fixed-height-230 {
-  height: 230px;
-  overflow: scroll !important;
-}
-
-.fixed-height-200 {
-  height: 170px;
-  overflow: hidden !important;
-}
-
-.question {
-  font-size: 140%;
-}
-
-.no-padding-top {
-  padding-top: 2px !important;
-}
-
-.notifcations{
-  font-size: 130%;
-}
-
-.small-text{
-  font-size: 110%;
-}
-
-.instruction-text li {
-  font-size: 130%;
-  list-style: decimal !important;
-}
-
-.player-name, .player-score {
-  font-size: 18px;
-}
-
-.longSpan {
-  min-height: 400px;
-  overflow: auto;
-}
-
-#app-container .row {
-  margin-bottom: 5px !important;
-}
-
-.card-container{
-  margin: 0 auto !important;
-}
-
-.gaming-card {
-  position: relative;
-  display: inline-block;
-  box-sizing: border-box;
-  width: 17.8%;
-  height: 205px;
-  padding: 1%;
-  margin: 1%;
-  background-color: #fff;
-  color: #252525;
-  font-family: Arial;
-  font-size: 20px;
-  font-weight: bold;
-  vertical-align: top; }
-  @media (max-width: 520px) {
-    .gaming-card {
-      font-size: 16px;
-      height: 115px;
-      word-wrap: break-word; } }
-  .gaming-card.how-to {
-    font-size: 1.4rem; }
-  .gaming-card #selection-number {
-    position: absolute;
-    bottom: 1px;
-    left: 7px;
-    font-size: 14px; }
-  .gaming-card.black {
-    background: #252525;
-    border-color: white;
-    color: white; }
-  .gaming-card.longBlack {
-    background: #252525;
-    border-color: white;
-    color: white;
-    height: 100%;
-    width: 35.5em;
-    padding-left: 2%;
-    padding-right: 2%; }
-  .gaming-card.smallest {
-    font-size: 1em; }
-    @media (max-width: 520px) {
-      .card.smallest {
-        font-size: 14px; } }
-  .gaming-card u {
-    position: relative;
-    content: '';
-    display: inline-block;
-    width: 25%;
-    text-decoration: none;
-    height: 1em;
-    border-bottom: 0.125em solid white;
-    margin-bottom: -0.125em; }
-    .gaming-card u .small {
-      width: 25%; }
-    .gaming-card u .big {
-      width: 75%; }
-    .gaming-card u .end:after {
-      position: absolute;
-      right: -0.357em;
-      display: inline-block;
-      content: '.'; }
-
-#charity-fact-container {
-  position: absolute;
-  bottom: 0px !important;
-  right: 0px;
-  left:0px;
-  border-radius: 0 !important;
-}
-
-.czar-blank-container, .info-container {
-  position: relative;
-}
-
-.card {
-  margin-bottom: 0px !important;
-}
-
-.avatar-icon {
-  width: 50px !important;
-  height: 50px !important;
-}
-
-.normal-text {
-  font-size: 120%;
-}
-
-#czar-container {
-  position: absolute;
-  top: 5px;
-  right: 0px;
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: black;
-  color: white;
-}
-
-#player-star {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-}
-
-.cfh-black {
-  background-color: #000;
-  opacity: 0.8;
-}
-
-.players-col {
-  height: 600px;
-  overflow: scroll;
-}
-
-.timer {
-  /*border: 2px solid orange;*/
-  box-shadow: none !important;
-  background-color: rgba(255,255,255,0.1) !important;
-  /*alpha: 0.5;*/
-}
-

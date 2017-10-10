@@ -165,7 +165,6 @@ exports.getToken = (req, res) => {
 
 /**
  * @description User signs up and signs in with a JWT toke stored in local Storage
-
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
