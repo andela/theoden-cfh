@@ -74,6 +74,7 @@ module.exports = (io) => {
             userId: decodedInfo.id,
             socketID: socket.id
           });
+
           setTimeout(() => updateFriendListandOnline(decodedInfo.id), 100);
         }
       }
