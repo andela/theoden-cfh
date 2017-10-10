@@ -7,7 +7,6 @@ const search = require('../app/controllers/search');
 const authorization = require('./middlewares/authorization');
 
 module.exports = (app, passport, auth) => {
-
   // User Routes
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
@@ -83,7 +82,7 @@ module.exports = (app, passport, auth) => {
   app.param('answerId', answers.answer);
 
   // Question Routes
- 
+
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
   // Finish with setting up the questionId param
@@ -95,4 +94,11 @@ module.exports = (app, passport, auth) => {
   // Home route
   app.get('/play', index.play);
   app.get('/', index.render);
+
+  // Game routes
+  app.get('/api/search/users', search.userSearch);
+  app.get('/api/search/friends', search.nameFriends);
+  app.get('/api/users/friends', search.addFriends);
+  app.put('/api/users/:userToken/friends', search.removeFriend);
+  // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
 };

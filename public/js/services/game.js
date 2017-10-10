@@ -1,6 +1,5 @@
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', (socket, $timeout) => {
-
     const game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -13,6 +12,8 @@ angular.module('mean.system')
       czar: null,
       playerMinLimit: 3,
       playerMaxLimit: 12,
+      friendsList: [],
+      usersOnline: [],
       pointLimit: null,
       state: null,
       round: 0,
@@ -20,6 +21,7 @@ angular.module('mean.system')
       curQuestion: null,
       notification: null,
       timeLimits: {},
+      userNotification: [],
       joinOverride: false
     };
 
@@ -62,12 +64,37 @@ angular.module('mean.system')
       game.id = data.id;
     });
 
+    socket.on('connect', (data) => {
+      const userToken = window.localStorage.getItem('token');
+      if (userToken) {
+        socket.emit('mapUserInfo', userToken);
+      }
+    });
+
     socket.on('prepareGame', (data) => {
       game.playerMinLimit = data.playerMinLimit;
       game.playerMaxLimit = data.playerMaxLimit;
       game.pointLimit = data.pointLimit;
       game.timeLimits = data.timeLimits;
     });
+    socket.on('updateFriendListandOnline', (data) => {
+      game.usersOnline = [];
+      data.mappedUsers.forEach((onlineUsers) => {
+        game.usersOnline.push(onlineUsers.userId);
+      });
+      game.friendsList = data.friendList;
+    });
+    socket.on('updateOnlineList', (data) => {
+      game.usersOnline = [];
+      data.forEach((onlineUsers) => {
+        game.usersOnline.push(onlineUsers.userId);
+      });
+    });
+    game.updateFriendList = (friendID) => {
+      socket.emit('updateFriendList',
+        window.localStorage.token);
+      game.friendsList.push(friendID);
+    };
 
     socket.on('gameUpdate', (data) => {
       // Update gameID field only if it changed.
@@ -87,7 +114,7 @@ angular.module('mean.system')
         }
       }
 
-      let newState = (data.state !== game.state);
+      const newState = (data.state !== game.state);
 
       // Handle updating game.time
       if (data.round !== game.round && data.state !== 'awaiting players' &&
@@ -114,8 +141,8 @@ angular.module('mean.system')
       if (data.table.length === 0) {
         game.table = [];
       } else {
-        let added = _.difference(_.pluck(data.table, 'player'), _.pluck(game.table, 'player'));
-        let removed = _.difference(_.pluck(game.table, 'player'), _.pluck(data.table, 'player'));
+        const added = _.difference(_.pluck(data.table, 'player'), _.pluck(game.table, 'player'));
+        const removed = _.difference(_.pluck(game.table, 'player'), _.pluck(data.table, 'player'));
         for (let i = 0; i < added.length; i += 1) {
           for (let j = 0; j < data.table.length; j += 1) {
             if (added[i] === data.table[j].player) {
@@ -140,12 +167,23 @@ angular.module('mean.system')
         game.state = data.state;
       }
 
-      if (data.state === 'waiting for players to pick') {
+      if (data.state === 'czar pick card') {
         game.czar = data.czar;
+        if (game.czar === game.playerIndex) {
+          addToNotificationQueue(
+            `You are now a Czar, 
+          click black card to pop a new question`
+          );
+        } else {
+          addToNotificationQueue('Waiting for Czar to pick card');
+        }
+      } else if (data.state === 'waiting for players to pick') {
+        game.czar = data.czar;
+        // console.log(data);
         game.curQuestion = data.curQuestion;
         // Extending the underscore within the question
-        game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
-
+        // game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
+        game.curQuestion.text = data.curQuestion.text.replace(/_/g, '_________');
         // Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
@@ -158,7 +196,7 @@ angular.module('mean.system')
         }
       } else if (data.state === 'waiting for czar to decide') {
         if (game.czar === game.playerIndex) {
-          addToNotificationQueue('Everyone\'s done. Choose the winner!');
+          addToNotificationQueue("Everyone's done. Choose the winner!");
         } else {
           addToNotificationQueue('The czar is contemplating...');
         }
@@ -179,12 +217,23 @@ angular.module('mean.system')
       addToNotificationQueue(data.notification);
     });
 
+    socket.on('maxPlayerWarning', () => {
+      const popupText = 'Max Players already in Game SORRY!!!';
+      const popupModal = $('#popupModal');
+      popupModal
+        .find('.modal-body')
+        .text(popupText);
+      popupModal.modal('show');
+    });
+
     game.joinGame = (mode, room, createPrivate) => {
       mode = mode || 'joinGame';
       room = room || '';
       createPrivate = createPrivate || false;
-      const userID = !!window.user ? user._id : 'unauthenticated';
-      socket.emit(mode, { userID: userID, room: room, createPrivate: createPrivate });
+
+      const token = window.localStorage.getItem('token');
+
+      socket.emit(mode, { token, room, createPrivate });
     };
 
     game.startGame = () => {
@@ -200,9 +249,15 @@ angular.module('mean.system')
     game.pickCards = (cards) => {
       socket.emit('pickCards', { cards });
     };
-
+    game.inviteSelectedPlayers = (gameandInfo) => {
+      socket.emit('inviteSelectedUsers', gameandInfo);
+    };
     game.pickWinning = (card) => {
       socket.emit('pickWinning', { card: card.id });
+    };
+
+    game.startNextRound = () => {
+      socket.emit('czarCardSelected');
     };
 
     decrementTime();

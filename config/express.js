@@ -9,7 +9,7 @@ const helpers = require('view-helpers');
 const config = require('./config');
 const auth = require('../app/controllers/middleware/auth').authenticate;
 
-module.exports = function (app, passport, mongoose) {
+module.exports = (app, passport, mongoose) => {
   app.set('showStackError', true);
 
   // Should be placed before express.static
@@ -64,8 +64,7 @@ module.exports = function (app, passport, mongoose) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use('/api', auth);
-
+    // app.use('/api', auth);
 
     // routes should be at the last
     app.use(app.router);
@@ -73,11 +72,7 @@ module.exports = function (app, passport, mongoose) {
     // Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
     app.use((err, req, res, next) => {
       // Treat as 404
-      if (~err.message.indexOf('not found')) return next();
-
-      // Log it
-      console.error(err.stack);
-
+      if (err.message.indexOf('not found')) return next();
       // Error page
       res.status(500).render('500', {
         error: err.stack
@@ -105,7 +100,7 @@ module.exports = function (app, passport, mongoose) {
     // Assume "not found" in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
     app.use((err, req, res, next) => {
       // Treat as 404
-      if (~err.message.indexOf('not found')) return next();
+      if (err.message.indexOf('not found')) return next();
 
       // Log it
       console.error(err.stack);

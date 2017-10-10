@@ -17,13 +17,16 @@ const guestNames = [
   'Swollen Node',
   'The Spleen',
   'Dingle Dangle',
-  'Something Extra',
   'Singing Trash',
-  'Petty Mistake',
-  'Andela Avatar'
+  'Andela Avatar',
+  'Fidelis Beardguy',
+  'Ammie TheFurious',
+  'Oare TheQuiet',
+  'Raph TheBadguy',
+  'Solo TheTroublesome',
+  'Benny TheDoctor'
 ];
 
-// function Game(gameID, io)
 /**
  * @class Game
  */
@@ -68,7 +71,7 @@ class Game {
     this.guestNames = guestNames.slice();
   }
   /**
-   * @description 
+   * @description
    * @return {void} void
    */
   payload() {
@@ -78,6 +81,7 @@ class Game {
         hand: player.hand,
         points: player.points,
         username: player.username,
+        userID: player.userID,
         avatar: player.avatar,
         premium: player.premium,
         socketID: player.socket.id,
@@ -101,7 +105,7 @@ class Game {
   }
   /**
    *
-   * @param {string} msg 
+   * @param {string} msg
    * @returns {*} void
    */
   sendNotification(msg) {
@@ -165,7 +169,8 @@ class Game {
   startGame() {
     Game.shuffleCards(this.questions);
     Game.shuffleCards(this.answers);
-    Game.stateChoosing(this);
+    Game.changeCzar(this);
+    this.sendUpdate();
   }
 
   /**
@@ -176,7 +181,7 @@ class Game {
   }
   /**
    *
-   * @param {object} self 
+   * @param {object} self
    * @returns {*} void
    */
   static stateChoosing(self) {
@@ -193,12 +198,7 @@ class Game {
     }
     self.round += 1;
     self.dealAnswers();
-    // Rotate card czar
-    if (self.czar >= self.players.length - 1) {
-      self.czar = 0;
-    } else {
-      self.czar += 1;
-    }
+
     self.sendUpdate();
 
     self.choosingTimeout = setTimeout(() => {
@@ -221,7 +221,7 @@ class Game {
     }
   }
   /**
-   * 
+   *
    * @param {object} self instance of class
    * @returns {*} void
    */
@@ -258,13 +258,14 @@ class Game {
       if (winner !== -1) {
         self.stateEndGame(winner);
       } else {
-        self.stateChoosing(self);
+        Game.changeCzar(self);
+        // Game.stateChoosing(self);
       }
     }, self.timeLimits.stateResults * 1000);
   }
   /**
    *
-   * @param {number} winner 
+   * @param {number} winner
    * @returns {*} void
    */
   stateEndGame(winner) {
@@ -281,7 +282,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getQuestions(cb) {
@@ -291,7 +292,7 @@ class Game {
   }
   /**
    *
-   * @param {*} cb 
+   * @param {*} cb
    * @returns {*} void
    */
   static getAnswers(cb) {
@@ -301,7 +302,7 @@ class Game {
   }
   /**
    *
-   * @param {object} cards 
+   * @param {object} cards
    * @returns {*} void
    */
   static shuffleCards(cards) {
@@ -320,7 +321,7 @@ class Game {
 
   /**
    *
-   * @param {number} maxAnswers 
+   * @param {number} maxAnswers
    * @returns {*} void
    */
   dealAnswers(maxAnswers) {
@@ -353,8 +354,8 @@ class Game {
   }
   /**
    *
-   * @param {array} thisCardArray 
-   * @param {number} thisPlayer 
+   * @param {array} thisCardArray
+   * @param {number} thisPlayer
    * @returns {*} void
    */
   pickCards(thisCardArray, thisPlayer) {
@@ -398,8 +399,6 @@ class Game {
           }
         }
       }
-    } else {
-      console.log('NOTE:', thisPlayer, 'picked a card during', this.state);
     }
   }
   /**
@@ -447,7 +446,7 @@ class Game {
         if (this.state === 'waiting for players to pick') {
           clearTimeout(this.choosingTimeout);
           this.sendNotification('The Czar left the game! Starting a new round.');
-          return this.stateChoosing(this);
+          return Game.stateChoosing(this);
         } else if (this.state === 'waiting for czar to decide') {
           // If players are waiting on a czar to pick, auto pick.
           this.sendNotification('The Czar left the game! First answer submitted wins!');
@@ -467,9 +466,9 @@ class Game {
 
   /**
    *
-   * @param {number} thisCard 
-   * @param {*} thisPlayer 
-   * @param {*} autopicked 
+   * @param {number} thisCard
+   * @param {*} thisPlayer
+   * @param {*} autopicked
    * @returns {*} void
    */
   pickWinning(thisCard, thisPlayer, autopicked) {
@@ -491,8 +490,6 @@ class Game {
         clearTimeout(this.judgingTimeout);
         this.winnerAutopicked = autopicked;
         Game.stateResults(this);
-      } else {
-        console.log('WARNING: czar', thisPlayer, 'picked a card that was not on the table.');
       }
     } else {
       // TODO: Do something?
@@ -503,10 +500,39 @@ class Game {
    * @returns {*} void
    */
   killGame() {
-    console.log('Killing game', this.gameID);
     clearTimeout(this.resultsTimeout);
     clearTimeout(this.choosingTimeout);
     clearTimeout(this.judgingTimeout);
   }
+  /**
+   * @static
+   * @param {any} self 
+   * @memberof Game
+   * @returns {*} void
+   */
+  static changeCzar(self) {
+    self.state = 'czar pick card';
+    self.table = [];
+    if (self.czar >= self.players.length - 1) {
+      self.czar = 0;
+    } else {
+      self.czar += 1;
+    }
+    self.sendUpdate();
+  }
+  /**
+   * @static
+   * @param {any} self 
+   * @memberof Game
+   * @returns {*} void
+   */
+  startNextRound(self) {
+    if (this.state === 'czar pick card') {
+      Game.stateChoosing(self);
+    } else if (this.state === 'czar left game') {
+      Game.changeCzar(self);
+    }
+  }
+  // static 
 }
 module.exports = Game;
