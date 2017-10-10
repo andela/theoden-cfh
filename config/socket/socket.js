@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const firebase = require('firebase');
+
 const decodeJWT = require('../../app/controllers/middleware/auth').decodeJWT;
 const Game = require('./game');
 const Player = require('./player');
@@ -8,6 +9,19 @@ require('console-stamp')(console, 'm/dd HH:MM:ss');
 const User = mongoose.model('User');
 const UserNotification = mongoose.model('UserNotification');
 const UserFriends = mongoose.model('UserFriends');
+
+// Initialize Firebase
+// Set database ref
+const config = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_ID
+};
+
+firebase.initializeApp(config);
 
 // Initialize Firebase
 // Set database ref
