@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {*} socket
+ * @return {*} void
+ */
 function Player(socket) {
   this.socket = socket;
   this.hand = [];

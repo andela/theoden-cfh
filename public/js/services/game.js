@@ -12,6 +12,8 @@ angular.module('mean.system')
       czar: null,
       playerMinLimit: 3,
       playerMaxLimit: 12,
+      friendsList: [],
+      usersOnline: [],
       pointLimit: null,
       state: null,
       round: 0,
@@ -19,6 +21,7 @@ angular.module('mean.system')
       curQuestion: null,
       notification: null,
       timeLimits: {},
+      userNotification: [],
       joinOverride: false
     };
 
@@ -61,12 +64,37 @@ angular.module('mean.system')
       game.id = data.id;
     });
 
+    socket.on('connect', (data) => {
+      const userToken = window.localStorage.getItem('token');
+      if (userToken) {
+        socket.emit('mapUserInfo', userToken);
+      }
+    });
+
     socket.on('prepareGame', (data) => {
       game.playerMinLimit = data.playerMinLimit;
       game.playerMaxLimit = data.playerMaxLimit;
       game.pointLimit = data.pointLimit;
       game.timeLimits = data.timeLimits;
     });
+    socket.on('updateFriendListandOnline', (data) => {
+      game.usersOnline = [];
+      data.mappedUsers.forEach((onlineUsers) => {
+        game.usersOnline.push(onlineUsers.userId);
+      });
+      game.friendsList = data.friendList;
+    });
+    socket.on('updateOnlineList', (data) => {
+      game.usersOnline = [];
+      data.forEach((onlineUsers) => {
+        game.usersOnline.push(onlineUsers.userId);
+      });
+    });
+    game.updateFriendList = (friendID) => {
+      socket.emit('updateFriendList',
+        window.localStorage.token);
+      game.friendsList.push(friendID);
+    };
 
     socket.on('gameUpdate', (data) => {
     // Update gameID field only if it changed.
@@ -189,12 +217,24 @@ angular.module('mean.system')
       addToNotificationQueue(data.notification);
     });
 
+    socket.on('maxPlayerWarning', () => {
+      const popupText = 'Max Players already in Game SORRY!!!';
+      const popupModal = $('#popupModal');
+      popupModal
+        .find('.modal-body')
+        .text(popupText);
+      popupModal.modal('show');
+    });
+
     game.joinGame = (mode, room, createPrivate) => {
       mode = mode || 'joinGame';
       room = room || '';
       createPrivate = createPrivate || false;
-      const userID = window.user ? user._id : 'unauthenticated';
-      socket.emit(mode, { userID, room, createPrivate });
+
+      const token = window.localStorage.getItem('token');
+
+      socket.emit(mode, { token, room, createPrivate });
+
     };
 
     game.startGame = () => {
@@ -210,7 +250,9 @@ angular.module('mean.system')
     game.pickCards = (cards) => {
       socket.emit('pickCards', { cards });
     };
-
+    game.inviteSelectedPlayers = (gameandInfo) => {
+      socket.emit('inviteSelectedUsers', gameandInfo);
+    };
     game.pickWinning = (card) => {
       socket.emit('pickWinning', { card: card.id });
     };

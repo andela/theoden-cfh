@@ -5,7 +5,11 @@
       <div class="row" id="startGame" ng-show="game.state === 'awaiting players'">
         <div class="col s12">
           <h5 class="center-align" id="finding-players">
-            Finding Players <small><img ng-src="../img/loader.gif" /></small>
+            Finding Players
+            <small>
+              <img ng-src="../img/loader.gif" />
+            </small>
+
           </h5>
         </div>
         <div class="col s3 m3 center-align" id="player-count-container">
@@ -19,7 +23,7 @@
               Start Game
             </button>&nbsp;
             <button id='invite-players-button' class="btn white black-text" ng-click="invitePlayers()" ng-show="(game.playerIndex === 0 || game.joinOverride)">
-              Invite
+              Invite Other Players
             </button>
           </p>
           <br/>
@@ -50,64 +54,130 @@
         </div>
       </div>
     </div>
+    <!-- Game Over Stuff -->
+    <div id="game-end-info">
+      <div id="people-left-game-top" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
+        <div class="game-end-headline">What the!? The game ended because too many people left! </div>
+        Our sincere apologies.
+      </div>
+      <div ng-show="game.state === 'game ended' && game.gameWinner === game.playerIndex">
+        <div class="game-end-headline">Congratulations! You won the game, {{game.players[game.playerIndex].username | upperFirstLetter}}!</div>We hope you
+        feel special. If you'd like to share that special feeling with the world, consider donating to charity. Or just horde
+        it all for youself.
+      </div>
+      <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
+        <div class="game-end-headline">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
+        That makes you a loser, unfortunately.
+      </div>
+    </div>
+  </div>
+</div>
+<div id="popupModal" class="modal">
+  <div class="modal-content">
+    <h5 class="modal-title center-align">Theoden's Card for Humanity</h5>
+    <p class="modal-body">Mahn whatever</p>
+  </div>
+  <div class="modal-footer">
+    <a href="" class="modal-action modal-close waves-effect btn-flat btn-left">Close</a>
   </div>
 </div>
 
-<div id="popupModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- close button-->
-        <button type="button" class="close" data-dismiss="modal">&times;
-          </button>
-        <h4 class="modal-title">Theoden's Card for Humanity</h4>
+<div id="searchModal" class="modal">
+  <div class="modal-content">
+    <h5 class="modal-title center-align">Theoden's Card for Humanity</h5>
+    <div class="row">
+      <div class="col s12 tabs-fixed-width">
+        <ul class="tabs">
+          <li class="tab col s6">
+            <a href="#link1" ng-click="boolTab=false">
+              <span class="hide-on-small-only">Invite</span> Users</a>
+          </li>
+          <li class="tab col s6">
+            <a href="#link2" ng-click="findFriendNames()">
+              <span class="hide-on-small-only">Invite</span> Friends</a>
+          </li>
+        </ul>
       </div>
-      <div class="modal-body">
-        <p>Mahn whatever</p>
+      <div id="link1" class="col s12">
+        <div class="row">
+          <div class="col m12 s12 l6">
+            <div class="search">
+              <i class="material-icons">search</i>
+              <input ng-change="quickSearchUsers()" autocomplete="off" ng-model="searchUserText" id="search">
+            </div>
+            <div class="search-results">
+              <ul class="collection" ng-show="foundUsers.length">
+                <li class="collection-item" ng-repeat="user in foundUsers">
+                  <div>{{user.name}}
+                    <span ng-show="user.isOnline" class="showOnline">
+
+                    </span>
+                    <a href="" class="secondary-content" ng-click="invitePlayersClick(user)">
+                      <i class="material-icons">add</i>
+                    </a>
+                    <a class="secondary-content second" ng-click="addNewFriend(user)" ng-show="!user.isFriend">
+                      Add Friend
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              </ul>
+            </div>
+          </div>
+          <div class="col m12 s12 l5 offset-l1">
+            <div class="row xyz" ng-show="selectedUsers.length">
+              <ul class="collection smaller">
+                <li class="collection-item" ng-repeat="selectedUser in selectedUsers">
+                  <div>
+                    {{selectedUser.name}}
+                    <a href="" class="secondary-content" ng-click="removeInvitePlayersClick(selectedUser)">
+                      <i class="material-icons">remove</i>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div id="link2" class="col s12">
+        <div class="row">
+          <ul class="collection">
+            <div ng-show="foundFriends.length">
+              <li class="collection-item" ng-repeat="friends in foundFriends">
+                {{friends.name}}
+                <span ng-show="foundFriends.isOnline" class="showOnline">
+
+                </span>
+                <a href="" class="secondary-content" ng-click="removeFriendClick(friends)">
+                  <i class="material-icons">remove</i>
+                </a>
+              </li>
+
+            </div>
+            <div ng-hide="foundFriends.length">
+              <li class="collection-item">
+                You Have no friends LOL!!!
+              </li>
+            </div>
+
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div id="searchModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- close button-->
-        <button type="button" class="close" data-dismiss="modal">&times;
-          </button>
-        <h4 class="modal-title">Theoden's Card for Humanity</h4>
-      </div>
-      <div class="modal-body">
-        <!-- <form ng-submit=""> -->
-        <div class="row">
-          <div class="form-group">
-            <input type="text" class="searchBar form-control" ng-change="quickSearchUsers()" autocomplete="off" ng-model="searchUserText"
-              id="search" placeholder="search for other users">
-          </div>
-        </div>
-        <!-- </form> -->
-        <div class="row searches">
-          <div class="col-md-6 col s6">
-            <div ng-show="foundUsers.length">
-              <li ng-repeat="user in foundUsers">
-                {{user.name}}
-              </li>
-            </div>
-          </div>
-          <div class="col-md-6 col s6">
-            <div ng-show="selectedUsers.length">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="modal-footer">
+    <a href="" class="modal-action modal-close waves-effect btn-flat btn-left">Close</a>
+    <a href="" class="waves-effect btn-flat" ng-show="selectedUsers.length && !boolTab" ng-click="inviteSelectedPlayers()">Invite Players</a>
+    <a href="" class="waves-effect btn-flat" ng-show="foundFriends.length && boolTab" ng-click="inviteSelectedPlayers('friends')">Invite Friends</a>
   </div>
 </div>
 <div id="shuffleModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div id="shuffle-content" class="modal-content">
-      <div id="shuffleText" >
+      <div id="shuffleText">
         <h4>You are the Almighty Card Czar</h4>
         <h5 class="shuffle">Click a card</h5>
 
@@ -132,7 +202,7 @@
   $(document).ready(function () {
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
     $('.modal').modal();
-
+    $('ul.tabs').tabs();
   });
 
 </script>

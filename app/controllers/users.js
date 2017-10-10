@@ -24,18 +24,24 @@ exports.authCallback = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signin?error=socialautherror');
   } else {
-    getJWT(req.user._id,req.email, req.user.name).then((token) => {
-      res.cookie('token', token.token);
-      res.redirect('/#!/');
-    });
+    getJWT(req.user._id, // eslint-disable-line no-underscore-dangle
+      req.email,
+      req.user.name)
+      .then((token) => {
+        res.cookie('token', token.token);
+        res.redirect('/#!/');
+      });
   }
 };
 
 
 /**
- * Show login form
+ * @description Show login form
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {*} void
  */
-exports.signin = function (req, res) {
+exports.signin = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signin?error=invalid');
   } else {
@@ -44,16 +50,18 @@ exports.signin = function (req, res) {
 };
 
 /**
- * Show sign up form
+ * @description Show sign up form
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {*} void
  */
-exports.signup = function (req, res) {
+exports.signup = (req, res) => {
   if (!req.user) {
     res.redirect('/#!/signup');
   } else {
     res.redirect('/#!/app');
   }
 };
-
 
 /**
  * @description The user can signin and a JWT token is produced
@@ -62,7 +70,6 @@ exports.signup = function (req, res) {
  * @return {object} returns redirect
  */
 exports.login = (req, res) => {
-  const email = req.body.email;
   if (
     req.body.email &&
     req.body.password
@@ -81,42 +88,48 @@ exports.login = (req, res) => {
             });
         }
         const password = req.body.password;
-        if (bcrypt.compareSync(password, user.hashed_password)) {
-          getJWT(user.id, user.email, user.username)
-            .then((token) => {
-              if (token.status === 'Success') {
-                res
-                  .status(200)
-                  .json({
-                    success: true,
-                    message: 'Welcome to Cards for Humanity, You are now logged in',
-                    token: token.token
-                  });
-              } else {
-                res
-                  .status(500)
-                  .json({
-                    success: false,
-                    message: 'Something went wrong try again'
-                  });
-              }
-            })
-            .catch(error =>
-              res
-                .status(500)
-                .json({
-                  success: false,
-                  message: error
+        bcrypt
+          .compare(password, user.hashed_password)
+          .then((response) => {
+            if (response) {
+              getJWT(user._id, // eslint-disable-line no-underscore-dangle
+                user.email,
+                user.username)
+                .then((token) => {
+                  if (token.status === 'Success') {
+                    res
+                      .status(200)
+                      .json({
+                        success: true,
+                        message: 'Welcome to Cards for Humanity, You are now logged in',
+                        token: token.token
+                      });
+                  } else {
+                    res
+                      .status(500)
+                      .json({
+                        success: false,
+                        message: 'Something went wrong try again'
+                      });
+                  }
                 })
-            );
-        } else {
-          res
-            .status(400)
-            .send({
-              success: false,
-              message: 'Invalid credentials'
-            });
-        }
+                .catch(error =>
+                  res
+                    .status(500)
+                    .json({
+                      success: false,
+                      message: error
+                    })
+                );
+            } else {
+              res
+                .status(400)
+                .send({
+                  success: false,
+                  message: 'Invalid credentials'
+                });
+            }
+          });
       })
       .catch(error => res.status(500).send({
         success: false,
@@ -126,8 +139,6 @@ exports.login = (req, res) => {
         success: false,
         error
       }));
-    // if (!req.user) {   res.redirect('/#!/signin?error=invalid'); } else {
-    // res.redirect('/#!/app'); }
   } else {
     return res.status(400).send({
       success: false,
@@ -152,9 +163,8 @@ exports.getToken = (req, res) => {
   });
 };
 
-
 /**
- * @description Creat function that signs users up
+ * @description User signs up and signs in with a JWT toke stored in local Storage
  * @param {object} req HTTP request object
  * @param {object} res HTTP response object
  * @param {function} next function
@@ -198,7 +208,9 @@ exports.create = (req, res) => {
                           error: error.errors
                         });
                     } else {
-                      getJWT(validuser._id,validuser.email, validuser.name)
+                      getJWT(validuser._id, // eslint-disable-line no-underscore-dangle
+                        validuser.email,
+                        validuser.name)
                         .then((token) => {
                           const credentials = {
                             email: validuser.email,
@@ -240,32 +252,40 @@ exports.create = (req, res) => {
   }
 };
 
-
 /**
- * Logout
+ * @description Logout
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
-exports.signout = function (req, res) {
+exports.signout = (req, res) => {
   req.logout();
   res.redirect('/');
 };
 
 /**
- * Session
+ * @description Session
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
-exports.session = function (req, res) {
+exports.session = (req, res) => {
   res.redirect('/');
 };
 
 /**
- * Check avatar - Confirm if the user who logged in via passport
+ * @description Check avatar - Confirm if the user who logged in via passport
  * already has an avatar. If they don't have one, redirect them
  * to our Choose an Avatar page.
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
-exports.checkAvatar = function (req, res) {
-  if (req.user && req.user._id) {
+exports.checkAvatar = (req, res) => {
+  if (req.user && req.user._id) { // eslint-disable-line no-underscore-dangle
     User
       .findOne({
-        _id: req.user._id
+        _id: req.user._id // eslint-disable-line no-underscore-dangle
       })
       .exec((err, user) => {
         if (user.avatar !== undefined) {
@@ -282,14 +302,21 @@ exports.checkAvatar = function (req, res) {
 
 
 /**
- * Assign avatar to user
+ * @description Assign avatar to user
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {object} returns redirect
  */
-exports.avatars = function (req, res) {
+exports.avatars = (req, res) => {
   // Update the current user's profile to include the avatar choice they've made
-  if (req.user && req.user._id && req.body.avatar !== undefined && /\d/.test(req.body.avatar) && avatars[req.body.avatar]) {
+  if (req.user
+    && req.user._id // eslint-disable-line no-underscore-dangle
+    && req.body.avatar !== undefined
+    && /\d/.test(req.body.avatar)
+    && avatars[req.body.avatar]) {
     User
       .findOne({
-        _id: req.user._id
+        _id: req.user._id // eslint-disable-line no-underscore-dangle
       })
       .exec((err, user) => {
         user.avatar = avatars[req.body.avatar];
@@ -299,18 +326,23 @@ exports.avatars = function (req, res) {
   return res.redirect('/#!/app');
 };
 
-exports.addDonation = function (req, res) {
-  if (req.body && req.user && req.user._id) {
+/**
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {*} void
+ */
+exports.addDonation = (req, res) => {
+  if (req.body && req.user && req.user._id) { // eslint-disable-line no-underscore-dangle
     // Verify that the object contains crowdrise data
     if (req.body.amount && req.body.crowdrise_donation_id && req.body.donor_name) {
       User
         .findOne({
-          _id: req.user._id
+          _id: req.user._id // eslint-disable-line no-underscore-dangle
         })
         .exec((err, user) => {
           // Confirm that this object hasn't already been entered
           let duplicate = false;
-          for (let i = 0; i < user.donations.length; i++) {
+          for (let i = 0; i < user.donations.length; i += 1) {
             if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
               duplicate = true;
             }
@@ -330,9 +362,12 @@ exports.addDonation = function (req, res) {
 };
 
 /**
- *  Show profile
+ * @description Show profile
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {*} void
  */
-exports.show = function (req, res) {
+exports.show = (req, res) => {
   const user = req.profile;
 
   res.render('users/show', {
@@ -342,16 +377,24 @@ exports.show = function (req, res) {
 };
 
 /**
- * Send User
+ * @description Send User
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @return {*} void
  */
-exports.me = function (req, res) {
+exports.me = (req, res) => {
   res.jsonp(req.user || null);
 };
 
 /**
- * Find user by id
+ * @description Find user by id
+ * @param {object} req HTTP request object
+ * @param {object} res HTTP response object
+ * @param {function} next next function call
+ * @param {number} id user ID
+ * @return {*} void
  */
-exports.user = function (req, res, next, id) {
+exports.user = (req, res, next, id) => {
   User
     .findOne({
       _id: id
