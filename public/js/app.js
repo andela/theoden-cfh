@@ -1,32 +1,35 @@
 angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
     function ($routeProvider) {
-      $routeProvider.
-        when('/', {
+      $routeProvider
+        .when('/', {
           templateUrl: 'views/index.html'
-        }).
-        when('/app', {
+        })
+        .when('/app', {
           templateUrl: '/views/app.html',
-        }).
-        when('/privacy', {
+        })
+        .when('/privacy', {
           templateUrl: '/views/privacy.html',
-        }).
-        when('/bottom', {
+        })
+        .when('/bottom', {
           templateUrl: '/views/bottom.html'
-        }).
-        when('/signin', {
+        })
+        .when('/signin', {
           templateUrl: '/views/signin.html'
-        }).
-        when('/signup', {
+        })
+        .when('/signup', {
           templateUrl: '/views/signup.html'
-        }).
-        when('/signout', {
+        })
+        .when('/signout', {
           templateUrl: 'views/index.html'
-        }).
-        when('/choose-avatar', {
+        })
+        .when('/choose-avatar', {
           templateUrl: '/views/choose-avatar.html'
-        }).
-        otherwise({
+        })
+        .when('/tour', {
+          templateUrl: '/views/tour.html'
+        })
+        .otherwise({
           redirectTo: '/'
         });
     }

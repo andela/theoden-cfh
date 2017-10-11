@@ -1,5 +1,5 @@
 <div class="players-col">
-  <div class="col s6 m12 l12 no-padding-top" ng-repeat="player in game.players">
+  <div class="col s12 no-padding-top" ng-repeat="player in game.players">
     <div class="card players-layout" style="background-color:{{isPlayer($index) && colors[player.color]}}">
       <div class="card-content no-padding-top">
         <div id="czar-container" ng-show="currentCzar($index)">

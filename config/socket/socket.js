@@ -48,22 +48,14 @@ module.exports = (io) => {
 
     socket.emit('id', { id: socket.id });
 
-    // Load chat when new user connects
-    // socket.emit('loadChat', chatMessages);
-    setTimeout(() => database.ref(`chat/room_${socket.gameID}`).once('value', (snapshot) => {
-      const savedMessages = [];
-      snapshot.forEach((message) => {
-        savedMessages.push(message);
-      });
-      chatMessages = savedMessages;
-      socket.emit('loadChat', savedMessages);
-    }), 300);
-
     // send recieved chat message to all connected sockets
+    // in particular game room
     socket.on('new message', (message) => {
-      socket.broadcast.to(socket.gameID).emit('add message', message);
-      chatMessages.push(message);
-      database.ref(`chat/room_${socket.gameID}`).push(message);
+      if (socket.gameID) {
+        socket.broadcast.to(socket.gameID).emit('add message', message);
+        chatMessages.push(message);
+        database.ref(`chat/room_${socket.gameID}`).push(message);
+      }
     });
 
     socket.on('mapUserInfo', (data) => {
@@ -214,6 +206,15 @@ module.exports = (io) => {
       if (!allPlayers[socket.id]) {
         joinGame(socket, data);
       }
+      // Load chat when user joins group
+      database.ref(`chat/room_${socket.gameID}`).once('value', (snapshot) => {
+        const savedMessages = [];
+        snapshot.forEach((message) => {
+          savedMessages.push(message);
+        });
+        chatMessages = savedMessages;
+        socket.emit('loadChat', chatMessages);
+      });
     });
 
     socket.on('joinNewGame', (data) => {
@@ -357,9 +358,6 @@ module.exports = (io) => {
     if (gamesNeedingPlayers.length <= 0) {
       gameID += 1;
       const gameIDStr = gameID.toString();
-      // Clear past game room chats saved on firebase
-      // If it is a new game
-      database.ref(`chat/room_${gameID}`).remove();
       game = new Game(gameIDStr, io);
       allPlayers[socket.id] = true;
       game.players.push(player);
@@ -372,11 +370,6 @@ module.exports = (io) => {
       game.assignGuestNames();
       game.sendUpdate();
     } else {
-      if (game.players.length < 1) {
-        // Clear past game room chats saved on firebase
-        // If the user is the first to get in
-        database.ref(`chat/room_${gameID}`).remove();
-      }
       game = gamesNeedingPlayers[0];
       allPlayers[socket.id] = true;
       game.players.push(player);
@@ -424,6 +417,11 @@ module.exports = (io) => {
     console.log(socket.id, 'has disconnected');
     if (allGames[socket.gameID]) { // Make sure game exists
       game = allGames[socket.gameID];
+      // Clear game room chats saved on firebase
+      // When the last user left
+      if (game.players.length < 2) {
+        database.ref(`chat/room_${socket.gameID}`).remove();
+      }
       console.log(socket.id, 'has left game', game.gameID);
       delete allPlayers[socket.id];
       if (game.state === 'awaiting players' ||
