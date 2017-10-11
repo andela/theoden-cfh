@@ -755,6 +755,7 @@ input[type="radio"] {
     padding: 26px;
     margin-bottom: 24px;
     color: white;
+    font-family: Berkshire Swash !important;
 }
 
 .modal-footer {
