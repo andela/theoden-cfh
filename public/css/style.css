@@ -152,6 +152,22 @@ nav {
     background-color: white!important;
     color: black !important;
 }
+.home-button3{
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+  }
+  .trigger .active {
+    background-color: #ef6c00 !important;
+    color:  white !important;
+    border: 2px solid #ef6c00 !important;
+  } 
+  
+  .trigger a:hover {
+    background-color: #ef6c00 !important;
+    color:  white !important;
+    border: 2px solid #ef6c00 !important;
+  }  
 
 .btn-flat {
     padding: 10.4px 30px !important;
@@ -167,7 +183,7 @@ nav {
 .btn-flat:before {
     content: '';
     opacity: 0;
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(	239, 108, 0 );
     position: absolute;
     width: 100%;
     height: 100%;
@@ -216,11 +232,15 @@ nav {
 
 /* how to play div styles*/
 
-.how h3 {
+.how h3, {
     margin-top: 5% !important;
     font-family: Berkshire Swash;
 }
 
+.heading h4 {
+    margin-top: 8% !important;
+    font-family: Berkshire Swash;
+}
 .carousel {
     height: 800px !important;
     margin-top: -250px !important;
@@ -806,4 +826,8 @@ input[type="radio"] {
 
 h5.shuffle {
     font-family: Helvetica, sans-serif !important;
+}
+.dashboard-card {
+    overflow: auto;
+    max-height: 500px;
 }

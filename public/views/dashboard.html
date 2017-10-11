@@ -1,0 +1,98 @@
+<!-- navigation -->
+<div ng-controller="DashboardController">
+  <div class="orange darken-3">
+    <nav>
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo">Cards For Humanity</a>
+        <ul class="right">
+          <li><a href="/">Return to Game</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+  <!-- the game log, donation log and leader board -->
+  <div class="row back">
+    <div class="col s8 offset-s2 log ">
+      <div class="center heading">
+        <h4 class="black-text"><b>Dashboard</b></h4>
+      </div>
+      <!-- buttons for the different logs -->
+      <div class="col l8 m10 offset-l3 offset-m1 trigger">
+        <a class="btn-flat home-button3" id="games" ng-click="showGames()">Games</a>
+        <a class=" home-button3 btn-flat" id="leaderboard" ng-click="showLeaderBoard()">Leader Board</a>
+        <a class="home-button3 btn-flat" id="donations" ng-click="showDonations()">Donations</a>
+      </div>
+      <!-- when there are no donations -->
+      <div ng-show="noDonations" class="card col s10 offset-s1">
+        <h6 class="black-text center">You haven't made any donations yet</h6>
+      </div>
+      <!-- when you have not played any games -->
+      <div ng-show="noGames" class="card col s10 offset-s1">
+        <h6 class="black-text center">You haven't played any games yet</h6>
+      </div>
+      <!-- displays donations -->
+      <div ng-show="donations" class="card col s10 offset-s1 dashboard-card">
+        <table class="striped center responsive-table">
+          <thead>
+            <tr>
+              <th class="black-text">Donations</th>
+              <th class="black-text">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="information in donationData">
+              <td class="black-text ">{{information.donations}}</td>
+              <td class="black-text ">{{information.date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- displays leaderboard -->
+      <div ng-show="leaderboard" class="card col s10 offset-s1 dashboard-card">
+        <table class="striped center responsive-table">
+          <thead>
+            <tr>
+              <th class="black-text ">Name</th>
+              <th class="black-text ">Wins</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="leaderBoard in leaderboardData">
+              <td class="black-text">{{leaderBoard.winnerName}}</td>
+              <td class="black-text">{{leaderBoard.score}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- display gameLog -->
+      <div ng-show="gameLog" class="card col s10 offset-s1 dashboard-card">
+        <table class="striped center responsive-table">
+          <thead>
+            <tr>
+              <th class="black-text ">Game</th>
+              <th class="black-text ">Players</th>
+              <th class="black-text ">Rounds</th>
+              <th class="black-text ">Winner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="gamelog in gameLogData">
+              <td class="black-text">{{gamelog.gameId}}</td>
+              <td>
+                <ul>
+                  <li>
+                    <span class="black-text">{{gamelog.players.split(',').join(', ')}}</span>
+                  </li>
+                </ul>
+              </td>
+              <td class="black-text">{{gamelog.rounds}}</td>
+              <td class="black-text">{{gamelog.winner}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
