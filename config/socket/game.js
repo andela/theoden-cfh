@@ -54,6 +54,7 @@ class Game {
     this.questions = null;
     this.answers = null;
     this.curQuestion = null;
+    this.regionId = 0;
     this.timeLimits = {
       stateChoosing: 21,
       stateJudging: 16,
@@ -157,8 +158,8 @@ class Game {
         Game.getAnswers
       ],
       (err, results) => {
-        self.questions = results[0];
-        self.answers = results[1];
+        self.questions = results[0].filter(result => parseInt(result.regionId, 10) === parseInt(this.regionId, 10));
+        self.answers = results[1].filter(result => parseInt(result.regionId, 10) === parseInt(this.regionId, 10));
 
         self.startGame();
       });
@@ -193,7 +194,7 @@ class Game {
     self.curQuestion = self.questions.pop();
     if (!self.questions.length) {
       Game.getQuestions((err, data) => {
-        self.questions = data;
+        self.questions = data.filter(result => parseInt(result.regionId, 10) === parseInt(this.regionId, 10));
       });
     }
     self.round += 1;
@@ -327,7 +328,8 @@ class Game {
   dealAnswers(maxAnswers) {
     maxAnswers = maxAnswers || 10;
     const storeAnswers = (err, data) => {
-      this.answers = data;
+      this.answers = data.filter(result =>
+        parseInt(result.regionId, 10) === parseInt(this.regionId, 10));
     };
     for (let i = 0; i < this.players.length; i += 1) {
       while (this.players[i].hand.length < maxAnswers) {

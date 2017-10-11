@@ -111,9 +111,9 @@
                     </span>
                   </div>
                 </span>
-                <span ng-hide="showOptions">
-                  <a href="/play" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
-                  <a href="/play?custom" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
+                <span ng-controller="IndexController" ng-hide="showOptions">
+                  <a ng-click="playGame()" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
+                  <a ng-click="playGame()" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
                   <div>
                     <span id='twitter-facebook'>
                       <span id="tweet-container-index">
@@ -276,3 +276,28 @@
           }
 
         </script>
+<div class="modal fade text-dark" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
+  
+    <div class="modal-content">
+  
+      <h3 class="modal-title center-align" id="modalTitle">Cards For Humanity</h3>
+      <p class='center-align'>Are you sure you want to start?</p>
+      <label>Select Region:</label>
+      <select class="browser-default" ng-model="region">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="0">Africa</option>
+          <option value="1">Asia</option>
+          <option value="2">America</option>
+          <option value="3">Oceania</option>
+          <option value="4">Europe</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+      <a ng-click="confirmRegion()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+    </div>
+  
+  </div>
+  
+  
+  
