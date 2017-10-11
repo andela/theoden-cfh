@@ -234,11 +234,12 @@ angular.module('mean.system')
       const token = window.localStorage.getItem('token');
 
       socket.emit(mode, { token, room, createPrivate });
-
     };
 
     game.startGame = () => {
-      socket.emit('startGame');
+      socket.emit('startGame', {
+        regionId: localStorage.getItem('regionId')
+      });
     };
 
     game.leaveGame = () => {

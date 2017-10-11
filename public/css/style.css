@@ -717,8 +717,18 @@ input[type="radio"] {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     background-color: rgba(224, 115, 45, 0.9);
-    width: 75%;
+    max-width: 40%;
 }
+@media (min-width: 60em) {
+    height:75%;
+     margin:5% auto;
+     max-height: 57em;
+    max-width:66em;
+    width:75%;
+    }
+    select{
+        background-color: inherit !important;
+    }
 
 .modal::after {
     content: "";
@@ -745,6 +755,7 @@ input[type="radio"] {
     padding: 26px;
     margin-bottom: 24px;
     color: white;
+    font-family: Berkshire Swash !important;
 }
 
 .modal-footer {

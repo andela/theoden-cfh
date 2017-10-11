@@ -1,8 +1,8 @@
 angular.module('mean.system')
   .controller('IndexController', ['$scope', 'Global', '$cookieStore',
     '$cookies', '$location', '$http', '$window', 'socket', 'game', 'AvatarService',
-    function ($scope, Global, $cookieStore, $cookies, $location, $http,
-      $window, socket, game, AvatarService) {
+    ($scope, Global, $cookieStore, $cookies, $location, $http,
+      $window, socket, game, AvatarService) => {
       $scope.checkAuth = () => {
         if ($cookies.token) {
           $window.localStorage.setItem('token', $cookies.token);
@@ -13,12 +13,12 @@ angular.module('mean.system')
       $scope.formData = {};
       $scope.checkAuth();
 
-      $scope.playAsGuest = function () {
+      $scope.playAsGuest = () => {
         game.joinGame();
         $location.path('/app');
       };
 
-      $scope.showError = function () {
+      $scope.showError = () => {
         if ($location.search().error) {
           return $location.search().error;
         }
@@ -39,7 +39,6 @@ angular.module('mean.system')
             $scope.showMessage = 'Wrong email or password';
           });
       };
-
 
       $scope.signUp = () => {
         $http.post('api/auth/signup', JSON.stringify($scope.formData))
@@ -68,10 +67,27 @@ angular.module('mean.system')
         });
       };
 
-
       $scope.avatars = [];
       AvatarService.getAvatars()
         .then((data) => {
           $scope.avatars = data;
         });
+
+      $scope.playGame = () => {
+        const gameModal = $('#modal1');
+        gameModal.modal('open');
+      };
+
+      $scope.showRegion = () => {
+        const myModal = $('#select-region');
+        myModal.modal('open');
+      };
+
+      $scope.confirmRegion = () => {
+        console.log($scope.region, '=============');
+        if ($scope.region !== '') {
+          $window.localStorage.setItem('regionId', $scope.region);
+          $window.location.href = '#!app';
+        }
+      };
     }]);
