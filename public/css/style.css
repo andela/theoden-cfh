@@ -215,7 +215,9 @@ nav {
 #twitter-widget-2 {
     height: 22px !important;
 }
-
+.tweet-button{
+    margin-top: 1%;
+}
 #notCzar {
     font-family: Berkshire Swash;
     font-size: 2.2rem;
@@ -231,10 +233,13 @@ nav {
 
 
 /* how to play div styles*/
+.how {
+    padding-top: 0.1%; 
+}
 
-.how h3, {
+.how h3 {
     margin-top: 5% !important;
-    font-family: Berkshire Swash;
+    font-family: Berkshire Swash !important;
 }
 
 .heading h4 {
@@ -243,7 +248,7 @@ nav {
 }
 .carousel {
     height: 800px !important;
-    margin-top: -250px !important;
+    margin-top: -260px !important;
     margin-left: -68px !important;
 }
 
@@ -263,7 +268,7 @@ nav {
 }
 
 .about-text {
-    margin-top: 9% !important;
+    margin-top: 5% !important;
     color: black;
 }
 
@@ -737,15 +742,39 @@ input[type="radio"] {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     background-color: rgba(224, 115, 45, 0.9);
-    max-width: 40%;
+    min-width: 75%;
+    
 }
-@media (min-width: 60em) {
-    height:75%;
-     margin:5% auto;
-     max-height: 57em;
-    max-width:66em;
-    width:75%;
+@media (max-width: 575px) { 
+    .modal{
+    
+    margin:5% auto;
+   min-width:75%;
     }
+ }
+@media (min-width: 576px) and (max-width: 767px) { 
+    .modal{
+    
+    margin:5% auto;
+    min-width:75%;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .modal{
+    margin:5% auto;
+   
+    min-width:75%;
+    }
+
+ }
+ @media (min-width: 1200px) { 
+     .modal{
+    margin:5% auto;
+    
+    max-width:75%;
+     }
+  }
+
     select{
         background-color: inherit !important;
     }
@@ -830,4 +859,8 @@ h5.shuffle {
 .dashboard-card {
     overflow: auto;
     max-height: 500px;
+}
+
+.region-modal {
+    min-width: 15% !important;
 }

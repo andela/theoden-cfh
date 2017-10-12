@@ -73,17 +73,33 @@ angular.module('mean.system')
           $scope.avatars = data;
         });
 
-      $scope.playGame = () => {
+      $scope.playGameFriends = () => {
         const gameModal = $('#modal1');
         gameModal.modal('open');
       };
 
       $scope.showRegion = () => {
-        const myModal = $('#select-region');
+        const myModal = $('#select-region-friends');
         myModal.modal('open');
       };
 
-      $scope.confirmRegion = () => {
+      $scope.confirmFriendRegion = () => {
+        if ($scope.region !== '') {
+          $window.localStorage.setItem('regionId', $scope.region);
+          $window.location.href = '#!app?custom';
+        }
+      };
+      $scope.playGameStranger = () => {
+        const gameModal = $('#modal2');
+        gameModal.modal('open');
+      };
+
+      $scope.showRegion = () => {
+        const myModal = $('#select-region-strangers');
+        myModal.modal('open');
+      };
+
+      $scope.confirmStrangerRegion = () => {
         console.log($scope.region, '=============');
         if ($scope.region !== '') {
           $window.localStorage.setItem('regionId', $scope.region);

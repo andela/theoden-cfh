@@ -114,8 +114,8 @@
               </div>
               </span>
               <span ng-controller="IndexController" ng-hide="showOptions">
-                  <a ng-click="playGame()" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
-                  <a ng-click="playGame()" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
+                  <a ng-click="playGameStranger()" class="home-button1 waves-effect waves-light btn-flat">Play Game with Strangers </a>
+                  <a ng-click="playGameFriends()" class="home-button2 waves-effect waves-light btn-flat">Play Game with Friends </a>
                   <div>
                     <span id='twitter-facebook'>
                       <span id="tweet-container-index">
@@ -246,24 +246,44 @@
       </div>
     </div>
 
-    <div class="modal fade text-dark region-modal" id="modal1" ng-hide="showOptions" ng-controller="IndexController">
+    <div class="modal fade text-dark region-modal " id="modal1" ng-hide="showOptions" ng-controller="IndexController">
+
+      <div class="modal-content">
+        <h3 class="modal-title center-align" id="modalTitle">Cards For Humanity</h3>
+        <p class='center-align'>Select your region to start the game</p>
+        <select class="browser-default" ng-model="region">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="0">Africa</option>
+                <option value="1">Asia</option>
+                <option value="2">America</option>
+                <option value="3">Oceania</option>
+                <option value="4">Europe</option>
+            </select>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
+        <a ng-click="confirmFriendRegion()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+      </div>
+
+    </div>
+    <div class="modal fade text-dark region-modal" id="modal2" ng-hide="showOptions" ng-controller="IndexController">
 
       <div class="modal-content">
 
         <h3 class="modal-title center-align" id="modalTitle">Cards For Humanity</h3>
         <p class='center-align'>Select your region to start the game</p>
         <select class="browser-default" ng-model="region">
-          <option value="" disabled selected>Choose your option</option>
-          <option value="0">Africa</option>
-          <option value="1">Asia</option>
-          <option value="2">America</option>
-          <option value="3">Oceania</option>
-          <option value="4">Europe</option>
-      </select>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="0">Africa</option>
+                  <option value="1">Asia</option>
+                  <option value="2">America</option>
+                  <option value="3">Oceania</option>
+                  <option value="4">Europe</option>
+              </select>
       </div>
       <div class="modal-footer">
         <a class="modal-close waves-effect waves-orange btn-flat">Cancel</a>
-        <a ng-click="confirmRegion()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
+        <a ng-click="confirmStrangerRegion()" class="modal-action modal-close waves-effect waves-light btn-flat">Start Game</a>
       </div>
 
     </div>
