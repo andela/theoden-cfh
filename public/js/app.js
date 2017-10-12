@@ -29,18 +29,21 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         .when('/tour', {
           templateUrl: '/views/tour.html'
         })
+        .when('/dashboard', {
+          templateUrl: '/views/dashboard.html'
+        })
         .otherwise({
           redirectTo: '/'
         });
     }
   ]).config(['$locationProvider',
     function ($locationProvider) {
-      $locationProvider.hashPrefix("!");
+      $locationProvider.hashPrefix('!');
     }
   ]).run(['$rootScope', function ($rootScope) {
     $rootScope.safeApply = function (fn) {
       var phase = this.$root.$$phase;
-      if (phase == '$apply' || phase == '$digest') {
+      if (phase === '$apply' || phase === '$digest') {
         if (fn && (typeof (fn) === 'function')) {
           fn();
         }
@@ -48,7 +51,8 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         this.$apply(fn);
       }
     };
-  }]).run(['DonationService', function (DonationService) {
+  }])
+  .run(['DonationService', function (DonationService) {
     window.userDonationCb = function (donationObject) {
       DonationService.userDonated(donationObject);
     };

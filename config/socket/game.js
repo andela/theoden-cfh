@@ -3,6 +3,8 @@ const _ = require('underscore');
 
 const questions = require('../../app/controllers/questions.js');
 const answers = require('../../app/controllers/answers.js');
+const dashboard = require('../../app/controllers/dashboard.js');
+const leaderboard = require('../../app/controllers/leaderBoards');
 
 const guestNames = [
   'Disco Potato',
@@ -272,6 +274,30 @@ class Game {
   stateEndGame(winner) {
     this.state = 'game ended';
     this.gameWinner = winner;
+
+    const tableInfo = [];
+    const playersInGame = [];
+    const gameWinnerId =
+      this.players[winner].userID; // winner ID
+
+    const gamewinnerName =
+      this.players[winner].username; // winner name
+
+    this.players.forEach((ish) => {
+      playersInGame.push(ish.username);
+    });
+    this.players.forEach((ish, index) => {
+      tableInfo.push({
+        playerId: ish.userID,
+        players: playersInGame.toString(),
+        gameId: this.gameID,
+        winner: gamewinnerName,
+        rounds: this.round
+      });
+    });
+    dashboard.createLog(tableInfo);
+    dashboard.createLeaderBoard(gameWinnerId, gamewinnerName);
+
     this.sendUpdate();
   }
   /**

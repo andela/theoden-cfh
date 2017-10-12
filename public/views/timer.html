@@ -2,6 +2,9 @@
   <div class="card-content center-align">
     <h1 class="countdown-timer" ng-bind="game.time"></h1>
     <p>
+      <span ng-show="game.state == 'awaiting players'">       
+              <a href="#!/tour" class="btn orange darken-3 waves-effect waves-light">Take a tour</a>
+      </span>
       <span class="normal-text" ng-hide="game.state === 'winner has been chosen' || game.state === 'waiting for czar to decide'">
         Time Remaining
       </span>

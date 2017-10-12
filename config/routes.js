@@ -5,6 +5,9 @@ const avatars = require('../app/controllers/avatars');
 const users = require('../app/controllers/users');
 const search = require('../app/controllers/search');
 const authorization = require('./middlewares/authorization');
+const gameLog = require('../app/controllers/gameLog');
+const donation = require('../app/controllers/donations');
+const leaderboard = require('../app/controllers/leaderBoards');
 
 module.exports = (app, passport, auth) => {
   // User Routes
@@ -101,4 +104,10 @@ module.exports = (app, passport, auth) => {
   app.get('/api/users/friends', search.addFriends);
   app.put('/api/users/:userToken/friends', search.removeFriend);
   // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
+
+  // Dashboard routes
+  app.get('/api/games/history/:token', gameLog.getGameLog);
+  app.get('/api/games/history', gameLog.getAllGameLog);
+  app.get('/api/leaderboard', leaderboard.getLeaderBoard);
+  app.get('/api/donations/:token', donation.getDonations);
 };
