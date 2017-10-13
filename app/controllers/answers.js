@@ -5,8 +5,46 @@
 const _ = require('underscore');
 const mongoose = require('mongoose');
 const async = require('async');
+const decodeJWT = require('./middleware/auth').decodeJWT;
+
 const Answer = mongoose.model('Answer');
 
+
+/**
+ * add answer to database
+ * @method add
+ * @param  {object} req [description]
+ * @param  {object} res [description]
+ * @return {object} res
+ */
+exports.add = (req, res) => {
+  // Add validation
+  if (!req.body.text) {
+    return res.status(400).send({
+      errors: { text: 'Field is required' }
+    });
+  }
+  const token = req.headers.authorization;
+  const decodedToken = decodeJWT(token);
+  if (decodedToken === 'unauthenticated') {
+    return res.status(401).send({
+      errors: { auth: 'Not authorised, please login' }
+    });
+  }
+
+  const answer = new Answer();
+  answer.text = req.text;
+  answer.official = true;
+  answer.save((err) => {
+    if (err) {
+      return res.status(500).send(errors => errors);
+    }
+    return res.status(201).send({
+      success: true,
+      message: 'Answer added successfully'
+    });
+  });
+};
 
 /**
  * Find answer by id

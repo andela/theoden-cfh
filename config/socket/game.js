@@ -25,8 +25,8 @@ const guestNames = [
   'Ammie TheFurious',
   'Oare TheQuiet',
   'Raph TheBadguy',
-  'Solo TheTroublesome',
-  'Benny TheDoctor'
+  'Sol Question?',
+  'Benny of Somalia'
 ];
 
 /**
@@ -534,7 +534,7 @@ class Game {
   }
   /**
    * @static
-   * @param {any} self 
+   * @param {any} self
    * @memberof Game
    * @returns {*} void
    */
@@ -550,7 +550,7 @@ class Game {
   }
   /**
    * @static
-   * @param {any} self 
+   * @param {any} self
    * @memberof Game
    * @returns {*} void
    */
@@ -561,6 +561,6 @@ class Game {
       Game.changeCzar(self);
     }
   }
-  // static 
+  // static
 }
 module.exports = Game;

@@ -161,13 +161,13 @@ nav {
     background-color: #ef6c00 !important;
     color:  white !important;
     border: 2px solid #ef6c00 !important;
-  } 
-  
+  }
+
   .trigger a:hover {
     background-color: #ef6c00 !important;
     color:  white !important;
     border: 2px solid #ef6c00 !important;
-  }  
+  }
 
 .btn-flat {
     padding: 10.4px 30px !important;
@@ -234,7 +234,7 @@ nav {
 
 /* how to play div styles*/
 .how {
-    padding-top: 0.1%; 
+    padding-top: 0.1%;
 }
 
 .how h3 {
@@ -391,7 +391,11 @@ icon-image img {
     margin-top: 40px !important;
 }
 
-.login-form .card-title {
+.contribute-form {
+    margin-top: 100px !important;
+}
+
+.login-form .card-title, .contribute-form .card-title {
     font-family: Berkshire Swash !important;
     font-size: 30px;
 }
@@ -413,6 +417,9 @@ icon-image img {
 
 @media only screen and (max-width: 480px) {
     .login-form {
+        margin-top: 5px !important;
+    }
+    .contribute-form {
         margin-top: 5px !important;
     }
     nav .brand-logo {
@@ -743,18 +750,18 @@ input[type="radio"] {
     border-top-right-radius: 30px;
     background-color: rgba(224, 115, 45, 0.9);
     min-width: 75%;
-    
+
 }
-@media (max-width: 575px) { 
+@media (max-width: 575px) {
     .modal{
-    
+
     margin:5% auto;
    min-width:75%;
     }
  }
-@media (min-width: 576px) and (max-width: 767px) { 
+@media (min-width: 576px) and (max-width: 767px) {
     .modal{
-    
+
     margin:5% auto;
     min-width:75%;
     }
@@ -762,15 +769,15 @@ input[type="radio"] {
 @media (min-width: 768px) and (max-width: 991px) {
     .modal{
     margin:5% auto;
-   
+
     min-width:75%;
     }
 
  }
- @media (min-width: 1200px) { 
+ @media (min-width: 1200px) {
      .modal{
     margin:5% auto;
-    
+
     max-width:75%;
      }
   }

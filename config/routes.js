@@ -8,6 +8,7 @@ const authorization = require('./middlewares/authorization');
 const gameLog = require('../app/controllers/gameLog');
 const donation = require('../app/controllers/donations');
 const leaderboard = require('../app/controllers/leaderBoards');
+const authenticate = require('../app/controllers/middleware/auth').authenticate;
 
 module.exports = (app, passport, auth) => {
   // User Routes
@@ -79,13 +80,14 @@ module.exports = (app, passport, auth) => {
   app.param('userId', users.user);
 
   // Answer Routes
+  app.post('/answers', answers.add);
   app.get('/answers', answers.all);
   app.get('/answers/:answerId', answers.show);
   // Finish with setting up the answerId param
   app.param('answerId', answers.answer);
 
   // Question Routes
-
+  app.post('/questions', questions.add);
   app.get('/questions', questions.all);
   app.get('/questions/:questionId', questions.show);
   // Finish with setting up the questionId param
@@ -99,8 +101,8 @@ module.exports = (app, passport, auth) => {
   app.get('/', index.render);
 
   // Game routes
-  app.get('/api/search/users', search.userSearch);
-  app.get('/api/search/friends', search.nameFriends);
+  app.get('/api/search/users', authenticate, search.userSearch);
+  app.get('/api/search/friends', authenticate, search.nameFriends);
   app.get('/api/users/friends', search.addFriends);
   app.put('/api/users/:userToken/friends', search.removeFriend);
   // app.get('/api/search/users', authorization.requiresLogin, search.userSearch);
