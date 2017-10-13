@@ -1,13 +1,13 @@
 /* global introJs */
 angular.module('mean.system')
-  .controller('TourController', ['$scope', '$window', '$timeout', ($scope, $window, $timeout) => {
-    $scope.introJs = introJs();
+  .controller('TourController', ['$scope', '$window', '$rootScope', '$timeout', '$location', ($scope, $window, $rootScope, $timeout, $location) => {
     $scope.$on('$locationChangeSuccess', () => {
       if ($scope.introJs) {
         $scope.introJs.exit();
       }
     });
 
+    $scope.introJs = introJs();
     $scope.showChat = true;
     $scope.messages = [];
     $scope.chatOpenClose = 'expand_more';
@@ -205,10 +205,12 @@ angular.module('mean.system')
     };
 
     const tourComplete = () => {
-      if (isGameCustom()) {
-        $window.location = '/app?custom';
-      } else {
-        $window.location = '#!/';
+      if ($window.location.hash === '#!/tour') {
+        if ($rootScope.navigated && $rootScope.oldUrl !== $window.location.href) {
+          $window.history.back();
+        } else {
+          $window.location.href = '/#!/';
+        }
       }
     };
 
