@@ -100,7 +100,6 @@ angular.module('mean.system')
       };
 
       $scope.confirmStrangerRegion = () => {
-        console.log($scope.region, '=============');
         if ($scope.region !== '') {
           $window.localStorage.setItem('regionId', $scope.region);
           $window.location.href = '#!app';

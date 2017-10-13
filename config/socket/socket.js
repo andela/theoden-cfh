@@ -32,7 +32,6 @@ const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
  */
 
 const mappedUsers = [];
-let chatMessages = [];
 
 module.exports = (io) => {
   let game;
@@ -53,7 +52,6 @@ module.exports = (io) => {
     socket.on('new message', (message) => {
       if (socket.gameID) {
         socket.broadcast.to(socket.gameID).emit('add message', message);
-        chatMessages.push(message);
         database.ref(`chat/room_${socket.gameID}`).push(message);
       }
     });
@@ -206,15 +204,6 @@ module.exports = (io) => {
       if (!allPlayers[socket.id]) {
         joinGame(socket, data);
       }
-      // Load chat when user joins group
-      database.ref(`chat/room_${socket.gameID}`).once('value', (snapshot) => {
-        const savedMessages = [];
-        snapshot.forEach((message) => {
-          savedMessages.push(message);
-        });
-        chatMessages = savedMessages;
-        socket.emit('loadChat', chatMessages);
-      });
     });
 
     socket.on('joinNewGame', (data) => {
@@ -265,6 +254,17 @@ module.exports = (io) => {
     });
   });
 
+  const loadChat = (socket) => {
+    // Load chat when user joins group
+    database.ref(`chat/room_${socket.gameID}`).once('value', (snapshot) => {
+      const savedMessages = [];
+      snapshot.forEach((message) => {
+        savedMessages.push(message);
+      });
+      socket.emit('loadChat', savedMessages);
+    });
+  }
+
   let joinGame = (socket, data) => {
     const player = new Player(socket);
 
@@ -302,6 +302,7 @@ module.exports = (io) => {
       getGame(player, socket, data.room, data.createPrivate);
     }
   };
+
   /**
    *
    * @param {*} player
@@ -336,6 +337,7 @@ module.exports = (io) => {
         game.assignGuestNames();
         game.sendUpdate();
         game.sendNotification(`${player.username}  has joined the game!`);
+        loadChat(socket);
         if (game.players.length >= game.playerMaxLimit) {
           gamesNeedingPlayers.shift();
         }
@@ -381,6 +383,7 @@ module.exports = (io) => {
       game.assignGuestNames();
       game.sendUpdate();
       game.sendNotification(`${player.username} has joined the game!`);
+      loadChat(socket);
       if (game.players.length >= game.playerMaxLimit) {
         gamesNeedingPlayers.shift();
         game.prepareGame();

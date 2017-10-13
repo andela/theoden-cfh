@@ -31,6 +31,9 @@ angular.module('mean.system')
       $scope.chatNotifs = $scope.showChat ? 0 : $scope.chatNotifs;
       $scope.chatOpenClose = $scope.showChat ? 'expand_more' : 'expand_less';
       $scope.showChatNotif = !$scope.showChat && Boolean($scope.chatNotifs);
+      if ($scope.showChat) {
+        $scope.scroll.scrollNow();
+      }
     };
 
     // Get length measurements
@@ -75,7 +78,7 @@ angular.module('mean.system')
           if (scrollTop + clientHeight + newMessageHeight + lastMessageHeight >= scrollHeight) {
             messages.scrollTop(scrollHeight);
           }
-        });
+        }, 300);
       }
     };
 

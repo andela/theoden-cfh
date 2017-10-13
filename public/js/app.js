@@ -51,6 +51,13 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         this.$apply(fn);
       }
     };
+    $rootScope.navigated = false;
+    $rootScope.$on('$locationChangeSuccess', (angularEvent, newUrl, oldUrl) => {
+      $rootScope.oldUrl = oldUrl;
+      if (oldUrl.indexOf(window.location.origin) >= 0) {
+        $rootScope.navigated = true;
+      }
+    });
   }])
   .run(['DonationService', function (DonationService) {
     window.userDonationCb = function (donationObject) {
