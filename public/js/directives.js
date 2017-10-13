@@ -4,7 +4,21 @@ angular.module('mean.directives', [])
     restrict: 'EA',
     templateUrl: '/views/player.html',
     link: function(scope, elem, attr){
-      scope.colors = ['#7CE4E8', '#FFFFa5', '#FC575E', '#F2ADFF', '#398EC4', '#8CFF95'];
+      scope.colors = [
+        '#7CE4E8',
+        '#FFFFa5',
+        '#FC575E',
+        '#F2ADFF',
+        '#398EC4',
+        '#8CFF95',
+        '#b2dfdb',
+        '#81d4fa',
+        '#d1c4e9',
+        '#ffcdd2',
+        '#f0f4c3',
+        '#bcaaa4',
+        '#e0e0e0'
+      ];
     }
   };
 }).directive('answers', function() {

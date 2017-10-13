@@ -20,13 +20,13 @@
                       </span>
                     </a>
                     <li>
-                      <a onclick="scrollWin(0, 750)">How to play</a>
+                      <a onclick="scrollWin(0, 1000)">How to play</a>
                     </li>
                     <li>
-                      <a onclick="scrollWin(0, 1600)">About us</a>
+                      <a onclick="scrollWin(0, 1800)">About us</a>
                     </li>
                     <li>
-                      <a onclick="scrollWin(0, 2300)">Charity</a>
+                      <a onclick="scrollWin(0, 2400)">Charity</a>
                     </li>
                     <span ng-show="showOptions">
                       <li>
@@ -37,7 +37,8 @@
                       </li>
                     </span>
                     <span ng-hide="showOptions">
-                        <li><a href="#!/dashboard">Dashboard</a></li> 
+                        <li><a href="#!/dashboard">Dashboard</a></li>
+                        <li><a href="#!/contribute">Contribute</a></li>
                       <li>
                         <a ng-click="signout()">Sign Out</a>
                       </li>
@@ -48,13 +49,13 @@
                     <a>Notfs</a>
                   </li>
                   <li>
-                    <a onclick="scrollWin(0, 750)">How to play</a>
+                    <a onclick="scrollWin(0, 1000)">How to play</a>
                   </li>
                   <li>
-                    <a onclick="scrollWin(0, 1600)">About us</a>
+                    <a onclick="scrollWin(0, 1800)">About us</a>
                   </li>
                   <li>
-                    <a onclick="scrollWin(0, 2300)">Charity</a>
+                    <a onclick="scrollWin(0, 2400)">Charity</a>
                   </li>
                   <span ng-show="showOptions">
                     <li>
@@ -65,7 +66,8 @@
                     </li>
                   </span>
                   <span ng-hide="showOptions">
-                      <li><a href="#!/dashboard">Dashboard</a></li> 
+                      <li><a href="#!/dashboard">Dashboard</a></li>
+                      <li><a href="#!/contribute">Contribute</a></li>
                     <li>
                       <a ng-click="signout()">Sign Out</a>
                     </li>
@@ -312,9 +314,6 @@
       </div>
 
     </div>
-
-
-
     <script type="text/javascript">
       $(document).ready(function () {
         $('.parallax ').parallax();
@@ -335,8 +334,8 @@
           stopPropagation: false // Stops event propagation
         }
         );
-        function scrollWin(x, y) {
-          window.scrollBy(x, y);
-        }
       });
+      function scrollWin(x, y) {
+        window.scrollBy(x, y);
+      }
     </script>

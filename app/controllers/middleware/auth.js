@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 * @return {string} token response
 */
 const getToken = (req) => {
-  const token = req.body.token || req.headers.cookies.token || req.headers.authorization;
+  const token = req.body.token || req.headers.cookies.token || req.headers.token || req.headers.authorization;
   return token;
 };
 
@@ -23,6 +23,7 @@ const getToken = (req) => {
 const authenticate = (req, res, next) => {
   if (req.url.startsWith('/auth')) return next();
   const token = getToken(req);
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
@@ -43,7 +44,7 @@ const authenticate = (req, res, next) => {
 /**
  * @description Generates a json web token with the supplied parameters
  * @param {number} id user id
- * @param  {String} email email address 
+ * @param  {String} email email address
  * @param  {String} username username
  * @return {promise} signed token
  */
@@ -80,7 +81,7 @@ const getJWT = (id, email, username) => new Promise((resolve, reject) => {
 });
 /**
  * @description decodes the token and returns the user id or unauthenticated
- * @param {string} encodedToken 
+ * @param {string} encodedToken
  * @return {string} decoded user Id if successful or unauthenticated
  */
 const decodeJWT = (encodedToken) => {
