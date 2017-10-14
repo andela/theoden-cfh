@@ -1,0 +1,84 @@
+<div class="parallax-container" ng-controller="contributeController">
+  <div class="bright-overlay">
+    <nav class="orange darken-3" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo">
+            Cards for Humanity
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="/">Home</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="card col s12 m8 offset-m2 contribute-form">
+          <div class="card-content">
+            <p class="card-title center-align">Contribute Question or Answer</p>
+              <br/>
+              <div ng-hide="!error" class="col s12">
+                <br/>
+                <br/>
+                <p class="red-text">** {{error.all || error.auth || 'There are some errors with your input'}}</p>
+              </div>
+
+              <div class="col s12">
+                <br/>
+                Choose Entry Type: <select ng-model="type" class="browser-default">
+                  <option value="question" selected>Question</option>
+                  <option value="answer">Answer</option>
+                </select>
+              </div>
+
+              <div class="col s12" ng-hide="type != 'question'">
+                <br/>
+                Number of Answers <select ng-model="numAnswers" class="browser-default">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                </select>
+                <span ng-hide="!error.numAnswers" class="red-text">{{error.numAnswers}}</span>
+              </div>
+              <br/>
+              <form name="add" ng-submit="submitForm()">
+
+                <div class="col s12">
+                  <br/>
+                  Select Region
+                  <select class="browser-default" ng-model="region">
+                    <option value="" disabled selected>Choose region</option>
+                    <option value=0>Africa</option>
+                    <option value=1>Asia</option>
+                    <option value=2>America</option>
+                    <option value=3>Oceania</option>
+                    <option value=4>Europe</option>
+                  </select>
+                  <span ng-hide="!error.region" class="red-text">{{error.region}}</span>
+                </div>
+
+                <div class="input-field col s12">
+                  <br/>
+                  <input type="text" id="text" required="required" placeholder="{{type === 'question' ? 'Add a question' : 'Add an answer'}}" ng-model="text"/>
+                  <span ng-hide="!error.text" class="red-text">{{error.text}}</span>
+                </div>
+
+                <div class="col s12 center-align">
+                  <button type="submit" class="btn home-button1">Save</button>
+                  <br/>
+                  <br/>
+                  <br/>
+                </div>
+              </form>
+              <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
