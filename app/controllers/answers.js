@@ -47,10 +47,11 @@ exports.add = (req, res) => {
     });
   }
 
-  const answer = new Answer();
-  answer.text = req.body.text;
-  answer.regionId = req.body.regionId;
-  answer.official = true;
+  const answer = new Answer({
+    text: req.body.text,
+    regionId: req.body.regionId,
+    official: true
+  });
   answer.save((err) => {
     if (err) {
       return res.status(500).send(errors => errors);

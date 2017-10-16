@@ -49,11 +49,13 @@ exports.add = (req, res) => {
     });
   }
 
-  const question = new Question();
-  question.text = req.body.text;
-  question.numAnswers = req.body.numAnswers;
-  question.regionId = req.body.regionId;
-  question.official = true;
+  const question = new Question({
+    text: req.body.text,
+    numAnswers: req.body.numAnswers,
+    regionId: req.body.regionId,
+    official: true
+  });
+
   question.save((err) => {
     if (err) {
       return res.status(500).send(errors => errors);
