@@ -139,7 +139,11 @@ module.exports = (io) => {
                 );
             });
           }
-        });
+          if (error){
+            console.log(error,'an error occured');
+          }
+        }
+      );
     };
 
 

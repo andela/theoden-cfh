@@ -32,6 +32,9 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.route', '
         .when('/dashboard', {
           templateUrl: '/views/dashboard.html'
         })
+        .when('/contribute', {
+          templateUrl: '/views/contribute.html'
+        })
         .otherwise({
           redirectTo: '/'
         });
