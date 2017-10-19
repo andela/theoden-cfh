@@ -223,7 +223,7 @@ angular.module('mean.system')
       popupModal
         .find('.modal-body')
         .text(popupText);
-      popupModal.modal('show');
+      popupModal.modal('open');
     });
 
     game.joinGame = (mode, room, createPrivate) => {
