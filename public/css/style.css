@@ -871,3 +871,6 @@ h5.shuffle {
 .region-modal {
     min-width: 15% !important;
 }
+#popupModal{
+    min-width: 10% !important;
+}
